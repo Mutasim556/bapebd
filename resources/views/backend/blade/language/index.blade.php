@@ -72,10 +72,18 @@
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="name"><strong>{{ __('admin_local.Name') }} *</strong></label>
-                                <input type="text" class="form-control" name="name" id="name">
+                                <label for="name"><strong>{{ __('admin_local.Name') }} ( {{ __('admin_local.Default') }} ) *</strong></label>
+                                <input type="text" class="form-control" name="name" id="name" readonly>
                                 <span class="text-danger err-mgs"></span>
                             </div>
+                            @foreach (getLangs() as $lang)
+                            <div class="col-lg-6 mt-2">
+                                <label for="name"><strong>{{ __('admin_local.Name') }} ( {{ $lang->name }} ) </strong></label>
+                                <input type="text" class="form-control" name="name_{{ $lang->lang }}"
+                                    id="name_{{ $lang->lang }}" readonly>
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            @endforeach
                             <div class="col-lg-6 mt-2">
                                 <label for="slug"><strong>{{ __('admin_local.Slug') }} *</strong></label>
                                 <input type="text" class="form-control" name="slug" id="slug" readonly>
@@ -144,10 +152,18 @@
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="name"><strong>{{ __('admin_local.Name') }} *</strong></label>
-                                <input type="text" class="form-control" name="name" id="name">
+                                <label for="name"><strong>{{ __('admin_local.Name') }} ( {{ __('admin_local.Default') }} ) *</strong></label>
+                                <input type="text" class="form-control" name="name" id="name" readonly>
                                 <span class="text-danger err-mgs"></span>
                             </div>
+                            @foreach (getLangs() as $lang)
+                            <div class="col-lg-6 mt-2">
+                                <label for="name"><strong>{{ __('admin_local.Name') }} ( {{ $lang->name }} ) </strong></label>
+                                <input type="text" class="form-control" name="name_{{ $lang->lang }}"
+                                    id="name_{{ $lang->lang }}" readonly>
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            @endforeach
                             <div class="col-lg-6 mt-2">
                                 <label for="slug"><strong>{{ __('admin_local.Slug') }} *</strong></label>
                                 <input type="text" class="form-control" name="slug" id="slug" readonly>
@@ -289,6 +305,7 @@
         var oTable = $("#basic-1").DataTable();
 
         var form_url = "{{ route('admin.language.store') }}";
+        var translate_url = `{{ route('admin.translateString') }}`;
     </script>
     <script src="{{ asset('public/admin/custom/language/language_list.js') }}"></script>
 @endpush

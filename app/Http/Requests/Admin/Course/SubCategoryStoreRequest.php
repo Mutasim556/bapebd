@@ -3,9 +3,13 @@
 namespace App\Http\Requests\Admin\Course;
 
 use App\Models\Admin\Course\CourseSubCategory;
+use App\Models\Admin\Language;
+use App\Models\Admin\Translation;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class SubCategoryStoreRequest extends FormRequest
 {
@@ -54,6 +58,25 @@ class SubCategoryStoreRequest extends FormRequest
         $sub_category->sub_category_status = 1;
         $sub_category->save();
 
+        $languages =  Language::where([['status',1],['delete',0]])->get();
+        $data = [];
+        foreach($languages as $lang){
+            $sub_category_name = $lang->lang!='en'?'sub_category_name_'.$lang->lang:'sub_category_name';
+            if($this->$sub_category_name==null){
+                continue;
+            }else{
+                array_push($data, array(
+                    'translationable_type'  => 'App\Models\Admin\Course\CourseSubCategory',
+                    'translationable_id'    => $sub_category->id,
+                    'locale'                => $lang->lang,
+                    'key'                   => 'sub_category_name',
+                    'value'                 => GoogleTranslate::trans($this->$sub_category_name, $lang->lang, 'en'),
+                    'created_at'            => Carbon::now(),
+                ));
+            }
+            
+        }
+        Translation::insert($data);
         return $sub_category->id;
     }
 }

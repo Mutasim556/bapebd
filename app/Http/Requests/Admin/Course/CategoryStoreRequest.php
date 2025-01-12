@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin\Course;
 use App\Models\Admin\Course\CourseCategory;
 use App\Models\Admin\Language;
 use App\Models\Admin\Translation;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -35,6 +36,7 @@ class CategoryStoreRequest extends FormRequest
     }
 
     public function store(){
+        dd($this->all());
         if($this->category_image){
             $files = $this->category_image;
             $file = $this->parent_category_name.time().'.'.$files->getClientOriginalExtension();
@@ -57,16 +59,23 @@ class CategoryStoreRequest extends FormRequest
         $category->category_status = 1;
         $category->save();
 
-        $languages = Language::where('delete',0)->get();
+        $languages =  Language::where([['status',1],['delete',0]])->get();
         $data = [];
         foreach($languages as $lang){
-            array_push($data, array(
-                'translationable_type'  => 'App\Models\Admin\Course\CourseCategory',
-                'translationable_id'    => $category->id,
-                'locale'                => $lang->lang,
-                'key'                   => 'category_name',
-                'value'                 => GoogleTranslate::trans($category->category_name, $lang->lang, 'en'),
-            ));
+            $category_name = $lang->lang!='en'?'category_name_'.$lang->lang:'category_name';
+            if($this->$category_name==null){
+                continue;
+            }else{
+                array_push($data, array(
+                    'translationable_type'  => 'App\Models\Admin\Course\CourseCategory',
+                    'translationable_id'    => $category->id,
+                    'locale'                => $lang->lang,
+                    'key'                   => 'category_name',
+                    'value'                 => GoogleTranslate::trans($this->$category_name, $lang->lang, 'en'),
+                    'created_at'            => Carbon::now(),
+                ));
+            }
+            
         }
         Translation::insert($data);
         return $category->id;

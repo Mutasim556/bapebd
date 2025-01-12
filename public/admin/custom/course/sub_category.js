@@ -1,3 +1,88 @@
+$(document).on('change','#add_sub_category_form #translate_autometic',function(){
+    if($(this).is(':checked') && $('#add_sub_category_form #sub_category_name').val()){
+        $.ajax({
+            type: "get",
+            url: translate_url,
+            dataType: 'JSON',
+            data : {'tdata':$('#add_sub_category_form #sub_category_name').val()},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+               
+               $.each(data.langs,function(key,val){
+                    $('#add_sub_category_form #sub_category_name_'+val.lang).val(data.tdata[key]);
+               })
+            },
+            error: function (err) {
+                if(err.status===403){
+                    let err_message = err.responseJSON.message.split("(");
+                    swal({
+                        icon: "warning",
+                        title: "Warning !",
+                        text: err_message[0],
+                        confirmButtonText: "Ok",
+                    }).then(function(){
+                        $('button[type=button]', '#add_sub_category_form').click();
+                    });
+                    
+                }else{
+                    let err_message = err.responseJSON.message.split("(");
+                    swal({
+                        icon: "warning",
+                        title: "Warning !",
+                        text: err_message[0],
+                        confirmButtonText: "Ok",
+                    });
+                }
+            }
+        });
+    }
+    
+});
+
+$(document).on('change','#edit_sub_category_form #translate_autometic',function(){
+    if($(this).is(':checked') && $('#edit_sub_category_form #sub_category_name').val()){
+        $.ajax({
+            type: "get",
+            url: translate_url,
+            dataType: 'JSON',
+            data : {'tdata':$('#edit_sub_category_form #sub_category_name').val()},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+               
+               $.each(data.langs,function(key,val){
+                    $('#edit_sub_category_form #sub_category_name_'+val.lang).val(data.tdata[key]);
+               })
+            },
+            error: function (err) {
+                if(err.status===403){
+                    let err_message = err.responseJSON.message.split("(");
+                    swal({
+                        icon: "warning",
+                        title: "Warning !",
+                        text: err_message[0],
+                        confirmButtonText: "Ok",
+                    }).then(function(){
+                        $('button[type=button]', '#edit_sub_category_form').click();
+                    });
+                    
+                }else{
+                    let err_message = err.responseJSON.message.split("(");
+                    swal({
+                        icon: "warning",
+                        title: "Warning !",
+                        text: err_message[0],
+                        confirmButtonText: "Ok",
+                    });
+                }
+            }
+        });
+    }
+    
+});
 
 
 $('#add_sub_category_form').submit(function (e) {
@@ -113,7 +198,13 @@ $(document).on('click', '#edit_button', function () {
             // console.log(data.parent_catgory);
             
             $('#edit_sub_category_form #sub_category_id').val(data.id);
-            $('#edit_sub_category_form #sub_category_name').val(data.sub_category_name);
+            $.each(data.translations,function(key,val){
+                if(val.locale=='en'){
+                    $('#edit_sub_category_form #sub_category_name').val(data.sub_category_name);
+                }else{
+                    $('#edit_sub_category_form #sub_category_name_'+val.locale).val(val.value);
+                }
+            })
             $('#edit_sub_category_form #category').val(data.category.id).trigger('change');
             // $('#edit_sub_category_form #category').append('<option value="' + data.category.id + '">' + data.category.category_name + '</option>').val(data.category.id).trigger('change');
             if(data.sub_category_image==''){

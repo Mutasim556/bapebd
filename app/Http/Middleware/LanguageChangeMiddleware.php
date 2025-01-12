@@ -19,6 +19,8 @@ class LanguageChangeMiddleware
     {
         if(Cookie::get('language')!==null){
             App::setLocale(Cookie::get('language'));
+        }else{
+            App::setLocale('en');
         }
         return $next($request);
     }

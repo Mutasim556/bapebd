@@ -62,10 +62,22 @@
                         @csrf
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="category_name"><strong>{{ __('admin_local.Sub-Category Name') }} *</strong></label>
+                                <label for="category_name"><strong>{{ __('admin_local.Sub-Category Name') }} ({{ __('admin_local.Default') }})  *</strong></label>
                                 <input type="text" class="form-control" name="sub_category_name" id="sub_category_name">
                                 <span class="text-danger err-mgs"></span>
                             </div>
+                            <div class="col-lg-6 mt-2">
+                                <input type="checkbox" name="translate_autometic" id="translate_autometic" > &nbsp;
+                                <label for="category_name"><strong>{{ __('admin_local.Translate Autometic') }}</strong></label>
+                            </div>
+                            @foreach (getLangs() as $lang)
+                            <div class="col-lg-6 mt-2">
+                                <label for="category_name"><strong>{{ __('admin_local.Sub-Category Name') }} ( {{ $lang->name }} ) </strong></label>
+                                <input type="text" class="form-control" name="sub_category_name_{{ $lang->lang }}"
+                                    id="sub_category_name_{{ $lang->lang }}">
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            @endforeach
                             <div class="col-lg-6 mt-2">
                                 <label for="category"><strong>{{ __('admin_local.Select Category') }}
                                     </strong></label>
@@ -131,6 +143,18 @@
                                 <input type="text" class="form-control" name="sub_category_name" id="sub_category_name">
                                 <span class="text-danger err-mgs"></span>
                             </div>
+                            <div class="col-lg-6 mt-2">
+                                <input type="checkbox" name="translate_autometic" id="translate_autometic" > &nbsp;
+                                <label for="category_name"><strong>{{ __('admin_local.Translate Autometic') }}</strong></label>
+                            </div>
+                            @foreach (getLangs() as $lang)
+                            <div class="col-lg-6 mt-2">
+                                <label for="category_name"><strong>{{ __('admin_local.Sub-Category Name') }} ( {{ $lang->name }} ) </strong></label>
+                                <input type="text" class="form-control" name="sub_category_name_{{ $lang->lang }}"
+                                    id="sub_category_name_{{ $lang->lang }}">
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            @endforeach
                             <div class="col-lg-6 mt-2">
                                 <label for="category"><strong>{{ __('admin_local.Select Category') }}
                                     </strong></label>
@@ -346,6 +370,7 @@
         var delete_swal_cancel_text = `{{ __('admin_local.Delete request canceld successfully') }}`;
         var no_file = `{{ __('admin_local.No file') }}`;
         var base_url = `{{ baseUrl() }}`;
+        var translate_url = `{{ route('admin.translateString') }}`;
     </script>
     <script src="{{ asset(env('ASSET_DIRECTORY').'/'.'admin/custom/course/sub_category.js') }}"></script>
     {{-- <script src="{{ asset(env('ASSET_DIRECTORY').'/'.'inventory/custom/user/user_list.js') }}"></script> --}}

@@ -40,6 +40,13 @@
                     </a>
                 </li>
                 @endif
+                @if (hasPermission(['course-index', 'course-create', 'course-update', 'course-delete']))
+                <li>
+                    <a href="{{ route('admin.course.create') }}" class="sidebar-link">
+                        <span> {{ __('admin_local.Add Course') }} </span>
+                    </a>
+                </li>
+                @endif
             </ul>
         </li>
     @endif

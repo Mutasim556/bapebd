@@ -61,13 +61,28 @@
                     <form method="POSt" action="" id="add_category_form" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
+                            
+                            
                             <div class="col-lg-6 mt-2">
-                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }}
+                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ({{ __('admin_local.Default') }}) 
                                         *</strong></label>
                                 <input type="text" class="form-control" name="category_name"
                                     id="category_name">
                                 <span class="text-danger err-mgs"></span>
                             </div>
+                            <div class="col-lg-6 mt-2">
+                                <input type="checkbox" name="translate_autometic" id="translate_autometic" > &nbsp;
+                                <label for="category_name"><strong>{{ __('admin_local.Translate Autometic') }}</strong></label>
+                            </div>
+                            @foreach (getLangs() as $lang)
+                            <div class="col-lg-6 mt-2">
+                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ( {{ $lang->name }} ) 
+                                    *</strong></label>
+                                <input type="text" class="form-control" name="category_name_{{ $lang->lang }}"
+                                    id="category_name_{{ $lang->lang }}">
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            @endforeach
                             <div class="col-lg-6 mt-2">
                                 <label for="category_image"><strong>{{ __('admin_local.Category Image') }}
                                     </strong></label>
@@ -119,12 +134,25 @@
                         <input type="hidden" id="category_id" name="category_id" value="">
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }}
+                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ({{ __('admin_local.Default') }}) 
                                         *</strong></label>
                                 <input type="text" class="form-control" name="category_name"
                                     id="category_name">
                                 <span class="text-danger err-mgs"></span>
                             </div>
+                            <div class="col-lg-6 mt-2">
+                                <input type="checkbox" name="translate_autometic" id="translate_autometic" > &nbsp;
+                                <label for="category_name"><strong>{{ __('admin_local.Translate Autometic') }}</strong></label>
+                            </div>
+                            @foreach (getLangs() as $lang)
+                            <div class="col-lg-6 mt-2">
+                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ( {{ $lang->name }} ) 
+                                    *</strong></label>
+                                <input type="text" class="form-control" name="category_name_{{ $lang->lang }}"
+                                    id="category_name_{{ $lang->lang }}">
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            @endforeach
                             <div class="col-lg-6 mt-2">
                                 <label for="category_image"><strong>{{ __('admin_local.Category Image') }}
                                     </strong></label>
@@ -314,6 +342,7 @@
         var delete_swal_cancel_text = `{{ __('admin_local.Delete request canceld successfully') }}`;
         var no_file = `{{ __('admin_local.No file') }}`;
         var base_url = `{{ baseUrl() }}`;
+        var translate_url = `{{ route('admin.translateString') }}`;
     </script>
     <script src="{{ asset(env('ASSET_DIRECTORY').'/'.'admin/custom/course/category.js') }}"></script>
     {{-- <script src="{{ asset(env('ASSET_DIRECTORY').'/'.'inventory/custom/user/user_list.js') }}"></script> --}}

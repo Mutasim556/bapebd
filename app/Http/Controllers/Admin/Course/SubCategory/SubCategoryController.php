@@ -36,20 +36,13 @@ class SubCategoryController extends Controller
     public function create()
     {
         //
-    }
+    } 
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(SubCategoryStoreRequest $data)
     {
-        $langarr = [
-            'translation'=>[
-                'en' => ['title' => 'My first post'],
-                'fr' => ['title' => 'Mon premier post'],
-            ],
-        ];
-        // dd($langarr[translate('en')]);
         $sub_category_id = $data->store();
         return response([
             'sub_category' => CourseSubCategory::with('admin','category')->findOrFail($sub_category_id),
@@ -75,7 +68,7 @@ class SubCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $sub_category = CourseSubCategory::with('admin','category')->findOrFail($id);
+        $sub_category = CourseSubCategory::withoutGlobalScope('translate')->with('admin','category')->findOrFail($id);
         return response($sub_category);
     }
 

@@ -1,14 +1,58 @@
+function getTransData(form,tid){
+    $.ajax({
+        type: "get",
+        url: translate_url,
+        dataType: 'JSON',
+        data : {'tdata':$('#'+form+' #'+tid).val()},
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (data) {
+           
+           $.each(data.langs,function(key,val){
+                $('#'+form+' #'+tid+'_'+val.lang).val(data.tdata[key]);
+           })
+        },
+        error: function (err) {
+            if(err.status===403){
+                let err_message = err.responseJSON.message.split("(");
+                swal({
+                    icon: "warning",
+                    title: "Warning !",
+                    text: err_message[0],
+                    confirmButtonText: "Ok",
+                }).then(function(){
+                    $('button[type=button]', '#'+form).click();
+                });
+                
+            }else{
+                let err_message = err.responseJSON.message.split("(");
+                swal({
+                    icon: "warning",
+                    title: "Warning !",
+                    text: err_message[0],
+                    confirmButtonText: "Ok",
+                });
+            }
+        }
+    });
+}
+
 $(document).ready(function(){
     $('#name').val('English');
     $('#slug').val('en');
+    getTransData('add_language_form','name')
 })
 $('#add_language_form #language').change(function(){
     $('#add_language_form #name').val($('#add_language_form #language option:selected').text());
     $('#add_language_form #slug').val($(this).val());
+    getTransData('add_language_form','name')
+    
 });
 $('#edit_language_form #language').change(function(){
     $('#edit_language_form #name').val($('#edit_language_form #language option:selected').text());
     $('#edit_language_form #slug').val($(this).val());
+    getTransData('edit_language_form','name')
 });
 
 //add language
@@ -35,10 +79,9 @@ $('#add_language_form').submit(function (e) {
             $('button[type=submit]', '#add_language_form').removeClass('disabled');
             swal({
                 icon: "success",
-                title: "Congratulations !",
-                text: 'Language create suvccessfully',
-                confirmButtonText: "Ok",
-                showConfirmButton: true,
+                title: res.title,
+                text: res.text,
+                confirmButtonText: res.confirmButtonText,
                 timer: 1500,
             }).then(function () {
                 // $('#add_language_form').trigger('reset');
@@ -203,9 +246,10 @@ $('#edit_language_form').submit(function (e) {
             $('td:nth-child(1)',trid).html(data.language_name);
             swal({
                 icon: "success",
-                title: "Congratulations !",
-                text: 'Language data updated suvccessfully',
-                confirmButtonText: "Ok",
+                title: data.title,
+                text: data.text,
+                confirmButtonText: data.confirmButtonText,
+                timer: 1500,
             }).then(function () {
                 $('td:nth-child(1)',trid).html(data.name);
                 $('td:nth-child(2)',trid).html(data.slug);

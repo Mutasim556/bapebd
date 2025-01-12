@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin\Localization;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateLanguageRequest;
 use App\Models\Admin\Language;
+use App\Models\Admin\Translation;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class LanguageController extends Controller
 {
@@ -21,6 +23,7 @@ class LanguageController extends Controller
         $this->middleware('permission:language-create,admin')->only('store');
         $this->middleware('permission:language-update,admin')->only(['edit','update','updateStatus']);
         $this->middleware('permission:language-delete,admin')->only('destroy');
+       
     }
     public function index()
     {
@@ -53,10 +56,30 @@ class LanguageController extends Controller
         $language->default = $data->default?1:0;
         $language->status = $data->status?1:0;
         $language->delete = 0;
-        $language->save();
+        $language->save(); 
+
+        $languages =  Language::where([['status',1],['delete',0]])->get();
+        $langdata = [];
+        foreach($languages as $lang){
+            $name = $lang->lang!='en'?'name_'.$lang->lang:'name';
+            if($data->$name==null){
+                continue;
+            }else{
+                array_push($langdata, array(
+                    'translationable_type'  => 'App\Models\Admin\Language',
+                    'translationable_id'    => $language->id,
+                    'locale'                => $lang->lang,
+                    'key'                   => 'name',
+                    'value'                 => GoogleTranslate::trans($data->$name, $lang->lang, 'en'),
+                    'created_at'            => Carbon::now(),
+                ));
+            }
+            
+        }
+        Translation::insert($langdata);
 
         return response()->json([
-            'language' => $language,
+            'language' =>Language::findOrFail($language->id),
             'title'=>__('admin_local.Congratulations !'),
             'text'=>__('admin_local.Language create successfully.'),
             'confirmButtonText'=>__('admin_local.Ok'),
@@ -79,7 +102,7 @@ class LanguageController extends Controller
      */
     public function edit(string $id) : Response
     {
-        $language = Language::findOrFail($id);
+        $language = Language::withoutGlobalScope('translate')->findOrFail($id);
         return response($language);
     }
 
@@ -100,8 +123,34 @@ class LanguageController extends Controller
         $language->default = $data->default?1:0;
         $language->save();
 
+        $languages =  Language::where([['status', 1], ['delete', 0]])->get();
+        foreach ($languages as $lang) {
+            $name = $lang->lang != 'en' ? 'name_' . $lang->lang : 'name';
+            if ($data->$name == null) {
+                continue;
+            }else{
+                Translation::updateOrInsert([
+                    'translationable_type'  => 'App\Models\Admin\Language',
+                    'translationable_id'    => $id,
+                    'locale'                => $lang->lang,
+                    'key'                   => 'name',
+                ],[
+                    'value'                 => GoogleTranslate::trans($data->$name, $lang->lang, 'en'),
+                    'updated_at'            => Carbon::now(),
+                ]);
+            }
+        }
 
-        return $language;
+        // return Language::findOrFail($id);
+        return response()->json([
+            'language' =>Language::findOrFail($id),
+            'title'=>__('admin_local.Congratulations !'),
+            'text'=>__('admin_local.Language updated successfully.'),
+            'confirmButtonText'=>__('admin_local.Ok'),
+            'hasAnyPermission' => hasPermission(['language-update','language-delete']),
+            'hasEditPermission' => hasPermission(['language-update']),
+            'hasDeletePermission' => hasPermission(['language-delete']),
+        ],200);
     }
 
     /**

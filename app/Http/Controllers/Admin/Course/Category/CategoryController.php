@@ -25,6 +25,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        if(!app()->getLocale()){
+          app()->setLocale('en');  
+        }
         $categories = CourseCategory::with('admin')->where('category_delete',0)->get();
         
         return view('backend.blade.course.category.index',compact('categories'));
@@ -68,7 +71,11 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $category = CourseCategory::with('admin')->findOrFail($id);
+        // if(!app()->getLocale()){
+        //     app()->setLocale('en');  
+        // }
+        $category = CourseCategory::withoutGlobalScope('translate')->findOrFail($id);
+        // dd($category->category_name);
         return response($category);
     }
 

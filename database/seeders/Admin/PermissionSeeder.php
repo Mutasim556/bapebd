@@ -58,5 +58,11 @@ class PermissionSeeder extends Seeder
         // Permission::create(['guard_name'=>'admin','name'=>'course-subcategory-update','group_name'=>'Course Sub-Category']);
         // Permission::create(['guard_name'=>'admin','name'=>'course-subcategory-delete','group_name'=>'Course Sub-Category']);
 
+        // //backend settings permission
+        // Permission::create(['guard_name'=>'admin','name'=>'course-index','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-create','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-update','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-delete','group_name'=>'Course']);
+
     }
 }

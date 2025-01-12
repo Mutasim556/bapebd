@@ -73,3 +73,8 @@ function createDirectory($dir){
     }
     return true;
 }
+
+function getLangs(){
+    $languages = Language::where([['status',1],['delete',0],['lang','!=','en']])->get();
+    return $languages;
+}

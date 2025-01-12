@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('admin')->name('admin.')->group(function(){
+Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(function(){
     Route::controller(AdminAuthController::class)->group(function(){
         Route::post('/forget-password','forgetPassword')->name('forget_password');
         Route::get('/reset-password','resetPasswordIndex')->name('reset_password');
@@ -33,6 +33,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::controller(UserController::class)->name('user.')->prefix('user')->group(function () {
             Route::get('/update/status/{id}/{status}', 'updateStatus')->name('user_status');
         });
+
+        //
 
         //roles and permissions
         Route::resource('role',RoleAndPermissionController::class)->except(['craete','show']);
