@@ -1,6 +1,6 @@
 @extends('backend.shared.layouts.admin')
 @push('title')
-    {{ __('admin_local.User List') }}
+    {{ __('admin_local.Instructor List') }}
 @endpush
 @push('css')
     <link rel="stylesheet" href="{{ asset('public/admin/assets/css/custom.css') }}">
@@ -28,28 +28,28 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3>{{ __('admin_local.User List') }}</h3>
+                    <h3>{{ __('admin_local.Instructor List') }}</h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="javascript:void(0)">{{ __('admin_local.User') }}</a>
+                            <a href="javascript:void(0)">{{ __('admin_local.Instructor') }}</a>
                         </li>
-                        <li class="breadcrumb-item active">{{ __('admin_local.User List') }}</li>
+                        <li class="breadcrumb-item active">{{ __('admin_local.Instructor List') }}</li>
                     </ol>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- Add User Modal Start --}}
+    {{-- Add instructor Modal Start --}}
 
-    <div class="modal fade" id="add-user-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
+    <div class="modal fade" id="add-instructor-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('admin_local.Add User') }}
+                        {{ __('admin_local.Add Instructor') }}
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -57,27 +57,27 @@
                 <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
-                    <form action="" id="add_user_form">
+                    <form action="" id="add_instructor_form">
                         @csrf
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_name"><strong>{{ __('admin_local.Full Name') }} *</strong></label>
-                                <input type="text" class="form-control" name="user_name" id="user_name">
+                                <label for="instructor_name"><strong>{{ __('admin_local.Full Name') }} *</strong></label>
+                                <input type="text" class="form-control" name="instructor_name" id="instructor_name">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="username"><strong>{{ __('admin_local.User Name') }} *</strong></label>
-                                <input type="text" class="form-control" name="username" id="username">
+                                <label for="instructorname"><strong>{{ __('admin_local.Username') }} *</strong></label>
+                                <input type="text" class="form-control" name="instructorname" id="instructorname">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_password"><strong>{{ __('admin_local.Password') }} *</strong></label>
-                                <input type="password" class="form-control" name="user_password" id="user_password">
+                                <label for="instructor_password"><strong>{{ __('admin_local.Password') }} *</strong></label>
+                                <input type="password" class="form-control" name="instructor_password" id="instructor_password">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="user_role"><strong>{{ __('admin_local.Role') }} *</strong></label>
-                                <select class="form-control" name="user_role" id="user_role">
-                                    <option value="" selected disabled>{{ __("admin_local.Select Please") }}</option>
+                                <label for="instructor_role"><strong>{{ __('admin_local.Role') }} *</strong></label>
+                                <select class="form-control" name="instructor_role" id="instructor_role" disabled>
+                                    {{-- <option value="" selected disabled>{{ __("admin_local.Select Please") }}</option> --}}
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->name }}" {{ userRoleName()!='Super Admin'&&$role->name==='Super Admin'?'disabled':''}}>{{ $role->name }}</option>
                                     @endforeach
@@ -86,12 +86,12 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_email"><strong>{{ __('admin_local.Email') }} *</strong></label>
-                                <input type="email" class="form-control" name="user_email" id="user_email">
+                                <label for="instructor_email"><strong>{{ __('admin_local.Email') }} *</strong></label>
+                                <input type="email" class="form-control" name="instructor_email" id="instructor_email">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="user_phone"><strong>{{ __('admin_local.Phone') }} *</strong></label>
-                                <input type="text" class="form-control" name="user_phone" id="user_phone">
+                                <label for="instructor_phone"><strong>{{ __('admin_local.Phone') }} *</strong></label>
+                                <input type="text" class="form-control" name="instructor_phone" id="instructor_phone">
                             </div>
                         </div>
                         <div class="row mt-4 mb-2">
@@ -114,44 +114,44 @@
         <!-- /.modal-dialog -->
     </div>
 
-    {{-- Add User Modal End --}}
+    {{-- Add instructor Modal End --}}
 
-    {{-- Edit User Modal Start --}}
+    {{-- Edit instructor Modal Start --}}
 
-    <div class="modal fade" id="edit-user-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
+    <div class="modal fade" id="edit-instructor-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('admin_local.Edit User') }}
+                        {{ __('admin_local.Edit Instructor') }}
                     </h4>
                     <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
-                    <form action="" id="edit_user_form">
+                    <form action="" id="edit_instructor_form">
                         @csrf
-                        <input type="hidden" id="user_id" name="user_id" value="">
+                        <input type="hidden" id="instructor_id" name="instructor_id" value="">
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_name"><strong>{{ __('admin_local.Full Name') }} *</strong></label>
-                                <input type="text" class="form-control" name="user_name" id="user_name">
+                                <label for="instructor_name"><strong>{{ __('admin_local.Full Name') }} *</strong></label>
+                                <input type="text" class="form-control" name="instructor_name" id="instructor_name">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="username"><strong>{{ __('admin_local.Username') }} *</strong></label>
-                                <input type="text" class="form-control" name="username" id="username">
+                                <label for="instructorname"><strong>{{ __('admin_local.Username') }} *</strong></label>
+                                <input type="text" class="form-control" name="instructorname" id="instructorname">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_password"><strong>{{ __('admin_local.Password') }} *</strong></label>
-                                <input type="password" class="form-control" name="user_password" id="user_password">
+                                <label for="instructor_password"><strong>{{ __('admin_local.Password') }} *</strong></label>
+                                <input type="password" class="form-control" name="instructor_password" id="instructor_password">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="user_role"><strong>{{ __('admin_local.Role') }} *</strong></label>
-                                <select class="form-control" name="user_role" id="user_role">
-                                    <option value="" selected disabled>{{ __("admin_local.Select Please") }}</option>
+                                <label for="instructor_role"><strong>{{ __('admin_local.Role') }} *</strong></label>
+                                <select class="form-control" name="instructor_role" id="instructor_role" disabled>
+                                    {{-- <option value="" selected disabled>{{ __("admin_local.Select Please") }}</option> --}}
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->name }}" {{ userRoleName()!='Super Admin'&&$role->name==='Super Admin'?'disabled':''}}>{{ $role->name }}</option>
                                     @endforeach
@@ -160,12 +160,12 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="user_email"><strong>{{ __('admin_local.Email') }} *</strong></label>
-                                <input type="email" class="form-control" name="user_email" id="user_email">
+                                <label for="instructor_email"><strong>{{ __('admin_local.Email') }} *</strong></label>
+                                <input type="email" class="form-control" name="instructor_email" id="instructor_email">
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="user_phone"><strong>{{ __('admin_local.Phone') }} *</strong></label>
-                                <input type="text" class="form-control" name="user_phone" id="user_phone">
+                                <label for="instructor_phone"><strong>{{ __('admin_local.Phone') }} *</strong></label>
+                                <input type="text" class="form-control" name="instructor_phone" id="instructor_phone">
                             </div>
                         </div>
                         <div class="row mt-4 mb-2">
@@ -188,7 +188,7 @@
         <!-- /.modal-dialog -->
     </div>
 
-    {{-- Edit User Modal End --}}
+    {{-- Edit instructor Modal End --}}
 
 
 
@@ -198,15 +198,15 @@
             <div class="col-lg-11 mx-auto">
                 <div class="card">
                     <div class="card-header py-3" style="border-bottom: 2px dashed gray">
-                        <h3 class="card-title mb-0 text-center">{{ __('admin_local.User List') }}</h3>
+                        <h3 class="card-title mb-0 text-center">{{ __('admin_local.instructor List') }}</h3>
                     </div>
 
                     <div class="card-body">
-                        @if (hasPermission(['user-create']))
+                        @if (hasPermission(['instructor-create']))
                             <div class="row mb-3">
                                 <div class="col-md-3">
                                     <button class="btn btn-success" type="btn" data-bs-toggle="modal"
-                                        data-bs-target="#add-user-modal">+ Add User</button>
+                                        data-bs-target="#add-instructor-modal">+ {{ __('admin_local.Add Instructor') }}</button>
                                 </div>
                             </div>
                         @endif
@@ -224,25 +224,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
-                                        <tr id="tr-{{ $user->id }}" data-id="{{ $user->id }}">
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->phone }}</td>
-                                            <td>{{ $user->username }}</td>
+                                    @foreach ($instructors as $instructor)
+                                        <tr id="tr-{{ $instructor->id }}" data-id="{{ $instructor->id }}">
+                                            <td>{{ $instructor->name }}</td>
+                                            <td>{{ $instructor->email }}</td>
+                                            <td>{{ $instructor->phone }}</td>
+                                            <td>{{ $instructor->username }}</td>
                                             <td>
-                                                {{ $user->getRoleNames()->first() }}
+                                                {{ $instructor->getRoleNames()->first() }}
                                             </td>
                                             <td class="text-center">
-                                                @if ($user->getRoleNames()->first()==='Super Admin')
+                                                @if ($instructor->getRoleNames()->first()==='Super Admin')
                                                     <span class="badge badge-warning">{{ __('admin_local.Not Changeable') }}</span>
                                                 @else
-                                                    @if (hasPermission(['user-update']))
-                                                        <span class="mx-2">{{ $user->status==1?'Active':'Inactive' }}</span><input
-                                                        data-status="{{ $user->status == 1 ? 0 : 1 }}"
+                                                    @if (hasPermission(['instructor-update']))
+                                                        <span class="mx-2">{{ $instructor->status==1?'Active':'Inactive' }}</span><input
+                                                        data-status="{{ $instructor->status == 1 ? 0 : 1 }}"
                                                         id="status_change" type="checkbox" data-toggle="switchery"
                                                         data-color="green" data-secondary-color="red" data-size="small"
-                                                        {{ $user->status == 1 ? 'checked' : '' }} {{ $user->id==Auth::guard('admin')->user()->id?'disabled':'' }}/>
+                                                        {{ $instructor->status == 1 ? 'checked' : '' }} {{ $instructor->id==Auth::guard('admin')->user()->id?'disabled':'' }}/>
                                                     @else
                                                         <span class="badge badge-danger">{{ __('admin_local.No Permission') }}</span>
                                                     @endif
@@ -251,10 +251,10 @@
                                                
                                             </td>
                                             <td>
-                                                @if (hasPermission(['user-update','user-delete']))
-                                                @if ($user->id===Auth::guard('admin')->user()->id)
+                                                @if (hasPermission(['instructor-update','instructor-delete']))
+                                                @if ($instructor->id===Auth::guard('admin')->user()->id)
                                                     <span class="badge badge-danger">{{ __('admin_local.No Permission') }}</span>
-                                                @elseif ($user->getRoleNames()->first()==='Super Admin')
+                                                @elseif ($instructor->getRoleNames()->first()==='Super Admin')
                                                     <span class="badge badge-warning">{{ __('admin_local.Not Changeable') }}</span>
                                                 @else
                                                     <div class="dropdown ">
@@ -262,12 +262,12 @@
                                                             class="btn btn-info text-white px-2 py-1 dropbtn">{{ __('admin_local.Action') }}
                                                             <i class="fa fa-angle-down"></i></button>
                                                         <div class="dropdown-content">
-                                                            @if (hasPermission(['user-update']))
+                                                            @if (hasPermission(['instructor-update']))
                                                                 <a data-bs-toggle="modal" style="cursor: pointer;"
-                                                                    data-bs-target="#edit-user-modal" class="text-primary"
+                                                                    data-bs-target="#edit-instructor-modal" class="text-primary"
                                                                     id="edit_button"><i class=" fa fa-edit mx-1"></i>{{ __('admin_local.Edit') }}</a>
                                                             @endif
-                                                            @if (hasPermission(['user-delete']))
+                                                            @if (hasPermission(['instructor-delete']))
                                                                 <a class="text-danger" id="delete_button"
                                                                 style="cursor: pointer;"><i class="fa fa-trash mx-1"></i>
                                                                 {{ __('admin_local.Delete') }}</a>
@@ -277,7 +277,7 @@
                                                 @endif
                                                 
                                                 @else
-                                                    @if ($user->getRoleNames()->first()==='Super Admin')
+                                                    @if ($instructor->getRoleNames()->first()==='Super Admin')
                                                     <span class="badge badge-warning">{{ __('admin_local.Not Changeable') }}</span>
                                                     @else
                                                     <span class="badge badge-danger">{{ __('admin_local.No Permission') }}</span>
@@ -315,8 +315,8 @@
             columnDefs: [{ width: 60, targets: 6 }],
         });
 
-        var form_url = "{{ route('admin.user.store') }}";
+        var form_url = "{{ route('admin.instructor.store') }}";
     </script>
-    <script src="{{ asset('public/admin/custom/user/create_user.js') }}"></script>
-    <script src="{{ asset('public/admin/custom/user/user_list.js') }}"></script> 
+    <script src="{{ asset('public/admin/custom/instructor/create_instructor.js') }}"></script>
+    <script src="{{ asset('public/admin/custom/instructor/instructor_list.js') }}"></script> 
 @endpush

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Course;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Course\Course;
 use Illuminate\Http\Request;
+use App\Models\Admin as Instructor;
 
 class CourseController extends Controller
 {
@@ -21,6 +22,7 @@ class CourseController extends Controller
      */
     public function index()
     {
+        
         $courses = Course::where([['course_status',1],['course_delete',0]])->get();
     }
 
@@ -29,7 +31,11 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('backend.blade.course.create');
+        $instructors = Instructor::where([['delete','0']])->get();
+        $instructors = $instructors->reject(function ($instructor, $key) {
+            return $instructor->getRoleNames()->first()!='Instructor';
+        });
+        return view('backend.blade.course.create',compact('instructors'));
     }
 
     /**

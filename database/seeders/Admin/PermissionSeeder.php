@@ -19,6 +19,12 @@ class PermissionSeeder extends Seeder
         // Permission::create(['guard_name'=>'admin','name'=>'user-update','group_name'=>'User Permissions']);
         // Permission::create(['guard_name'=>'admin','name'=>'user-delete','group_name'=>'User Permissions']);
 
+        //creating permission for users
+        // Permission::create(['guard_name'=>'admin','name'=>'instructor-index','group_name'=>'Instructor Permissions']);
+        // Permission::create(['guard_name'=>'admin','name'=>'instructor-create','group_name'=>'Instructor Permissions']);
+        // Permission::create(['guard_name'=>'admin','name'=>'instructor-update','group_name'=>'Instructor Permissions']);
+        // Permission::create(['guard_name'=>'admin','name'=>'instructor-delete','group_name'=>'Instructor Permissions']);
+
         // //permission for role
         // Permission::create(['guard_name'=>'admin','name'=>'admin-role-permission-index','group_name'=>'Admin Roles And Permissions']);
         // Permission::create(['guard_name'=>'admin','name'=>'admin-role-permission-create','group_name'=>'Admin Roles And Permissions']);

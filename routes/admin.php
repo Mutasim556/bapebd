@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Localization\ChangeLanguageController;
 use App\Http\Controllers\Admin\Localization\LanguageController;
 use App\Http\Controllers\Admin\Role\RoleAndPermissionController;
 use App\Http\Controllers\Admin\Settings\MaintenanceModeController;
+use App\Http\Controllers\Admin\User\InstructorController;
 use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,11 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
         //user routes
         Route::resource('user',UserController::class)->except(['craete','show']);
         Route::controller(UserController::class)->name('user.')->prefix('user')->group(function () {
+            Route::get('/update/status/{id}/{status}', 'updateStatus')->name('user_status');
+        });
+
+        Route::resource('instructor',InstructorController::class)->except(['craete','show']);
+        Route::controller(InstructorController::class)->name('user.')->prefix('user')->group(function () {
             Route::get('/update/status/{id}/{status}', 'updateStatus')->name('user_status');
         });
 

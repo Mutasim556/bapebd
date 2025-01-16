@@ -4,18 +4,27 @@
                 data-feather="home"></i><span>{{ __('admin_local.Dashboard') }}</span>
         </a>
     </li>
-    @if (hasPermission(['user-index', 'user-create', 'user-update', 'user-delete']))
+    @if (hasPermission(['user-index', 'user-create', 'user-update', 'user-delete','instructor-index', 'instructor-create', 'instructor-update', 'instructor-delete']))
         <li class="sidebar-list">
             <a class="sidebar-link sidebar-title" href="javascript:void(0)" aria-expanded="false">
                 <i data-feather="user-plus"></i>
                 <span class="lan-3">{{ __('admin_local.Users') }}</span>
             </a>
             <ul class="sidebar-submenu">
+                @if (hasPermission(['user-index', 'user-create', 'user-update', 'user-delete']))
                 <li>
                     <a href="{{ route('admin.user.index') }}" class="sidebar-link">
                         <span> {{ __('admin_local.User List') }} </span>
                     </a>
                 </li>
+                @endif
+                @if (hasPermission(['instructor-index', 'instructor-create', 'instructor-update', 'instructor-delete']))
+                <li>
+                    <a href="{{ route('admin.instructor.index') }}" class="sidebar-link">
+                        <span> {{ __('admin_local.Instructor List') }} </span>
+                    </a>
+                </li>
+                @endif
             </ul>
         </li>
     @endif

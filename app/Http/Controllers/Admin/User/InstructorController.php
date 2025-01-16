@@ -3,45 +3,37 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Admin\AdminResource;
-use App\Mail\Admin\CreateUserMail;
-use App\Models\Admin;
+use App\Models\Admin as Instructor;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Role;
 
-class UserController extends Controller
+class InstructorController extends Controller
 {
-
-    /**
-     * Contruct method
-     */
     public function __construct()
     {
-        $this->middleware(['permission:user-index,admin'])->only('index');
-        $this->middleware(['permission:user-create,admin'])->only('store');
-        $this->middleware(['permission:user-update,admin'])->only(['edit','update','updateStatus']);
-        $this->middleware(['permission:user-delete,admin'])->only('destroy');
+        $this->middleware(['permission:instructor-index,admin'])->only('index');
+        $this->middleware(['permission:instructor-create,admin'])->only('store');
+        $this->middleware(['permission:instructor-update,admin'])->only(['edit','update','updateStatus']);
+        $this->middleware(['permission:instructor-delete,admin'])->only('destroy');
     }
     /**
      * Display a listing of the resource.
      */
     public function index() : View
     {
-        $users = Admin::where([['delete','0']])->get();
+        $instructors = Instructor::where([['delete','0']])->get();
         $roles = Role::all();
-        $users = $users->reject(function ($user, $key) {
-            return $user->getRoleNames()->first()!='Admin' && $user->getRoleNames()->first()!='Super Admin';
+        $instructors = $instructors->reject(function ($instructor, $key) {
+            return $instructor->getRoleNames()->first()!='Instructor';
         });
         $roles = $roles->reject(function ($role, $key) {
-            return $role->name!='Admin' && $role->name!='Super Admin';
+            return $role->name!='Instructor';
         });
-        return view('backend.blade.user.index',compact('users','roles'));
+        return view('backend.blade.instructor.index',compact('instructors','roles'));
     }
 
     /**
@@ -57,28 +49,28 @@ class UserController extends Controller
      */
     public function store(Request $data) : Response
     {
-        $user = new Admin();
-        $user->name = $data->user_name;
-        $user->email = $data->user_email;
-        $user->phone = $data->user_phone;
-        $user->username = $data->username;
-        $user->password = Hash::make($data->user_password);
-        $user->save();
-        $user->assignRole($data->user_role);
+        $instructor = new Instructor();
+        $instructor->name = $data->instructor_name;
+        $instructor->email = $data->instructor_email;
+        $instructor->phone = $data->instructor_phone;
+        $instructor->username = $data->instructorname;
+        $instructor->password = Hash::make($data->instructor_password);
+        $instructor->save();
+        $instructor->assignRole('Instructor');
 
         // Mail::to($data->user_email)->send(new CreateUserMail($data->user_email,$data->user_password));
 
-        if($user){
-            $user = Admin::where('id',$user->id)->first();
+        if($instructor){
+            $instructor = Instructor::where('id',$instructor->id)->first();
             return response([
-                'user'=>$user,
-                'role' => $user->getRoleNames()->first(),
+                'instructor'=>$instructor,
+                'role' => $instructor->getRoleNames()->first(),
                 'title'=>__('admin_local.Congratulations !'),
-                'text'=>__('admin_local.User created successfully'),
+                'text'=>__('admin_local.Instructor created successfully'),
                 'confirmButtonText'=>__('admin_local.Ok'),
-                'hasAnyPermission' => hasPermission(['user-update','user-delete']),
-                'hasEditPermission' => hasPermission(['user-update']),
-                'hasDeletePermission' => hasPermission(['user-delete']),
+                'hasAnyPermission' => hasPermission(['instructor-update','instructor-delete']),
+                'hasEditPermission' => hasPermission(['instructor-update']),
+                'hasDeletePermission' => hasPermission(['instructor-delete']),
             ]);
         }else{
             return response()->json([
@@ -102,11 +94,11 @@ class UserController extends Controller
      */
     public function edit(string $id) : Response
     {
-        $user = Admin::findOrFail($id);
-        $role = $user->getRoleNames()->first();
+        $instructor = Instructor::findOrFail($id);
+        $role = $instructor->getRoleNames()->first();
 
         return response([
-            'user'=>$user,
+            'instructor'=>$instructor,
             'role'=>$role,
         ]);
     }
@@ -126,23 +118,23 @@ class UserController extends Controller
             $data->validate([
                 'user_password'=>'max:30|min:4'
             ]);
-            $update = Admin::where('id',$id)->update([
+            $update = Instructor::where('id',$id)->update([
                 'name' => $data->user_name,
                 'email' => $data->user_email,
                 'phone' => $data->user_phone,
                 'username' => $data->username,
                 'password' => Hash::make($data->user_password),
             ]);
-            $user = Admin::findOrFail($id);
+            $user = Instructor::findOrFail($id);
             $user->syncRoles($data->user_role);
         }else{
-            $update = Admin::where('id',$id)->update([
+            $update = Instructor::where('id',$id)->update([
                 'name' => $data->user_name,
                 'email' => $data->user_email,
                 'phone' => $data->user_phone,
                 'username' => $data->username,
             ]);
-            $user = Admin::findOrFail($id);
+            $user = Instructor::findOrFail($id);
             $user->syncRoles($data->user_role); 
         }
 
@@ -168,7 +160,7 @@ class UserController extends Controller
      */
     public function destroy(string $id):Response
     {
-        Admin::where('id',$id)->update(['delete'=>1,'status'=>0,'updated_at'=>Carbon::now()]);
+        Instructor::where('id',$id)->update(['delete'=>1,'status'=>0,'updated_at'=>Carbon::now()]);
         return response([
             'message'=>'Deleted',
             'title'=>__('admin_local.Congratulations !'),
@@ -182,7 +174,7 @@ class UserController extends Controller
     {
        
         try {
-            $user = Admin::findOrfail($id);
+            $user = Instructor::findOrfail($id);
             $user->status = $status;
             $user->updated_at = Carbon::now();
             $user->save();
