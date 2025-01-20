@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Course;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Course\CourseStoreRequest;
 use App\Models\Admin\Course\Course;
 use Illuminate\Http\Request;
 use App\Models\Admin as Instructor;
@@ -41,9 +42,9 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CourseStoreRequest $data)
     {
-        //
+        dd($data->all());
     }
 
     /**

@@ -186,7 +186,7 @@
                                         <div class="col-md-3">
                                             <form method="POST" action="{{ route('admin.backend.language.store') }}">
                                                 @csrf
-                                                <input type="hidden" value="{{ resource_path('views/backend') }},{{ app_path('Http/Controllers/Admin') }},{{ app_path('Http/Middleware/Admin') }}" name="directory">
+                                                <input type="hidden" value="{{ resource_path('views/backend') }},{{ app_path('Http/Controllers/Admin') }},{{ app_path('Http/Middleware/Admin') }},{{ app_path('Http/Requests') }}" name="directory">
                                                 <input type="hidden" value="admin_local" name="file_name">
                                                 <input type="hidden" value="{{ $language->lang }}" name="lang">
                                                 <button type="submit" class="btn btn-success m-t-30"> {{ __('admin_local.Generate String')}}</button>

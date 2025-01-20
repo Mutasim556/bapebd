@@ -142,13 +142,12 @@
                                 </div>
                                 <div class="more_lang">
                                     @php
-                                        $languages = DB::table('languages')
-                                            ->where([['status', 1], ['delete', 0]])
+                                        $languages =  \App\Models\Admin\Language::where([['status', 1], ['delete', 0]])
                                             ->get();
                                     @endphp
                                     @foreach ($languages as $language)
                                         <a class="lang {{ getLanguageSession()==$language->lang?'selected':'' }}" href="{{ route('admin.changeLanguage',$language->lang) }}">
-                                            <span class="lang-txt">{{  \Stichoza\GoogleTranslate\GoogleTranslate::trans($language->name, $language->lang, 'en') }}</span>
+                                            <span class="lang-txt">{{  $language->name, $language->lang }}</span>
                                         </a>
                                     @endforeach
 
