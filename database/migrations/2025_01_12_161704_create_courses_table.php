@@ -27,8 +27,8 @@ return new class extends Migration
             $table->integer('course_discount');
             $table->string('course_discount_type',20);
             $table->float('course_discount_price');
-            $table->boolean('has_enroll_limit');
-            $table->integer('enrolled_count');
+            $table->boolean('has_enroll_limit')->nullable();
+            $table->integer('enrolled_count')->nullable();
             $table->text('course_images');
             $table->boolean('course_cupon_status')->default(1);
             $table->boolean('course_multiple_cupon_status')->default(1);

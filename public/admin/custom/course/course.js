@@ -67,6 +67,31 @@ $(document).on("change",'#course_type',function(){
     }
 })
 
+$(document).on("change",'#course_category',function(){
+    $.ajax({
+        type: 'GET',
+        url: 'get/subcategory',
+        data: {'category_id':$(this).val()},
+        dataType: 'JSON',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success : function(data){
+
+            option = `<option value="">${select_please}</option>`;
+
+            $.each(data,function(key,val){
+                option = option + `<option value="${val.id}">${val.sub_category_name}</option>`;
+            });
+            
+            $('#course_sub_category').empty().append(option).trigger('change');
+        },
+        error : function(resp){
+
+        }
+    })
+})
+
 
 Dropzone.autoDiscover = false;
 let token = $('meta[name="csrf-token"]').attr('content');
@@ -153,7 +178,6 @@ var myDropzone = new Dropzone("div#dropzoneDragArea", {
                                 // console.log('#add_course_form #'+idx);
                                 var exp = idx.replace('.','_');
                                 var exp2 = exp.replace('_0','');
-                                console.log(exp);
                                 
                                 $('#add_course_form #'+exp).addClass('border-danger is-invalid')
                                 $('#add_course_form #'+exp2).addClass('border-danger is-invalid')
@@ -169,10 +193,13 @@ var myDropzone = new Dropzone("div#dropzoneDragArea", {
         this.on('sending', function (file, xhr, formData) {
             // Append all form inputs to the formData Dropzone will POST
             var data = $("#add_course_form").serializeArray();
-            if($('#add_course_form #product_type').val()=='digital'){
-                data.push({name:'attatch_file',value:document.getElementById("attatched_file").files[0]})
+            // ardata = [];
+            
+            if($('#add_course_form #course_type').val()=='Pre-recorded'){
+                for(i=0;i<=count_div;i++){
+                    data.push({name:'video_file[]',value:document.getElementById("video_file_"+i).files[0]})
+                }
             }
-            console.log(data);
             $.each(data, function (key, el) {
                 formData.append(el.name, el.value);
             });

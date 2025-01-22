@@ -36,7 +36,6 @@ class CategoryStoreRequest extends FormRequest
     }
 
     public function store(){
-        dd($this->all());
         if($this->category_image){
             $files = $this->category_image;
             $file = $this->parent_category_name.time().'.'.$files->getClientOriginalExtension();

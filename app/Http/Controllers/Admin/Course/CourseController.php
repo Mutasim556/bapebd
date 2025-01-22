@@ -7,6 +7,8 @@ use App\Http\Requests\Admin\Course\CourseStoreRequest;
 use App\Models\Admin\Course\Course;
 use Illuminate\Http\Request;
 use App\Models\Admin as Instructor;
+use App\Models\Admin\Course\CourseCategory;
+use App\Models\Admin\Course\CourseSubCategory;
 
 class CourseController extends Controller
 {
@@ -36,7 +38,8 @@ class CourseController extends Controller
         $instructors = $instructors->reject(function ($instructor, $key) {
             return $instructor->getRoleNames()->first()!='Instructor';
         });
-        return view('backend.blade.course.create',compact('instructors'));
+        $categories = CourseCategory::where([['category_status',1],['category_delete',0]])->select('category_name','id')->get();
+        return view('backend.blade.course.create',compact('instructors','categories'));
     }
 
     /**
@@ -44,7 +47,10 @@ class CourseController extends Controller
      */
     public function store(CourseStoreRequest $data)
     {
-        dd($data->all());
+        $course = $data->store();
+        if($course){
+
+        }
     }
 
     /**
@@ -77,5 +83,11 @@ class CourseController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function getSubCategories(){
+        if(request()->ajax() && request()->category_id){
+            return CourseSubCategory::where([['sub_category_status',1],['sub_category_delete',0],['category_id',request()->category_id]])->select('sub_category_name','id')->get();
+        }
     }
 }

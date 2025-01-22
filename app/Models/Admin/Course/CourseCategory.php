@@ -16,7 +16,9 @@ class CourseCategory extends Model
     public function admin(){
         return $this->belongsTo(Admin::class,'category_added_by','id');
     }
-
+    public function subCategory(){
+        return $this->hasMany(CourseSubCategory::class,'category_id','id');
+    }
     public function translations()
     {
         return $this->morphMany(Translation::class, 'translationable');

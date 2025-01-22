@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('course_instructors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->references('id')->on('courses');
+            $table->foreignId('course_id')->nullable()->references('id')->on('courses');
+            $table->foreignId('batch_id')->nullable()->references('id')->on('course_batches');
             $table->string('instructor_id');
+            $table->text('file_link')->nullable();
             $table->timestamps();
         });
     }

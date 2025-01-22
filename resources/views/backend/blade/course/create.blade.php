@@ -10,6 +10,7 @@
         href="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/plugins/taginputs/bootstrap-tagsinput.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/css/vendors/date-picker.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset(env('ASSET_DIRECTORY') . '/' . 'adminassets/css/vendors/select2.css') }}">
 @endpush
 @push('page_css')
     <style>
@@ -66,7 +67,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Column -->
-            <div class="col-lg-10 mx-auto">
+            <div class="col-lg-12 mx-auto">
                 <div class="card">
                     <div class="card-header py-3" style="border-bottom: 2px dashed gray">
                         <h3 class="card-title mb-0 text-center">{{ __('admin_local.Add Course') }}</h3>
@@ -152,6 +153,27 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-lg-6 mt-2">
+                                    <label for="category"><strong>{{ __('admin_local.Select Category') }} *
+                                        </strong></label>
+                                    <select class="js-example-basic-single form-control" name="course_category"
+                                        id="course_category">
+                                        <option value="">{{ __('admin_local.Select Please') }}</option>
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="text-danger err-mgs" id="course_category_err"></span>
+                                </div>
+                                <div class="col-lg-6 mt-2">
+                                    <label for="category"><strong>{{ __('admin_local.Select Sub-category') }} *
+                                        </strong></label>
+                                    <select class="js-example-basic-single form-control" name="course_sub_category"
+                                        id="course_sub_category">
+                                        <option value="">{{ __('admin_local.Select Please') }}</option>
+                                    </select>
+                                    <span class="text-danger err-mgs" id="course_sub_category_err"></span>
+                                </div>
                                 <div class="col-lg-4 mt-2">
                                     <label for="category"><strong>{{ __('admin_local.Select Course Type') }} *
                                         </strong></label>
@@ -236,7 +258,7 @@
                                             {{ __('admin_local.Can use cupon ?') }}</strong></label>
                                 </div>
                                 <div class="col-lg-5 mt-2">
-                                    <input type="checkbox" name="multiple_cupon_status" id="multiple_cupon_status">
+                                    <input type="checkbox" name="course_multiple_cupon_status" id="course_multiple_cupon_status">
                                     <label for="category"><strong>
                                             {{ __('admin_local.Can use multiple cupon ?') }}</strong></label>
                                 </div>
@@ -263,32 +285,32 @@
                                 </div>
                                 <div class="col-lg-3 mt-2">
                                     <label for="category"><strong>{{ __('admin_local.Batch Code') }}</strong></label>
-                                    <input type="text" class="form-control" name="batch_code" name="batch_code">
+                                    <input type="text" class="form-control" name="batch_code" id="batch_code">
                                     <span class="text-danger err-mgs" id="batch_code_err"></span>
                                 </div>
                                 <div class="col-lg-3 mt-2">
                                     <label
                                         for="category"><strong>{{ __('admin_local.Batch Start date') }}</strong></label>
                                     <input type="date" class="form-control" name="batch_start_date"
-                                        name="batch_start_date">
+                                        id="batch_start_date">
                                     <span class="text-danger err-mgs" id="batch_start_date_err"></span>
                                 </div>
                                 <div class="col-lg-3 mt-2">
                                     <label for="category"><strong>{{ __('admin_local.Batch End date') }}</strong></label>
                                     <input type="date" class="form-control" name="batch_end_date"
-                                        name="batch_end_date">
+                                        id="batch_end_date">
                                     <span class="text-danger err-mgs" id="batch_end_date_err"></span>
                                 </div>
                                 <div class="col-lg-3 mt-2">
                                     <label for="category"><strong>{{ __('admin_local.Batch Time') }}</strong></label>
-                                    <input type="time" class="form-control" name="batch_time" name="batch_time">
+                                    <input type="time" class="form-control" name="batch_time" id="batch_time">
                                     <span class="text-danger err-mgs" id="batch_time_err"></span>
                                 </div>
                                 <div class="col-lg-6 mt-2">
                                     <label for="category"><strong>{{ __('admin_local.Batch Instructor') }}
                                         </strong></label>
-                                    <select class="js-example-placeholder-multiple form-control" name="batch_instructor[]"
-                                        id="batch_instructor" multiple>
+                                    <select class="js-example-basic-single col-sm-12" name="batch_instructor"
+                                        id="batch_instructor">
                                         <option value="">{{ __('admin_local.Select Please') }}</option>
                                         @foreach ($instructors as $instructor)
                                             <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
@@ -298,7 +320,7 @@
                                 </div>
                                 <div class="col-lg-3 mt-4">
                                     <input type="checkbox" name="has_enroll_limit" id="has_enroll_limit"
-                                        onchange="$(this).is(':checked')?$('#enroll_limit_append').show(300):$('#enroll_limit_append').hide(300)">
+                                       value="1" onchange="$(this).is(':checked')?$('#enroll_limit_append').show(300):$('#enroll_limit_append').hide(300)">
                                     <label for="category"><strong> {{ __('admin_local.Has Enroll Limit ?') }}
                                         </strong></label>
                                 </div>
@@ -309,15 +331,30 @@
                                         id="enroll_limit">
                                     <span class="text-danger err-mgs" id="enroll_limit_err"></span>
                                 </div>
+                                <div class="col-lg-4 mt-2">
+                                    <label for="category"><strong>{{ __('admin_local.Live In') }}</strong></label>
+                                    <select class="js-example-basic-single form-control" name="live_in" id="live_in">
+                                        <option value="">{{ __('admin_local.Select Please') }}</option>
+                                        <option value="Google Meet">{{ __("admin_local.Google Meet") }}</option>
+                                        <option value="Zoom">{{ __("admin_local.Zoom") }}</option>
+                                        <option value="Physical Class">{{ __("admin_local.Physical Class") }}</option>
+                                    </select>
+                                    <span class="text-danger err-mgs" id="live_in_err"></span>
+                                </div>
+                                <div class="col-lg-5 mt-2">
+                                    <label for="category"><strong>{{ __('admin_local.Link/Address') }}</strong></label>
+                                    <input type="text" class="form-control" name="link_or_address" id="link_or_address">
+                                    <span class="text-danger err-mgs" id="link_or_address_err"></span>
+                                </div>
                             </div>
                             <div class="row" id="pre_recorded_field_append">
                                 <div class="col-lg-6">
                                     <div class="col-lg-12 mt-2">
                                         <label for="category"><strong>{{ __('admin_local.Course Instructor') }} *
                                             </strong></label>
-                                        <select class="js-example-placeholder-multiple form-control" name="course_instructor[]"
-                                            id="course_instructor" multiple>
-                                            <option value="">{{ __('admin_local.Select Please') }}</option>
+                                        <select class="js-example-basic-single form-control" name="course_instructor"
+                                            id="course_instructor" >
+                                            <option value="" disabled>{{ __('admin_local.Select Please') }}</option>
                                             @foreach ($instructors as $instructor)
                                                 <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
                                             @endforeach
@@ -341,38 +378,45 @@
                                                 id="video_group">
                                             <span class="text-danger err-mgs" id="video_group_0_err"></span>
                                         </div>
-                                        <div class="col-lg-4 mt-2">
+                                        <div class="col-lg-3 mt-2">
                                             <label for="category"><strong>{{ __("admin_local.Video's File") }}
                                                 </strong></label>
                                             <input type="file" class="form-control video_file" name="video_file[]"
-                                                id="video_file">
+                                                id="video_file_0">
                                             <span class="text-danger err-mgs" id="video_file_err"></span>
                                         </div>
-                                        <div class="col-lg-4 mt-2">
-                                            <label for="category"><strong>{{ __('admin_local.Video Link') }}
+                                        <div class="col-lg-2 mt-2">
+                                            <label for="category"><strong>{{ __('admin_local.Video No.') }} *
+                                            </strong></label>
+                                            <input type="number" min="1" class="form-control video_no" name="video_no[]"
+                                                id="video_no">
+                                            <span class="text-danger err-mgs" id="video_no_0_err"></span>
+                                        </div>
+                                        <div class="col-lg-3 mt-2">
+                                            <label for="category"><strong>{{ __('admin_local.Video Link') }} *
                                                 </strong></label>
                                             <input type="text" class="form-control video_link" name="video_link[]"
                                                 id="video_link">
                                             <span class="text-danger err-mgs" id="video_link_0_err"></span>
                                         </div>
                                         <div class="col-lg-6 mt-2">
-                                            <label for="category"><strong>{{ __('admin_local.Video Title') }}
+                                            <label for="category"><strong>{{ __('admin_local.Video Title') }} *
                                                 </strong></label>
                                             <input type="text" class="form-control video_title" name="video_title[]"
                                                 id="video_title">
                                             <span class="text-danger err-mgs" id="video_title_0_err"></span>
                                         </div>
                                         <div class="col-lg-3 mt-2">
-                                            <label for="category"><strong>{{ __('admin_local.Video Duration') }}
+                                            <label for="category"><strong>{{ __('admin_local.Video Duration') }} *
                                                 </strong></label>
                                             <input type="text" class="form-control video_duration" name="video_duration[]"
                                                 id="video_duration">
                                             <span class="text-danger err-mgs" id="video_duration_0_err"></span>
                                         </div>
                                         <div class="col-lg-3 mt-2">
-                                            <label for="category"><strong>{{ __('admin_local.Video Type') }}
+                                            <label for="category"><strong>{{ __('admin_local.Video Type') }} *
                                                 </strong></label>
-                                            <select class="js-example-basic-single form-control" name="video_type"
+                                            <select class="js-example-basic-single form-control" name="video_type[]"
                                                 id="video_type">
                                                 <option value="">{{ __('admin_local.Select Please') }}</option>
                                                 <option value="Paid" selected>{{ __('admin_local.Paid') }}</option>
@@ -421,22 +465,14 @@
     <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/datatable/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/plugins/switchery/switchery.min.js') }}"></script>
-    <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/select2/select2.full.min.js') }}"></script>
     <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/dropzone/dropzone.js') }}"></script>
     <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/editor/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/editor/ckeditor/adapters/jquery.js') }}"></script>
     <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/editor/ckeditor/styles.js') }}"></script>
     <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/editor/ckeditor/ckeditor.custom.js') }}"></script>
     <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/plugins/taginputs/bootstrap-tagsinput.js') }}"></script>
-    <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/datepicker/date-picker/datepicker.js') }}"></script>
-    <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/datepicker/date-picker/datepicker.en.js') }}">
-    </script>
-    <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/datepicker/date-picker/datepicker.custom.js') }}">
-    </script>
-    <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/typeahead/handlebars.js') }}"></script>
-    <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/typeahead/typeahead.bundle.js') }}"></script>
-    {{-- <script src="{{ asset(env('ASSET_DIRECTORY').'/'.'inventory/assets/js/select2/select2-custom.js') }}"></script> --}}
-
+    <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/assets/js/theme-customizer/customizer.js') }}">  </script>
     @foreach (getLangs() as $lang)
         <script>
             CKEDITOR.replace('course_details_' + '{{ $lang->lang }}', {
@@ -475,9 +511,10 @@
             $('.js-example-basic-single').each(function() {
                 $(this).select2();
             })
-            $(".js-example-placeholder-multiple").select2({
-                placeholder: "{{ __('admin_local.Select Please') }}"
-            });
+            // $(".js-example-basic-hide-search").select2({
+            //     minimumResultsForSearch: Infinity,
+            //     closeOnSelect: false
+            // });
         })
         $('[data-toggle="switchery"]').each(function(idx, obj) {
             new Switchery($(this)[0], $(this).data());
@@ -499,44 +536,51 @@
                 <div class="row mb-3">
                     <div class="col-lg-12"><hr class="mt-2" style="background-color:black;height:3px;"></div>
                     <div class="col-lg-4 mt-2">
-                        <label for="category"><strong>{{ __('admin_local.Video Group') }}
+                        <label for="category"><strong>{{ __('admin_local.Video Group') }} *
                             </strong></label>
                         <input type="text" class="form-control video_group" name="video_group[]"
                             id="video_group">
                         <span class="text-danger err-mgs" id="video_group_${count_div}_err"></span>
                     </div>
-                    <div class="col-lg-4 mt-2">
+                    <div class="col-lg-3 mt-2">
                         <label for="category"><strong>{{ __("admin_local.Video's File") }}
                             </strong></label>
                         <input type="file" class="form-control video_file" name="video_file[]"
-                            id="video_file">
-                        <span class="text-danger err-mgs" id="video__file_err"></span>
+                            id="video_file_${count_div}">
+                        <span class="text-danger err-mgs" id="video_file_err"></span>
                     </div>
-                    <div class="col-lg-4 mt-2">
-                        <label for="category"><strong>{{ __('admin_local.Video Link') }}
+                     <div class="col-lg-2 mt-2">
+                        <label for="category"><strong>{{ __('admin_local.Video No.') }} *
+                        </strong></label>
+                        <input type="number" min="1" class="form-control video_no" name="video_no[]"
+                            id="video_no">
+                        <span class="text-danger err-mgs" id="video_no_${count_div}_err"></span>
+                    </div>
+                    <div class="col-lg-3 mt-2">
+                        <label for="category"><strong>{{ __('admin_local.Video Link') }} *
                             </strong></label>
                         <input type="text" class="form-control video_link" name="video_link[]"
                             id="video_link">
                         <span class="text-danger err-mgs" id="video_link_${count_div}_err"></span>
                     </div>
                     <div class="col-lg-6 mt-2">
-                        <label for="category"><strong>{{ __('admin_local.Video Title') }}
+                        <label for="category"><strong>{{ __('admin_local.Video Title') }} *
                             </strong></label>
                         <input type="text" class="form-control video_title" name="video_title[]"
                             id="video_title">
                         <span class="text-danger err-mgs" id="video_title_${count_div}_err"></span>
                     </div>
                     <div class="col-lg-3 mt-2">
-                        <label for="category"><strong>{{ __('admin_local.Video Duration') }}
+                        <label for="category"><strong>{{ __('admin_local.Video Duration') }} *
                             </strong></label>
                         <input type="text" class="form-control video_duration" name="video_duration[]"
                             id="video_duration">
                         <span class="text-danger err-mgs" id="video_duration_${count_div}_err"></span>
                     </div>
                     <div class="col-lg-2 mt-2">
-                        <label for="category"><strong>{{ __('admin_local.Video Type') }}
+                        <label for="category"><strong>{{ __('admin_local.Video Type') }} *
                             </strong></label>
-                        <select class="js-example-basic-single form-control" name="video_type"
+                        <select class="js-example-basic-single form-control" name="video_type[]"
                             id="video_type">
                             <option value="">{{ __('admin_local.Select Please') }}</option>
                             <option value="Paid" selected>{{ __('admin_local.Paid') }}</option>
@@ -601,6 +645,7 @@
         var no_file = `{{ __('admin_local.No file') }}`;
         var base_url = `{{ baseUrl() }}`;
         var translate_url = `{{ route('admin.translateString') }}`;
+        var select_please = `{{ __('admin_local.Select Please') }}`;
     </script>
     <script src="{{ asset(env('ASSET_DIRECTORY') . '/' . 'admin/custom/course/course.js') }}"></script>
     {{-- <script src="{{ asset(env('ASSET_DIRECTORY').'/'.'inventory/custom/user/user_list.js') }}"></script> --}}

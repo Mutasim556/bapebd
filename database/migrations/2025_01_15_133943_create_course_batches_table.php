@@ -23,7 +23,8 @@ return new class extends Migration
             $table->time('batch_time');
             $table->integer('enroll_limit');
             $table->integer('enrolled_count');
-            $table->text('batch_details');
+            $table->string('live_in');
+            $table->string('link_or_address');
             $table->boolean('batch_status')->default(1);
             $table->boolean('batch_delete')->default(0)->comment('0=Not Deleted 1=Deleted');
             $table->foreignId('batch_added_by')->references('id')->on('admins');
