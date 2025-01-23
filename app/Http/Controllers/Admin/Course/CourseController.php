@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Course;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Course\CourseStoreRequest;
+use App\Http\Resources\Admin\Course\CourseResource;
 use App\Models\Admin\Course\Course;
 use Illuminate\Http\Request;
 use App\Models\Admin as Instructor;
@@ -25,8 +26,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        
-        $courses = Course::where([['course_status',1],['course_delete',0]])->get();
+        $courses = Course::with('category','subCategory')->where([['course_status',1],['course_delete',0]])->get();
+        return view('backend.blade.course.index',compact('courses'));
     }
 
     /**
@@ -49,7 +50,11 @@ class CourseController extends Controller
     {
         $course = $data->store();
         if($course){
-
+            return response([
+                'title' => __('admin_local.Congratulations !'),
+                'text' => __('admin_local.Course create successfully.'),
+                'confirmButtonText' => __('admin_local.Ok'),
+            ], 200);
         }
     }
 
@@ -58,7 +63,16 @@ class CourseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        if(request()->ajax()){
+            $course = Course::where([['course_status',1],['course_delete',0],['id',$id]])->select('id','course_type')->get();
+            if($course->course_type=='Live'){
+                $course = Course::with('batch')->where([['course_status',1],['course_delete',0],['id',$id]])->get();
+            }else{
+                $course = Course::with('category','subCategory')->where([['course_status',1],['course_delete',0],['id',$id]])->get();
+            }
+        }else{
+            return redirect('admin/dashboard');
+        }
     }
 
     /**

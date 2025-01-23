@@ -22,6 +22,17 @@ class Course extends Model
         return $this->belongsTo(Admin::class,'instructor_id','id');
     }
 
+    public function category(){
+        return $this->belongsTo(CourseCategory::class,'category_id','id');
+    }
+
+    public function subCategory(){
+        return $this->belongsTo(CourseSubCategory::class,'sub_category_id','id');
+    }
+    public function batch(){
+        return $this->hasMany(CourseBatch::class,'course_id','id');
+    }
+
     public function translations()
     {
         return $this->morphMany(Translation::class, 'translationable');

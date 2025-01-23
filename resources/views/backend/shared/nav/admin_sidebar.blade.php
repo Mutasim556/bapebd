@@ -49,10 +49,17 @@
                     </a>
                 </li>
                 @endif
-                @if (hasPermission(['course-index', 'course-create', 'course-update', 'course-delete']))
+                @if (hasPermission(['course-create']))
                 <li>
                     <a href="{{ route('admin.course.create') }}" class="sidebar-link">
                         <span> {{ __('admin_local.Add Course') }} </span>
+                    </a>
+                </li>
+                @endif
+                @if (hasPermission(['course-index', 'course-update', 'course-delete']))
+                <li>
+                    <a href="{{ route('admin.course.index') }}" class="sidebar-link">
+                        <span> {{ __('admin_local.View Courses') }} </span>
                     </a>
                 </li>
                 @endif
