@@ -3,14 +3,17 @@ $('#add_instructor_form').submit(function (e) {
     e.preventDefault();
     $('button[type=submit]', this).html('Submitting....');
     $('button[type=submit]', this).addClass('disabled');
-
+    var formData = new FormData(this);
     $.ajax({
         type: "post",
         url: form_url,
-        data: $(this).serialize(),
+        data: formData,
         dataType: 'JSON',
+        contentType: false,
+        cache: false,
+        processData: false,
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
         },
         success: function (datam) {
             let data = datam.instructor;

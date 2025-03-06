@@ -16,11 +16,13 @@ return new class extends Migration
             $table->foreignId('category_id')->nullable()->references('id')->on('course_categories');
             $table->foreignId('sub_category_id')->nullable()->references('id')->on('course_sub_categories');
             $table->text('course_name');
+            $table->text('course_name_metaphone');
             $table->text('course_headline');
             $table->text('course_details');
             $table->integer('no_of_videos');
             $table->float('course_duration');
             $table->string('course_duration_type',30);
+            $table->string('course_level')->nullable();
             $table->string('course_type',40);
             $table->float('course_price');
             $table->string('course_price_currency',40);

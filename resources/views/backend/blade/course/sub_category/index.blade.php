@@ -67,6 +67,11 @@
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
+                                <label for="category_name"><strong>{{ __('admin_local.Sub-Category Slug') }} *</strong></label>
+                                <input type="text" class="form-control" name="sub_category_slug" id="sub_category_slug">
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            <div class="col-lg-6 mt-2">
                                 <input type="checkbox" name="translate_autometic" id="translate_autometic" > &nbsp;
                                 <label for="category_name"><strong>{{ __('admin_local.Translate Autometic') }}</strong></label>
                             </div>
@@ -134,13 +139,18 @@
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
                     <form id="edit_sub_category_form" enctype="multipart/form-data">
-                        @csrf
+                        @csrf 
                         @method('PUT')
                         <input type="hidden" id="sub_category_id" name="sub_category_id" value="">
                         <div class="row">
                             <div class="col-lg-6 mt-2">
                                 <label for="sub_category_name"><strong>{{ __('admin_local.Sub-Category Name') }} *</strong></label>
                                 <input type="text" class="form-control" name="sub_category_name" id="sub_category_name">
+                                <span class="text-danger err-mgs"></span>
+                            </div> 
+                            <div class="col-lg-6 mt-2">
+                                <label for="category_name"><strong>{{ __('admin_local.Sub-Category Slug') }} *</strong></label>
+                                <input type="text" class="form-control" name="sub_category_slug" id="sub_category_slug">
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
@@ -232,7 +242,7 @@
                                         <th>{{ __('admin_local.Category') }}</th>
                                         <th>{{ __('admin_local.Image') }}</th>
                                         <th>{{ __('admin_local.Created By') }}</th>
-                                        <th>{{ __('admin_local.Status') }}</th>
+                                        <th>{{ __('admin_local.Sub-category Status') }}</th>
                                         <th>{{ __('admin_local.Action') }}</th>
                                     </tr>
                                 </thead>

@@ -69,8 +69,19 @@ class PermissionSeeder extends Seeder
         // Permission::create(['guard_name'=>'admin','name'=>'course-create','group_name'=>'Course']);
         // Permission::create(['guard_name'=>'admin','name'=>'course-update','group_name'=>'Course']);
         // Permission::create(['guard_name'=>'admin','name'=>'course-delete','group_name'=>'Course']);
-        Permission::create(['guard_name'=>'admin','name'=>'course-cuppon-apply','group_name'=>'Course']);
-        Permission::create(['guard_name'=>'admin','name'=>'course-cuppun-remove','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-cuppon-apply','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-cuppun-remove','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-batch-create','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-batch-update','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-batch-delete','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-video-create','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-video-update','group_name'=>'Course']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-video-delete','group_name'=>'Course']);
+
+        Permission::create(['guard_name'=>'admin','name'=>'course-coupon-index','group_name'=>'Course Coupon']);
+        Permission::create(['guard_name'=>'admin','name'=>'course-coupon-create','group_name'=>'Course Coupon']);
+        Permission::create(['guard_name'=>'admin','name'=>'course-coupon-update','group_name'=>'Course Coupon']);
+        Permission::create(['guard_name'=>'admin','name'=>'course-coupon-delete','group_name'=>'Course Coupon']);
 
     }
 }

@@ -32,36 +32,37 @@ class CourseStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'course_name' => 'required',
-            // 'course_headline' => 'required',
-            // 'course_details' => 'required',
-            // 'course_category' => 'required',
-            // 'course_sub_category' => 'required',
-            // 'course_type' => 'required',
-            // 'no_of_videos' => 'required',
-            // 'course_duration' => 'required',
-            // 'course_duration_type' => 'required',
-            // 'course_price' => 'required',
-            // 'course_price_type' => 'required',
-            // 'course_discount' => 'lte:course_price',
-            // 'image' => 'required',
-            // 'course_instructor'=>['required_if:course_type,Pre-recorded'],
-            // 'video_group.*'=>['required_if:course_type,Pre-recorded'],
-            // 'video_file.*'=>['mimes:pdf,xlsx,doc'],
-            // 'video_no.*'=>['required_if:course_type,Pre-recorded'],
-            // 'video_link.*'=>['required_if:course_type,Pre-recorded'],
-            // 'video_title.*'=>['required_if:course_type,Pre-recorded'],
-            // 'video_duration.*'=>['required_if:course_type,Pre-recorded'],
-            // 'video_type.*'=>['required_if:course_type,Pre-recorded'],
-            // 'batch_name'=>['required_if:course_type,Live'],
-            // 'batch_code'=>['required_if:course_type,Live','unique:course_batches,batch_code'],
-            // 'batch_start_date'=>['required_if:course_type,Live'],
-            // 'batch_end_date'=>['required_if:course_type,Live'],
-            // 'batch_time'=>['required_if:course_type,Live'],
-            // 'batch_instructor'=>['required_if:course_type,Live'],
-            // 'live_in'=>['required_if:course_type,Live'],
-            // 'link_or_address'=>['required_if:course_type,Live'],
-            // 'enroll_limit'=>['required_if:has_enroll_limit,1'],
+            'course_name' => 'required',
+            'course_name_slug' => 'required|unique:courses,course_name_slug',
+            'course_headline' => 'required',
+            'course_details' => 'required',
+            'course_category' => 'required',
+            'course_sub_category' => 'required',
+            'course_type' => 'required',
+            'no_of_videos' => 'required',
+            'course_duration' => 'required',
+            'course_duration_type' => 'required',
+            'course_price' => 'required',
+            'course_price_type' => 'required',
+            'course_discount' => 'lte:course_price',
+            'image' => 'required',
+            'course_instructor'=>['required_if:course_type,Pre-recorded'],
+            'video_group.*'=>['required_if:course_type,Pre-recorded'],
+            'video_file.*'=>['mimes:pdf,xlsx,doc'],
+            'video_no.*'=>['required_if:course_type,Pre-recorded'],
+            'video_link.*'=>['required_if:course_type,Pre-recorded'],
+            'video_title.*'=>['required_if:course_type,Pre-recorded'],
+            'video_duration.*'=>['required_if:course_type,Pre-recorded'],
+            'video_type.*'=>['required_if:course_type,Pre-recorded'],
+            'batch_name'=>['required_if:course_type,Live'],
+            'batch_code'=>['required_if:course_type,Live','unique:course_batches,batch_code'],
+            'batch_start_date'=>['required_if:course_type,Live'],
+            'batch_end_date'=>['required_if:course_type,Live'],
+            'batch_time'=>['required_if:course_type,Live'],
+            'batch_instructor'=>['required_if:course_type,Live'],
+            'live_in'=>['required_if:course_type,Live'],
+            'link_or_address'=>['required_if:course_type,Live'],
+            'enroll_limit'=>['required_if:has_enroll_limit,1'],
         ];
     }
 
@@ -69,6 +70,8 @@ class CourseStoreRequest extends FormRequest
     {
         return [
             'course_name.required' => __('admin_local.Course default name is required'),
+            'course_name_slug.required' => __('admin_local.Course name slug is required'),
+            'course_name_slug.unique' => __('admin_local.Course name slug already exists'),
             'course_headline.required' => __('admin_local.Course default headline is required'),
             'course_details.required' => __('admin_local.Course details is required'),
             'course_type.required' => __('admin_local.Course type is required'),
@@ -105,10 +108,13 @@ class CourseStoreRequest extends FormRequest
          /** Course store start */
          $course = new Course();
          $course->course_name = $this->course_name;
+         $course->course_name_slug = $this->course_name_slug;
+         $course->course_name_metaphone = metaphone($this->course_name);
          $course->course_headline = $this->course_headline;
          $course->course_details = $this->course_details;
          $course->category_id = $this->course_category;
          $course->sub_category_id = $this->course_sub_category;
+         $course->course_level = $this->course_level;
          $course->course_type = $this->course_type;
          $course->no_of_videos = $this->no_of_videos;
          $course->course_duration = $this->course_duration;
@@ -243,7 +249,7 @@ class CourseStoreRequest extends FormRequest
              $course_details = $lang->lang != 'en' ? 'course_details_' . $lang->lang : 'course_details';
              if ($this->$course_name != null) {
                  array_push($data, array(
-                     'translationable_type'  => 'App\Models\Admin\Course',
+                     'translationable_type'  => 'App\Models\Admin\Course\Course',
                      'translationable_id'    => $course->id,
                      'locale'                => $lang->lang,
                      'key'                   => 'course_name',
@@ -253,7 +259,7 @@ class CourseStoreRequest extends FormRequest
              }
              if ($this->$course_headline != null) {
                  array_push($data, array(
-                     'translationable_type'  => 'App\Models\Admin\Course',
+                     'translationable_type'  => 'App\Models\Admin\Course\Course',
                      'translationable_id'    => $course->id,
                      'locale'                => $lang->lang,
                      'key'                   => 'course_headline',
@@ -263,7 +269,7 @@ class CourseStoreRequest extends FormRequest
              }
              if ($this->$course_details != null) {
                  array_push($data, array(
-                     'translationable_type'  => 'App\Models\Admin\Course',
+                     'translationable_type'  => 'App\Models\Admin\Course\Course',
                      'translationable_id'    => $course->id,
                      'locale'                => $lang->lang,
                      'key'                   => 'course_details',

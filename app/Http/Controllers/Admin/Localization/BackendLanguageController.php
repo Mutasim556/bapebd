@@ -130,7 +130,7 @@ class BackendLanguageController extends Controller
         $languageCode = $data->lang;
         $languageStrings = trans($data->file_name, [], $data->lang);
         $keyString = array_keys($languageStrings);
-        $keyText = implode(' || ', $keyString);
+        $keyText = implode('|| ', $keyString);
         // $response  = Http::withHeaders([
         //     'X-RapidAPI-Host' => 'microsoft-translator-text.p.rapidapi.com',
         //     // 'X-RapidAPI-Key' => 'fdd77a90f3msh8a9f787264252d4p1cb68ejsn41d6ad25230e',
@@ -142,7 +142,8 @@ class BackendLanguageController extends Controller
         //     ]
         // ]);
         $translatedText = GoogleTranslate::trans($keyText, $languageCode, 'en');
-        $translatedString = explode(' || ', $translatedText);
+        $translatedString = explode('|| ', $translatedText);
+        // dd($keyString,$translatedString);
         $updatedArray = array_combine($keyString, $translatedString);
 
         $phpArray = "<?php\n\nreturn " . var_export($updatedArray, true) . ";\n";

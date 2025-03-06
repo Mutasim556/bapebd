@@ -21,7 +21,16 @@ class Course extends Model
     public function instructor(){
         return $this->belongsTo(Admin::class,'instructor_id','id');
     }
+    public function courseInstructor(){
+        return $this->hasOne(CourseInstructor::class,'course_id','id');
+    }
+    public function courseVideos(){
+        return $this->hasMany(CourseVideo::class,'course_id','id');
+    }
 
+    public function batches(){
+        return $this->hasMany(CourseBatch::class,'course_id','id');
+    }
     public function category(){
         return $this->belongsTo(CourseCategory::class,'category_id','id');
     }

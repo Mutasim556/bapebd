@@ -153,7 +153,13 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6 mt-2">
+                                <div class="col-lg-12 mt-2">
+                                    <label for="category"><strong>{{ __('admin_local.Course Name Slug') }} *
+                                        </strong></label>
+                                    <input type="text" class="form-control" name="course_name_slug" id="course_name_slug">
+                                    <span class="text-danger err-mgs" id="course_name_slug_err"></span>
+                                </div>
+                                <div class="col-lg-4 mt-2">
                                     <label for="category"><strong>{{ __('admin_local.Select Category') }} *
                                         </strong></label>
                                     <select class="js-example-basic-single form-control" name="course_category"
@@ -165,7 +171,7 @@
                                     </select>
                                     <span class="text-danger err-mgs" id="course_category_err"></span>
                                 </div>
-                                <div class="col-lg-6 mt-2">
+                                <div class="col-lg-4 mt-2">
                                     <label for="category"><strong>{{ __('admin_local.Select Sub-category') }} *
                                         </strong></label>
                                     <select class="js-example-basic-single form-control" name="course_sub_category"
@@ -173,6 +179,18 @@
                                         <option value="">{{ __('admin_local.Select Please') }}</option>
                                     </select>
                                     <span class="text-danger err-mgs" id="course_sub_category_err"></span>
+                                </div>
+                                <div class="col-lg-4 mt-2">
+                                    <label for="category"><strong>{{ __('admin_local.Select Course Level') }} *
+                                        </strong></label>
+                                    <select class="js-example-basic-single form-control" name="course_level"
+                                        id="course_level">
+                                        <option value="">{{ __('admin_local.Select Please') }}</option>
+                                        <option value="Beginner" selected>{{ __('admin_local.Beginner') }}</option>
+                                        <option value="Intermediate">{{ __('admin_local.Intermediate') }}</option>
+                                        <option value="Advanced">{{ __('admin_local.Advanced') }}</option>
+                                    </select>
+                                    <span class="text-danger err-mgs" id="course_level_err"></span>
                                 </div>
                                 <div class="col-lg-4 mt-2">
                                     <label for="category"><strong>{{ __('admin_local.Select Course Type') }} *
@@ -255,12 +273,12 @@
                                 <div class="col-lg-4 mt-2">
                                     <input type="checkbox" name="course_cupon_status" id="course_cupon_status">
                                     <label for="category"><strong>
-                                            {{ __('admin_local.Can use cupon ?') }}</strong></label>
+                                            {{ __('admin_local.Can use coupon ?') }}</strong></label>
                                 </div>
                                 <div class="col-lg-5 mt-2">
                                     <input type="checkbox" name="course_multiple_cupon_status" id="course_multiple_cupon_status">
                                     <label for="category"><strong>
-                                            {{ __('admin_local.Can use multiple cupon ?') }}</strong></label>
+                                            {{ __('admin_local.Can use multiple coupon ?') }}</strong></label>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="product_image"><strong>{{ __('admin_local.Course Image / Images') }} * 
@@ -523,7 +541,7 @@
             dropdownParent: $('#add-brand-modal')
         });
         $('.js-example-basic-single1').select2({
-            dropdownParent: $('#edit-brand-modal')
+            dropdownParent: $('#edit-brand-modal') 
         });
         $(document).on('select2:open', () => {
             document.querySelector('.select2-search__field').focus();

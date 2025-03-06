@@ -71,6 +71,11 @@
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
+                                <label for="category_name"><strong>{{ __('admin_local.Category Slug') }} *</strong></label>
+                                <input type="text" class="form-control" name="category_slug" id="category_slug">
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            <div class="col-lg-6 mt-2">
                                 <input type="checkbox" name="translate_autometic" id="translate_autometic" > &nbsp;
                                 <label for="category_name"><strong>{{ __('admin_local.Translate Autometic') }}</strong></label>
                             </div>
@@ -138,6 +143,11 @@
                                         *</strong></label>
                                 <input type="text" class="form-control" name="category_name"
                                     id="category_name">
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            <div class="col-lg-6 mt-2">
+                                <label for="category_name"><strong>{{ __('admin_local.Category Slug') }} *</strong></label>
+                                <input type="text" class="form-control" name="category_slug" id="category_slug">
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
@@ -217,7 +227,7 @@
                                         <th>{{ __('admin_local.Category Name') }}</th>
                                         <th>{{ __('admin_local.Image') }}</th>
                                         <th>{{ __('admin_local.Created By') }}</th>
-                                        <th>{{ __('admin_local.Status') }}</th>
+                                        <th>{{ __('admin_local.Category Status') }}</th>
                                         <th>{{ __('admin_local.Action') }}</th>
                                     </tr>
                                 </thead>

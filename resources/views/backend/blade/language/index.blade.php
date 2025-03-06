@@ -225,7 +225,7 @@
                                         <th>{{ __('admin_local.Language') }}</th>
                                         <th>{{ __('admin_local.Slug') }}</th>
                                         <th>{{ __('admin_local.Default') }}</th>
-                                        <th>{{ __('admin_local.Status') }}</th>
+                                        <th>{{ __('admin_local.Language Status') }}</th>
                                         <th>{{ __('admin_local.Action') }}</th>
                                     </tr>
                                 </thead>

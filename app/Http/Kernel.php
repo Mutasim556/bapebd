@@ -5,6 +5,8 @@ namespace App\Http;
 use App\Http\Middleware\Admin\AdminLoginmiddleware;
 use App\Http\Middleware\Admin\CheckLoggedAdminStatus;
 use App\Http\Middleware\Admin\CheckLoggedInMiddleware;
+use App\Http\Middleware\FrontEnd\LoginStatusCheckMid;
+use App\Http\Middleware\FrontEnd\UserStatusCheckMid;
 use App\Http\Middleware\LanguageChangeMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -80,5 +82,7 @@ class Kernel extends HttpKernel
         'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         'adminLocalization' => LanguageChangeMiddleware::class,
+        'UserStatusCheckMid' => UserStatusCheckMid::class,
+        'LoginStatusCheckMid' => LoginStatusCheckMid::class,
     ];
 }

@@ -219,7 +219,7 @@
                                         <th>{{ __('admin_local.Phone') }}</th>
                                         <th>{{ __('admin_local.User Name') }}</th>
                                         <th>{{ __('admin_local.Role') }}</th>
-                                        <th>{{ __('admin_local.Status') }}</th>
+                                        <th>{{ __('admin_local.User Status') }}</th>
                                         <th>{{ __('admin_local.Action') }}</th>
                                     </tr>
                                 </thead>

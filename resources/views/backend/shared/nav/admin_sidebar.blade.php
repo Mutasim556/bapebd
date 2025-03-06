@@ -30,11 +30,11 @@
     @endif
     @if (hasPermission(['course-category-index', 'course-category-create', 'course-category-update', 'course-category-delete','course-subcategory-index', 'course-subcategory-create', 'course-subcategory-update', 'course-subcategory-delete']))
         <li class="sidebar-list">
-            <a class="sidebar-link sidebar-title" href="javascript:void(0)" aria-expanded="false">
+            <a class="sidebar-link sidebar-title" id="course-sidebar-title" href="javascript:void(0)" aria-expanded="false">
                 <i data-feather="user-plus"></i>
                 <span class="lan-3">{{ __('admin_local.Courses') }}</span>
             </a>
-            <ul class="sidebar-submenu">
+            <ul class="sidebar-submenu" id="course-sidebar-submenu">
                 @if (hasPermission(['course-category-index', 'course-category-create', 'course-category-update', 'course-category-delete']))
                 <li>
                     <a href="{{ route('admin.course.category.index') }}" class="sidebar-link">
@@ -49,6 +49,13 @@
                     </a>
                 </li>
                 @endif
+                @if (hasPermission(['course-coupon-index', 'course-coupon-create', 'course-coupon-update', 'course-coupon-delete']))
+                <li>
+                    <a href="{{ route('admin.course.coupon.index') }}" class="sidebar-link">
+                        <span> {{ __('admin_local.Coupons') }} </span>
+                    </a>
+                </li>
+                @endif
                 @if (hasPermission(['course-create']))
                 <li>
                     <a href="{{ route('admin.course.create') }}" class="sidebar-link">
@@ -58,7 +65,7 @@
                 @endif
                 @if (hasPermission(['course-index', 'course-update', 'course-delete']))
                 <li>
-                    <a href="{{ route('admin.course.index') }}" class="sidebar-link">
+                    <a href="{{ route('admin.course.index') }}" class="sidebar-link" id="course-sidebar-link"> 
                         <span> {{ __('admin_local.View Courses') }} </span>
                     </a>
                 </li>

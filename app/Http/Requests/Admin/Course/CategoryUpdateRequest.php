@@ -31,7 +31,8 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'category_name' => 'required',
-            'category_image' => 'mimes:png,jpg,jpeg|max:2000',
+            'category_slug' => 'required|unique:course_categories,category_slug,'.$this->category_id,
+            'category_image' => 'mimes:png,jpg,jpeg,svg|max:2000',
         ];
     }
 
@@ -54,9 +55,11 @@ class CategoryUpdateRequest extends FormRequest
             $manager->read($this->category_image)->resize(50, 50)->save($dir . '/' . $file);
 
             $category->category_name = $this->category_name;
+            $category->category_slug = $this->category_slug;
             $category->category_image = $file_name;
         } else {
             $category->category_name = $this->category_name;
+            $category->category_slug = $this->category_slug;
         }
         $languages =  Language::where([['status', 1], ['delete', 0]])->get();
         foreach ($languages as $lang) {

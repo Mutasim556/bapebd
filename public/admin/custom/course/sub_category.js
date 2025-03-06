@@ -1,3 +1,19 @@
+$(document).on('keyup','#add_sub_category_form #sub_category_name',function(){
+    var slug = ($(this).val().toLowerCase()).replace(/ /g,'-');
+    $("#add_sub_category_form #sub_category_slug").val(slug);
+})
+$(document).on('keyup','#add_sub_category_form #sub_category_slug',function(){
+    var slug = ($(this).val().toLowerCase()).replace(/ /g,'-');
+    $("#add_sub_category_form #sub_category_slug").val(slug);
+})
+$(document).on('keyup','#edit_sub_category_form #sub_category_name',function(){
+    var slug = ($(this).val().toLowerCase()).replace(/ /g,'-');
+    $("#edit_sub_category_form #sub_category_slug").val(slug);
+})
+$(document).on('keyup','#edit_sub_category_form #sub_category_slug',function(){
+    var slug = ($(this).val().toLowerCase()).replace(/ /g,'-');
+    $("#edit_sub_category_form #sub_category_slug").val(slug);
+})
 $(document).on('change','#add_sub_category_form #translate_autometic',function(){
     if($(this).is(':checked') && $('#add_sub_category_form #sub_category_name').val()){
         $.ajax({
@@ -198,6 +214,7 @@ $(document).on('click', '#edit_button', function () {
             // console.log(data.parent_catgory);
             
             $('#edit_sub_category_form #sub_category_id').val(data.id);
+            $('#edit_sub_category_form #sub_category_slug').val(data.sub_category_slug);
             $.each(data.translations,function(key,val){
                 if(val.locale=='en'){
                     $('#edit_sub_category_form #sub_category_name').val(data.sub_category_name);

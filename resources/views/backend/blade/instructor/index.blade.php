@@ -57,7 +57,7 @@
                 <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
-                    <form action="" id="add_instructor_form">
+                    <form action="" method="POST" id="add_instructor_form" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-lg-6 mt-2">
@@ -92,6 +92,43 @@
                             <div class="col-lg-6 mt-2">
                                 <label for="instructor_phone"><strong>{{ __('admin_local.Phone') }} *</strong></label>
                                 <input type="text" class="form-control" name="instructor_phone" id="instructor_phone">
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="instructor_image"><strong>{{ __('admin_local.Image') }} *</strong></label>
+                                <input type="file" class="form-control" name="instructor_image" id="instructor_image">
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="designation"><strong>{{ __('admin_local.Designation') }} *</strong></label>
+                                <select class="js-example-basic-single form-control" name="designation" id="designation" >
+                                    <option value="">{{ __('admin_local.Select Please') }}</option>
+                                    <option value="CEO">{{ __('admin_local.CEO') }}</option>
+                                    <option value="Instructor">{{ __('admin_local.Instructor') }}</option>
+                                    <option value="Senior Instructor">{{ __('admin_local.Senior Instructor') }}</option>
+                                    <option value="Department Head">{{ __('admin_local.Department Head') }}</option>
+                                    <option value="Manager">{{ __('admin_local.Manager') }}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="department"><strong>{{ __('admin_local.Department') }} *</strong></label>
+                                <select class="js-example-basic-single form-control" name="department" id="designation" >
+                                    <option value="">{{ __('admin_local.Select Please') }}</option>
+                                    <option value="Web Design & Development">{{ __('admin_local.Web Design & Development') }}</option>
+                                    <option value="Graphics Design">{{ __('admin_local.Graphics Design') }}</option>
+                                    <option value="Digital Marketing">{{ __('admin_local.Digital Marketing') }}</option>
+                                    <option value="SEO">{{ __('admin_local.SEO') }}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="facebook"><strong>{{ __('admin_local.Facebook') }} </strong></label>
+                                <input type="text" class="form-control" name="facebook" id="facebook">
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="twitter"><strong>{{ __('admin_local.Twitter') }} </strong></label>
+                                <input type="text" class="form-control" name="twitter" id="twitter">
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="linkedin"><strong>{{ __('admin_local.Linkedin') }} </strong></label>
+                                <input type="text" class="form-control" name="linkedin" id="linkedin">
                             </div>
                         </div>
                         <div class="row mt-4 mb-2">
@@ -130,9 +167,10 @@
                 <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
-                    <form action="" id="edit_instructor_form">
+                    <form action="" id="edit_instructor_form" enctype="multipart/form-data" method="POST">
                         @csrf
-                        <input type="hidden" id="instructor_id" name="instructor_id" value="">
+                        @method('put')
+                        <input type="hidden" name="instructor_id" id="instructor_id">
                         <div class="row">
                             <div class="col-lg-6 mt-2">
                                 <label for="instructor_name"><strong>{{ __('admin_local.Full Name') }} *</strong></label>
@@ -166,6 +204,43 @@
                             <div class="col-lg-6 mt-2">
                                 <label for="instructor_phone"><strong>{{ __('admin_local.Phone') }} *</strong></label>
                                 <input type="text" class="form-control" name="instructor_phone" id="instructor_phone">
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="instructor_image"><strong>{{ __('admin_local.Image') }} *</strong></label>
+                                <input type="file" class="form-control" name="instructor_image" id="instructor_image">
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="designation"><strong>{{ __('admin_local.Designation') }} *</strong></label>
+                                <select class="js-example-basic-single form-control" name="designation" id="designation" >
+                                    <option value="">{{ __('admin_local.Select Please') }}</option>
+                                    <option value="CEO">{{ __('admin_local.CEO') }}</option>
+                                    <option value="Instructor">{{ __('admin_local.Instructor') }}</option>
+                                    <option value="Senior Instructor">{{ __('admin_local.Senior Instructor') }}</option>
+                                    <option value="Department Head">{{ __('admin_local.Department Head') }}</option>
+                                    <option value="Manager">{{ __('admin_local.Manager') }}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="department"><strong>{{ __('admin_local.Department') }} *</strong></label>
+                                <select class="js-example-basic-single form-control" name="department" id="department" >
+                                    <option value="">{{ __('admin_local.Select Please') }}</option>
+                                    <option value="Web Design & Development">{{ __('admin_local.Web Design & Development') }}</option>
+                                    <option value="Graphics Design">{{ __('admin_local.Graphics Design') }}</option>
+                                    <option value="Digital Marketing">{{ __('admin_local.Digital Marketing') }}</option>
+                                    <option value="SEO">{{ __('admin_local.SEO') }}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="facebook"><strong>{{ __('admin_local.Facebook') }} </strong></label>
+                                <input type="text" class="form-control" name="facebook" id="facebook">
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="twitter"><strong>{{ __('admin_local.Twitter') }} </strong></label>
+                                <input type="text" class="form-control" name="twitter" id="twitter">
+                            </div>
+                            <div class="col-lg-4 mt-2">
+                                <label for="linkedin"><strong>{{ __('admin_local.Linkedin') }} </strong></label>
+                                <input type="text" class="form-control" name="linkedin" id="linkedin">
                             </div>
                         </div>
                         <div class="row mt-4 mb-2">
@@ -219,7 +294,7 @@
                                         <th>{{ __('admin_local.Phone') }}</th>
                                         <th>{{ __('admin_local.User Name') }}</th>
                                         <th>{{ __('admin_local.Role') }}</th>
-                                        <th>{{ __('admin_local.Status') }}</th>
+                                        <th>{{ __('admin_local.Instructor Status') }}</th>
                                         <th>{{ __('admin_local.Action') }}</th>
                                     </tr>
                                 </thead>
@@ -306,10 +381,23 @@
     <script src="{{ asset('public/admin/assets/js/sweet-alert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('public/admin/assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('public/admin/plugins/switchery/switchery.min.js') }}"></script>
-
+    <script src="{{ asset(env('ASSET_DIRECTORY').'/'.'admin/assets/js/select2/select2.full.min.js') }}"></script>
     <script>
         $('[data-toggle="switchery"]').each(function(idx, obj) {
             new Switchery($(this)[0], $(this).data());
+        });
+        $('.js-example-basic-single').each(function(){
+            
+            $(this).select2({
+                tags: true,
+                dropdownParent: $('#edit-instructor-modal')
+            });
+        })
+        $('.js-example-basic-single').each(function(){
+            $(this).select2({
+                tags: true,
+                dropdownParent: $('#add-instructor-modal')
+            });
         });
         var oTable = $("#basic-1").DataTable({
             columnDefs: [{ width: 60, targets: 6 }],

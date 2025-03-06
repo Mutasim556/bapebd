@@ -31,6 +31,7 @@ class SubCategoryStoreRequest extends FormRequest
         return [
             'category' => 'required',
            'sub_category_name' => 'required',
+           'sub_category_slug' => 'required|unique:course_sub_categories,sub_category_slug',
            'sub_category_image' => 'mimes:png,jpg,jpeg|max:2000',
         ];
     }
@@ -49,8 +50,9 @@ class SubCategoryStoreRequest extends FormRequest
             $file_name = "";
         }
 
-        $sub_category = new CourseSubCategory();
+        $sub_category = new CourseSubCategory(); 
         $sub_category->category_id = $this->category;
+        $sub_category->sub_category_slug = $this->sub_category_slug;
         $sub_category->sub_category_name = $this->sub_category_name;
         $sub_category->sub_category_image = $file_name;
         $sub_category->sub_category_added_by = LoggedAdmin()->id;

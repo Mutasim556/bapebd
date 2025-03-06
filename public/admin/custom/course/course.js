@@ -1,3 +1,11 @@
+$(document).on('keyup','#course_name',function(){
+    var slug = ($(this).val().toLowerCase()).replace(/ /g,'-');
+    $("#course_name_slug").val(slug);
+})
+$(document).on('keyup','#course_name_slug',function(){
+    var slug = ($(this).val().toLowerCase()).replace(/ /g,'-');
+    $("#course_name_slug").val(slug);
+})
 function calDiscount(course_discount,course_price){
     if($('#course_discount_type').val()=='Flat'){
         if(course_discount>course_price){
@@ -130,6 +138,10 @@ var myDropzone = new Dropzone("div#dropzoneDragArea", {
                     $('button[type=submit]', '#add_course_form').html(submit_btn_after);
                     $('button[type=submit]', '#add_course_form').addClass('disabled');
                     fData.append('_token',$('#csrf_token').val());
+                    fData.append('course_details',CKEDITOR.instances['course_details'].getData());  
+                    $.each(langCode,function(k,v){
+                        fData.append('course_details_'+v,CKEDITOR.instances['course_details_'+v].getData());  
+                    })
                     $.ajax({
                         type: 'POST',
                         url: form_url,

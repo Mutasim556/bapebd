@@ -24,6 +24,10 @@ class CourseCategory extends Model
         return $this->morphMany(Translation::class, 'translationable');
     }
 
+    public function courses(){
+        return $this->hasMany(Course::class,'category_id','id');
+    }
+
     public function getCategoryNameAttribute($value){
         if (count($this->translations) > 0) {
             foreach ($this->translations as $translation) {

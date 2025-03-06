@@ -16,6 +16,11 @@ $(document).on('click', '#edit_button', function () {
             $('#edit_instructor_form #instructor_role').val(data.role);
             $('#edit_instructor_form #instructor_email').val(data.instructor.email);
             $('#edit_instructor_form #instructor_phone').val(data.instructor.phone);
+            $('#edit_instructor_form #department').val(data.instructor.instructor_prof.department).trigger('change');
+            $('#edit_instructor_form #designation').val(data.instructor.instructor_prof.designation).trigger('change');
+            $('#edit_instructor_form #facebook').val(data.instructor.instructor_prof.facebook);
+            $('#edit_instructor_form #twitter').val(data.instructor.instructor_prof.twitter);
+            $('#edit_instructor_form #linkedin').val(data.instructor.instructor_prof.linkedin);
         },
         error: function (err) {
             // console.log('Hello');
@@ -52,13 +57,17 @@ $('#edit_instructor_form').submit(function (e) {
     $('button[type=submit]', this).html('Submitting....');
     $('button[type=submit]', this).addClass('disabled');
     var trid = '#tr-'+$('#instructor_id', this).val();
+    var formData = new FormData(this);
     $.ajax({
-        type: "put",
+        type: "post",
         url: 'instructor/' + $('#instructor_id', this).val(),
-        data: $(this).serialize(),
+        data: formData,
         dataType: 'JSON',
+        contentType: false,
+        cache: false,
+        processData: false,
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
         },
         success: function (data) {
             $('button[type=submit]', '#edit_instructor_form').html('Submit');

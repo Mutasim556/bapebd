@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin as Instructor;
+use App\Models\Admin\AdminProfileDetails;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use Spatie\Permission\Models\Role;
 
 class InstructorController extends Controller
@@ -49,15 +52,48 @@ class InstructorController extends Controller
      */
     public function store(Request $data) : Response
     {
+        $data->validate([
+            'instructor_name'=>'required',
+            'instructor_email'=>'required|unique:admins,email',
+            'instructor_phone'=>'required|unique:admins,phone',
+            'instructorname'=>'required|unique:admins,username',
+            'instructor_password'=>'required',
+            'instructor_image'=>'required|mimes:jpg,jpeg,png',
+            'designation'=>'required',
+            'designation'=>'required',
+        ]);
         $instructor = new Instructor();
         $instructor->name = $data->instructor_name;
         $instructor->email = $data->instructor_email;
         $instructor->phone = $data->instructor_phone;
         $instructor->username = $data->instructorname;
         $instructor->password = Hash::make($data->instructor_password);
+
+        $dir = getDirectoryLink('admin/instructor');
+        $makeDir = createDirectory($dir);
+        if($data->instructor_image){
+            $files = $data->instructor_image;
+            $file =time().'.'.$files->getClientOriginalExtension();
+            $file_name =  $dir.'/'.$file;
+            // dd($file_name);
+            $manager = new ImageManager(new Driver);
+            $manager->read($data->instructor_image)->save($file_name);
+        }else{
+            $file_name = "";
+        }
+        $instructor->image = $file_name;
         $instructor->save();
+
         $instructor->assignRole('Instructor');
 
+        $instructor_prof = new AdminProfileDetails();
+        $instructor_prof->instructor_id = $instructor->id; 
+        $instructor_prof->designation = $data->designation; 
+        $instructor_prof->department = $data->department; 
+        $instructor_prof->facebook = $data->facebook; 
+        $instructor_prof->twitter = $data->twitter; 
+        $instructor_prof->linkedin = $data->linkedin;
+        $instructor_prof->save();
         // Mail::to($data->user_email)->send(new CreateUserMail($data->user_email,$data->user_password));
 
         if($instructor){
@@ -95,6 +131,7 @@ class InstructorController extends Controller
     public function edit(string $id) : Response
     {
         $instructor = Instructor::findOrFail($id);
+        $instructor->instructor_prof = AdminProfileDetails::where('instructor_id',$id)->first();
         $role = $instructor->getRoleNames()->first();
 
         return response([
@@ -108,51 +145,58 @@ class InstructorController extends Controller
      */
     public function update(Request $data, string $id) :Response
     {
+        // dd($id);
         $data->validate([
-            'user_name'=>'required|max:50',
-            'username'=>'required|max:50|unique:users,username,'.$id,
-            'user_email'=>'required|email|max:40|unique:users,email,'.$id,
-            'user_phone'=>'required|min:11|max:15|unique:users,phone,'.$id,
+            'instructor_name'=>'required',
+            'instructor_email'=>'required|unique:admins,email,'.$id,
+            'instructor_phone'=>'required|unique:admins,phone,'.$id,
+            'instructorname'=>'required|unique:admins,username,'.$id,
+            // 'instructor_password'=>'required',
+            'instructor_image'=>'mimes:jpg,jpeg,png',
+            'designation'=>'required',
+            'designation'=>'required',
         ]);
-        if($data->user_password){
-            $data->validate([
-                'user_password'=>'max:30|min:4'
-            ]);
-            $update = Instructor::where('id',$id)->update([
-                'name' => $data->user_name,
-                'email' => $data->user_email,
-                'phone' => $data->user_phone,
-                'username' => $data->username,
-                'password' => Hash::make($data->user_password),
-            ]);
-            $user = Instructor::findOrFail($id);
-            $user->syncRoles($data->user_role);
-        }else{
-            $update = Instructor::where('id',$id)->update([
-                'name' => $data->user_name,
-                'email' => $data->user_email,
-                'phone' => $data->user_phone,
-                'username' => $data->username,
-            ]);
-            $user = Instructor::findOrFail($id);
-            $user->syncRoles($data->user_role); 
+        
+        $instructor = Instructor::findOrFail($id);
+        $instructor->name = $data->instructor_name;
+        $instructor->email = $data->instructor_email;
+        $instructor->phone = $data->instructor_phone;
+        $instructor->username = $data->instructorname;
+        if($data->instructor_password){
+            $instructor->password = Hash::make($data->instructor_password);
         }
+        $dir = getDirectoryLink('admin/instructor');
+        $makeDir = createDirectory($dir);
+        // dd($data->instructor_image);
+        if($data->instructor_image){
+            $files = $data->instructor_image;
+            $file =time().'.'.$files->getClientOriginalExtension();
+            $file_name =  $dir.'/'.$file;
+            // dd($file_name);
+            $manager = new ImageManager(new Driver);
+            $manager->read($data->instructor_image)->resize(277,277)->save($file_name);
+        }else{
+            $file_name = $instructor->image;
+        }
+        $instructor->image = $file_name;
+        $instructor->save();
 
-        if($update){
-            $role = $user->getRoleNames()->first();
-            return response([
-                'user'=>$user,
-                'role'=>$role,
-                'role' => $user->getRoleNames()->first(),
-                'title'=>__('admin_local.Congratulations !'),
-                'text'=>__('admin_local.User updated successfully'),
-                'confirmButtonText'=>__('admin_local.Ok'),
-            ]);
-        }else{
-            return response()->json([
-                'message'=>__('admin_local.Something went wrong.'),
-            ],422);
-        }
+        $instructor_prof = AdminProfileDetails::where([['instructor_id',$id]])->first()?AdminProfileDetails::where([['instructor_id',$id]])->first():new AdminProfileDetails();
+        $instructor_prof->instructor_id = $instructor->id; 
+        $instructor_prof->designation = $data->designation; 
+        $instructor_prof->department = $data->department; 
+        $instructor_prof->facebook = $data->facebook; 
+        $instructor_prof->twitter = $data->twitter; 
+        $instructor_prof->linkedin = $data->linkedin;
+        $instructor_prof->save();
+        return response([
+            'instructor'=>$instructor,
+            'role' => $instructor->getRoleNames()->first(),
+            'title'=>__('admin_local.Congratulations !'),
+            'text'=>__('admin_local.User updated successfully'),
+            'confirmButtonText'=>__('admin_local.Ok'),
+        ]);
+        
     }
 
     /**

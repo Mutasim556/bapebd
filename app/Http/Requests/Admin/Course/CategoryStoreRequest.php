@@ -31,7 +31,8 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'category_name' => 'required',
-            'category_image' => 'mimes:png,jpg,jpeg|max:2000',
+            'category_slug' => 'required|unique:course_categories,category_slug',
+            'category_image' => 'mimes:png,jpg,jpeg,svg|max:2000',
         ];
     }
 
@@ -53,6 +54,7 @@ class CategoryStoreRequest extends FormRequest
 
         $category = new CourseCategory();
         $category->category_name = $this->category_name;
+        $category->category_slug = $this->category_slug;
         $category->category_image = $file_name;
         $category->category_added_by = LoggedAdmin()->id;
         $category->category_status = 1;

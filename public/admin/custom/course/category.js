@@ -1,3 +1,19 @@
+$(document).on('keyup','#add_category_form #category_name',function(){
+    var slug = ($(this).val().toLowerCase()).replace(/ /g,'-');
+    $("#add_category_form #category_slug").val(slug);
+})
+$(document).on('keyup','#add_category_form #category_slug',function(){
+    var slug = ($(this).val().toLowerCase()).replace(/ /g,'-');
+    $("#add_category_form #category_slug").val(slug);
+})
+$(document).on('keyup','#edit_category_form #category_name',function(){
+    var slug = ($(this).val().toLowerCase()).replace(/ /g,'-');
+    $("#edit_category_form #category_slug").val(slug);
+})
+$(document).on('keyup','#add_category_form #category_slug',function(){
+    var slug = ($(this).val().toLowerCase()).replace(/ /g,'-');
+    $("#edit_category_form #category_slug").val(slug);
+})
 $(document).on('change','#add_category_form #translate_autometic',function(){
     if($(this).is(':checked') && $('#add_category_form #category_name').val()){
         $.ajax({
@@ -74,7 +90,7 @@ $(document).on('change','#edit_category_form #translate_autometic',function(){
                     swal({
                         icon: "warning",
                         title: "Warning !",
-                        text: err_message[0],
+                        text: err_message[0], 
                         confirmButtonText: "Ok",
                     });
                 }
@@ -98,7 +114,7 @@ $('#add_category_form').submit(function (e) {
         dataType: 'JSON',
         contentType: false,
         cache: false,
-        processData: false,
+        processData: false, 
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
         },
@@ -197,6 +213,7 @@ $(document).on('click', '#edit_button', function () {
         },
         success: function (data) {
             $('#edit_category_form #category_id').val(data.id);
+            $('#edit_category_form #category_slug').val(data.category_slug);
             
             $.each(data.translations,function(key,val){
                 if(val.locale=='en'){
