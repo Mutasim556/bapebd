@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2025 at 07:12 AM
+-- Generation Time: May 03, 2025 at 07:37 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,7 +51,8 @@ INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `username`, `image`, `emai
 (1, 'Admin', 'admin@admin.com', '01724698393', 'ad', NULL, NULL, '$2y$12$Q5c2PObYZk6Na7cxY5iVWOdgGqQXnLiBlDJjwBxN49JXcTYh4K/ny', 1, 0, NULL, '2025-01-22 07:00:09', '2025-01-22 07:00:09'),
 (4, 'Abul Kalam Azad', 'm@m.com', '01724698397', 'm@m.com', 'public/admin/file/admin/instructor/1740292482.jpg', NULL, '$2y$12$7Frfzco0t5NuAdn3MM3n8u5a7NMr4UMnuiIWpEYckgCR/guXxFCEK', 1, 0, NULL, '2025-01-22 10:56:32', '2025-02-23 06:34:42'),
 (5, 'Mutasim Naib Sumit', 'test@test.com', '01724698396', 'test', 'public/admin/file/admin/instructor/1738753191.jpg', NULL, '$2y$12$E.WhJZUKTm76ya8uGMUoiO7RFqtrfyGR7ly70JrdI9SKaDUxwTBS6', 1, 0, NULL, '2025-02-05 10:11:07', '2025-02-23 04:55:25'),
-(6, 'Towfiq Elahi', 'towfiq@gmail.com', '123546789', 'towfiq123', 'public/admin/file/admin/instructor/1740286798.jpg', NULL, '$2y$12$CiCmhyBdGCONGmqBN77k3O6rvlYETycMLePJJWwmz7jKCQSxYpp6C', 1, 0, NULL, '2025-02-23 04:59:58', '2025-02-23 04:59:58');
+(6, 'Towfiq Elahi', 'towfiq@gmail.com', '123546789', 'towfiq123', 'public/admin/file/admin/instructor/1740286798.jpg', NULL, '$2y$12$CiCmhyBdGCONGmqBN77k3O6rvlYETycMLePJJWwmz7jKCQSxYpp6C', 1, 0, NULL, '2025-02-23 04:59:58', '2025-02-23 04:59:58'),
+(7, 'Sadekul', 'sadekul@test.com', '1234567890', 'Sadekul', 'public/admin/file/admin/instructor/1743950609.png', NULL, '$2y$12$7I7ZWhDiEO6NjzZ5JHiOf.dc08MPUXYn8i7CAGi6eSIW0lAmR1lc2', 1, 0, NULL, '2025-04-06 14:43:29', '2025-04-06 14:43:29');
 
 -- --------------------------------------------------------
 
@@ -79,7 +80,8 @@ CREATE TABLE `admin_profile_details` (
 INSERT INTO `admin_profile_details` (`id`, `instructor_id`, `designation`, `department`, `facebook`, `twitter`, `linkedin`, `details`, `created_at`, `updated_at`) VALUES
 (1, 5, 'CEO', 'Web Design & Development', 'sadasd', 'asdasdas', 'dasdasdasdas', NULL, '2025-02-05 10:11:08', '2025-02-05 10:50:57'),
 (2, 4, 'Department Head', 'Graphics Design', 'https://www.facebook.com/evaly.com.bd/', 'asdasdas', 'dasdasdasdas', NULL, '2025-02-05 10:54:28', '2025-02-23 04:55:45'),
-(3, 6, 'Senior Instructor', 'Digital Marketing', 'https://www.facebook.com/evaly.com.bd/', NULL, NULL, NULL, '2025-02-23 04:59:58', '2025-02-23 04:59:58');
+(3, 6, 'Senior Instructor', 'Digital Marketing', 'https://www.facebook.com/evaly.com.bd/', NULL, NULL, NULL, '2025-02-23 04:59:58', '2025-02-23 04:59:58'),
+(4, 7, 'Instructor', 'Digital Marketing', 'https://www.facebook.com/lijon.raha', NULL, NULL, NULL, '2025-04-06 14:43:29', '2025-04-06 14:43:29');
 
 -- --------------------------------------------------------
 
@@ -218,12 +220,12 @@ CREATE TABLE `course_batches` (
 
 INSERT INTO `course_batches` (`id`, `course_id`, `batch_name`, `batch_code`, `batch_number`, `batch_instructor`, `batch_start_date`, `batch_end_date`, `batch_time`, `batch_day`, `enroll_limit`, `enrolled_count`, `live_in`, `link_or_address`, `batch_status`, `batch_delete`, `batch_added_by`, `batch_updated_by`, `created_at`, `updated_at`) VALUES
 (1, 3, 'BATCH-1', 'B#234', 1, '4', '2025-03-03', '2025-04-20', '17:26:00', 'Staturday,Sunday,Monday,Tuesday,Wednesday,Thursday', 25, 0, 'Zoom', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-22 11:27:28', '2025-02-17 07:07:04'),
-(2, 3, 'BATCH-2', 'B#2344', 2, '4', '2025-03-03', '2025-05-03', '18:04:00', 'Monday,Wednesday,Friday', 44, 0, 'Google Meet', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-28 10:15:18', '2025-02-17 07:07:45'),
-(3, 3, 'TESTB', 'B#2346', 3, '4', '2025-01-28', '2025-01-28', '16:17:00', NULL, 33, 0, 'Physical Class', 'sadasdasdasd', 0, 0, 1, 1, '2025-01-28 10:18:05', '2025-02-05 06:27:34'),
-(4, 3, 'TESTB', 'B#2347', 4, '4', '2025-01-28', '2025-01-28', '16:17:00', NULL, 33, 0, 'Physical Class', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-28 10:19:54', '2025-01-28 10:24:58'),
-(5, 3, 'TESTB', 'B#2349', 5, '4', '2025-01-28', '2025-01-28', '16:17:00', NULL, 33, 0, 'Physical Class', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-28 10:21:13', '2025-01-28 10:24:59'),
-(6, 5, 'BATCH-1', 'GDB1', 1, '6', '2025-03-13', '2025-04-26', '14:00:00', 'Wednesday,Thursday,Friday', 0, 0, 'Physical Class', 'sasdasdasdas', 1, 0, 1, 1, '2025-02-23 05:10:19', '2025-02-23 06:46:27'),
-(7, 6, 'BATCH-1', 'APDV1', 1, '5', '2025-03-20', '2025-04-26', '15:30:00', NULL, 100, 0, 'Google Meet', 'sdfsdfsdf', 1, 0, 1, 1, '2025-02-23 05:17:10', '2025-02-23 05:17:10');
+(2, 3, 'BATCH-2', 'B#2344', 2, '4', '2025-04-03', '2025-06-03', '18:04:00', 'Monday,Wednesday,Friday', 44, 0, 'Google Meet', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-28 10:15:18', '2025-02-17 07:07:45'),
+(3, 3, 'TESTB', 'B#2346', 3, '4', '2025-04-03', '2025-06-03', '16:17:00', NULL, 33, 0, 'Physical Class', 'sadasdasdasd', 0, 0, 1, 1, '2025-01-28 10:18:05', '2025-02-05 06:27:34'),
+(4, 3, 'TESTB', 'B#2347', 4, '4', '2025-04-20', '2025-06-03', '16:17:00', NULL, 33, 0, 'Physical Class', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-28 10:19:54', '2025-01-28 10:24:58'),
+(5, 3, 'TESTB', 'B#2349', 5, '4', '2025-04-20', '2025-06-03', '16:17:00', NULL, 33, 0, 'Physical Class', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-28 10:21:13', '2025-01-28 10:24:59'),
+(6, 5, 'BATCH-1', 'GDB1', 1, '6', '2025-04-20', '2025-06-03', '14:00:00', 'Wednesday,Thursday,Friday', 0, 0, 'Physical Class', 'sasdasdasdas', 1, 0, 1, 1, '2025-02-23 05:10:19', '2025-02-23 06:46:27'),
+(7, 6, 'BATCH-1', 'APDV1', 1, '5', '2025-04-20', '2025-06-03', '15:30:00', NULL, 100, 0, 'Google Meet', 'sdfsdfsdf', 1, 0, 1, 1, '2025-02-23 05:17:10', '2025-02-23 05:17:10');
 
 -- --------------------------------------------------------
 
@@ -244,8 +246,8 @@ CREATE TABLE `course_carts` (
 --
 
 INSERT INTO `course_carts` (`id`, `user_id`, `course_id`, `created_at`, `updated_at`) VALUES
-(12, 1, 5, '2025-03-06 07:54:19', '2025-03-06 07:54:19'),
-(13, 1, 4, '2025-03-06 07:54:25', '2025-03-06 07:54:25');
+(24, 1, 4, '2025-04-06 08:38:02', '2025-04-06 08:38:02'),
+(25, 1, 1, '2025-04-06 08:43:31', '2025-04-06 08:43:31');
 
 -- --------------------------------------------------------
 
@@ -270,9 +272,9 @@ CREATE TABLE `course_categories` (
 --
 
 INSERT INTO `course_categories` (`id`, `category_name`, `category_slug`, `category_image`, `category_status`, `category_delete`, `category_added_by`, `created_at`, `updated_at`) VALUES
-(1, 'Digital Marketing', 'digital-marketing', 'public/admin/file/course/category/Digital Marketing1738733071.jpg', 1, 0, 1, '2025-01-22 07:03:03', '2025-02-20 06:29:10'),
-(2, 'Web And App Development', 'web-and-app-development', 'public/admin/file/course/category/Web Design And Development1740285746.png', 1, 0, 1, '2025-02-23 04:39:07', '2025-02-23 04:46:35'),
-(3, 'Graphics And Multimedia', 'graphics-and-multimedia', 'public/admin/course/file/course/category/1740285812.png', 1, 0, 1, '2025-02-23 04:43:32', '2025-02-23 04:43:32');
+(1, 'Pharma Marketing', 'pharma-marketing', 'public/admin/file/course/category/Pharma Marketing1743951555.png', 1, 0, 1, '2025-01-22 07:03:03', '2025-04-06 14:59:16'),
+(2, 'Global Pharmaceutical accreditation', 'global-pharmaceutical-accreditation', 'public/admin/file/course/category/Global Pharmaceutical accreditation1743951884.png', 1, 0, 1, '2025-02-23 04:39:07', '2025-04-06 15:04:46'),
+(3, 'Industrial Pharmacy', 'industrial-pharmacy', 'public/admin/file/course/category/Industrial Pharmacy1743951703.png', 1, 0, 1, '2025-02-23 04:43:32', '2025-04-06 15:01:46');
 
 -- --------------------------------------------------------
 
@@ -308,7 +310,7 @@ CREATE TABLE `course_coupons` (
 
 INSERT INTO `course_coupons` (`id`, `coupon`, `coupon_start_date`, `coupon_end_date`, `can_apply`, `apply_type`, `has_minimum_price_for_apply`, `minimum_price_for_apply`, `coupon_discount`, `coupon_discount_type`, `has_maximum_discount`, `maximum_discount`, `coupon_details`, `applicable_for`, `coupon_status`, `coupon_delete`, `created_by`, `created_at`, `updated_at`) VALUES
 (1, 'ASDFSADSA', '2025-03-02', '2025-05-14', 1, 'discount_on_regular_price', '1', 100.00, 45.00, 'Flat', '1', 50.00, 'asdasdasd', 1, 1, 0, 1, '2025-02-02 09:15:02', '2025-02-03 07:17:26'),
-(2, 'SADSAD', '2025-03-03', '2025-07-08', 4, 'discount_on_regular_price', '1', 111.00, 45.00, 'Percent', '1', 61.00, 'asdasd', 1, 1, 0, 1, '2025-02-02 10:27:12', '2025-02-04 06:53:40'),
+(2, 'SADSAD', '2025-03-03', '2025-07-08', 4, 'discount_on_regular_price', '10', 111.00, 45.00, 'Percent', '1', 61.00, 'asdasd', 1, 1, 0, 1, '2025-02-02 10:27:12', '2025-02-04 06:53:40'),
 (4, 'DSFDSFD', '2025-03-02', '2025-05-10', 1, 'discount_on_discounted_price', '1', 100.00, 45.00, 'Flat', '1', 50.00, 'asdsadasd', 1, 1, 1, 1, '2025-02-02 10:51:33', '2025-02-03 07:17:41'),
 (5, 'DSFDSF', '2025-02-01', '2025-02-20', 1, 'discount_on_discounted_price', '1', 100.00, 45.00, 'Flat', '1', 50.00, 'asdsadasd', 1, 1, 0, 1, '2025-02-02 10:51:56', '2025-02-03 05:16:06');
 
@@ -403,7 +405,8 @@ INSERT INTO `course_videos` (`id`, `course_id`, `video_group`, `videos_file`, `v
 (3, 1, 'TEST', 'public/admin/file/course/course-files/COURSE_VIDEO_FILE_1_1_1738056990.pdf', '3', 'asdasdasdasdsad', 'asdasdasdasd', '44', 'Free', 1, 0, 1, '2025-01-28 09:36:30', '2025-01-28 11:16:57'),
 (4, 1, 'TESTG', 'public/admin/file/course/course-files/COURSE_VIDEO_FILE_1_1_1738057311.pdf', '4', 'asdasdasdasdsad', 'rrrrrr', '10', 'Paid', 1, 0, 1, '2025-01-28 09:41:51', '2025-01-28 09:41:51'),
 (5, 1, 'TESTG', 'public/admin/file/course/course-files/COURSE_VIDEO_FILE_1_1_1738057358.pdf', '5', 'asdasdasdasdsad', 'rrrrrr', '2', 'Free', 1, 0, 1, '2025-01-28 09:42:38', '2025-01-28 09:42:43'),
-(6, 4, 'Introduction', 'public/admin/file/course/course-files/COURSE_VIDEO_FILE_4_0_1740287062.xlsx', '1', 'd35dfSwBTNY', 'Introducing to HTML', '6.56', 'Free', 1, 0, 1, '2025-02-23 05:04:22', '2025-02-23 05:04:22');
+(6, 4, 'Introduction', 'public/admin/file/course/course-files/COURSE_VIDEO_FILE_4_0_1740287062.xlsx', '1', 'd35dfSwBTNY', 'Introducing to HTML', '6.56', 'Free', 1, 0, 1, '2025-02-23 05:04:22', '2025-04-06 08:20:08'),
+(7, 4, 'Introduction', 'public/admin/file/course/course-files/COURSE_VIDEO_FILE_4_1_1744268788.xlsx', '2', 'OocqG7u1r6U', 'Introduction to Laravel Part 2', '44', 'Paid', 1, 0, 1, '2025-04-10 07:06:28', '2025-04-10 07:06:58');
 
 -- --------------------------------------------------------
 
@@ -507,7 +510,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (32, '2025_02_17_144307_add_enroll_limit_to_courses_table', 12),
 (34, '2025_02_20_122514_add_category_slug_to_course_categories_table', 13),
 (35, '2025_02_20_135407_add_sub_category_slug_to_course_sub_categories_table', 14),
-(36, '2025_02_24_164644_create_course_carts_table', 15);
+(36, '2025_02_24_164644_create_course_carts_table', 15),
+(37, '2025_03_23_131837_create_purchases_table', 16),
+(38, '2025_03_23_132448_create_puchase_courses_table', 16),
+(42, '2025_03_23_132448_create_purchase_courses_table', 17);
 
 -- --------------------------------------------------------
 
@@ -541,7 +547,42 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\Admin', 1),
 (2, 'App\\Models\\Admin', 4),
 (2, 'App\\Models\\Admin', 5),
-(2, 'App\\Models\\Admin', 6);
+(2, 'App\\Models\\Admin', 6),
+(2, 'App\\Models\\Admin', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `transaction_id` varchar(255) DEFAULT NULL,
+  `currency` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `name`, `email`, `phone`, `amount`, `address`, `status`, `transaction_id`, `currency`) VALUES
+(1, 'MD. Mutasim Naib Sumit', 'mutasim@gmail.com', '01724698392', 39150, 'xxxxxxx', 'Processing', '67dfd09290b9a', 'BDT'),
+(2, 'MD. Mutasim Naib Sumit', 'mutasim@gmail.com', '01724698392', 39150, 'xxxxxxx', 'Processing', '67dfd104f0627', 'BDT'),
+(3, 'MD. Mutasim Naib Sumit', 'mutasim@gmail.com', '01724698392', 12789, 'xxxxxxx', 'Pending', '67f23f9ea075e', 'BDT'),
+(4, 'MD. Mutasim Naib Sumit', 'mutasim@gmail.com', '01724698392', 12850, 'xxxxxxx', 'Pending', '67f23fae6f542', 'BDT'),
+(5, 'MD. Mutasim Naib Sumit', 'mutasim@gmail.com', '01724698392', 12789, 'xxxxxxx', 'Pending', '67f23fc41ba6f', 'BDT'),
+(6, 'TEST', 'test@test.com', '12345678998', 4950, 'xxxxxxx', 'Processing', '67f5e4908255c', 'BDT'),
+(7, 'TEST', 'test@test.com', '12345678998', 7900, 'xxxxxxx', 'Pending', '67f5e5e6de203', 'BDT'),
+(8, 'TEST', 'test@test.com', '12345678998', 7900, 'xxxxxxx', 'Pending', '67f5e5eebacdb', 'BDT'),
+(9, 'TEST', 'test@test.com', '12345678998', 7900, 'xxxxxxx', 'Processing', '67f7661d11088', 'BDT'),
+(10, 'TEST', 'test@test.com', '12345678998', 14800, 'xxxxxxx', 'Processing', '67f76f7ee2004', 'BDT');
 
 -- --------------------------------------------------------
 
@@ -645,6 +686,56 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `purchases`
+--
+
+CREATE TABLE `purchases` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `courses` varchar(255) NOT NULL,
+  `total_amount` double(8,2) NOT NULL,
+  `dicount_amount` double(8,2) NOT NULL,
+  `subtotal` double(8,2) NOT NULL,
+  `payment_method` varchar(30) NOT NULL,
+  `payment_status` tinyint(1) NOT NULL DEFAULT 0,
+  `transaction_id` varchar(255) DEFAULT NULL,
+  `payment_option` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `purchases`
+--
+
+INSERT INTO `purchases` (`id`, `courses`, `total_amount`, `dicount_amount`, `subtotal`, `payment_method`, `payment_status`, `transaction_id`, `payment_option`, `created_at`, `updated_at`) VALUES
+(1, '\"4|3|1|6|5|\"', 39150.00, 0.00, 39150.00, 'sslcommerz', 1, '67dfd09290b9a', 'BKASH-BKash', '2025-03-23 09:12:57', '2025-03-23 09:12:57'),
+(2, '\"4|3|1|6|5|\"', 39150.00, 0.00, 39150.00, 'sslcommerz', 1, '67dfd09290b9a', 'BKASH-BKash', '2025-03-23 09:13:08', '2025-03-23 09:13:08'),
+(3, '\"4|3|1|6|5|\"', 39150.00, 0.00, 39150.00, 'sslcommerz', 1, '67dfd104f0627', 'BKASH-BKash', '2025-03-23 09:14:52', '2025-03-23 09:14:52'),
+(4, '\"1|\"', 4950.00, 0.00, 4950.00, 'sslcommerz', 1, '67f5e4908255c', 'BKASH-BKash', '2025-04-09 03:08:18', '2025-04-09 03:08:18'),
+(5, '\"4|\"', 7900.00, 0.00, 7900.00, 'sslcommerz', 1, '67f7661d11088', 'BKASH-BKash', '2025-04-10 06:33:09', '2025-04-10 06:33:09'),
+(6, '\"6|\"', 14800.00, 0.00, 14800.00, 'sslcommerz', 1, '67f76f7ee2004', 'BKASH-BKash', '2025-04-10 07:13:12', '2025-04-10 07:13:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_courses`
+--
+
+CREATE TABLE `purchase_courses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `purchase_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) UNSIGNED NOT NULL,
+  `course_type` varchar(255) NOT NULL,
+  `batch_id` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roles`
 --
 
@@ -662,7 +753,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 (1, 'Super Admin', 'admin', '2025-01-22 07:00:08', '2025-01-22 07:00:08'),
-(2, 'Instructor', 'admin', '2025-01-22 10:55:59', '2025-01-22 10:55:59');
+(2, 'Instructor', 'admin', '2025-01-22 10:55:59', '2025-01-22 10:55:59'),
+(3, 'Modaretor', 'admin', '2025-04-06 08:25:51', '2025-04-06 08:25:51');
 
 -- --------------------------------------------------------
 
@@ -681,7 +773,13 @@ CREATE TABLE `role_has_permissions` (
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (5, 2),
-(6, 2);
+(5, 3),
+(6, 2),
+(6, 3),
+(7, 3),
+(8, 3),
+(24, 3),
+(25, 3);
 
 -- --------------------------------------------------------
 
@@ -712,9 +810,9 @@ INSERT INTO `translations` (`id`, `translationable_type`, `translationable_id`, 
 (5, 'App\\Models\\Admin\\Language', 2, 'hi', 'name', 'उतर', NULL, '2025-01-22 07:01:48'),
 (6, 'App\\Models\\Admin\\Language', 1, 'bn', 'name', 'ইংরেজি', NULL, '2025-01-22 07:02:03'),
 (7, 'App\\Models\\Admin\\Language', 1, 'hi', 'name', 'अंग्रेजी', NULL, '2025-01-22 07:02:04'),
-(8, 'App\\Models\\Admin\\Course\\CourseCategory', 1, 'en', 'category_name', 'Digital Marketing', '2025-01-22 07:03:03', '2025-02-20 06:29:09'),
-(9, 'App\\Models\\Admin\\Course\\CourseCategory', 1, 'bn', 'category_name', 'ডিজিটাল বিজ্ঞাপন', '2025-01-22 07:03:03', '2025-02-20 06:29:09'),
-(10, 'App\\Models\\Admin\\Course\\CourseCategory', 1, 'hi', 'category_name', 'तंग', '2025-01-22 07:03:03', '2025-02-20 06:29:10'),
+(8, 'App\\Models\\Admin\\Course\\CourseCategory', 1, 'en', 'category_name', 'Pharma Marketing', '2025-01-22 07:03:03', '2025-04-06 14:59:15'),
+(9, 'App\\Models\\Admin\\Course\\CourseCategory', 1, 'bn', 'category_name', 'ফার্মা বিপণন', '2025-01-22 07:03:03', '2025-04-06 14:59:15'),
+(10, 'App\\Models\\Admin\\Course\\CourseCategory', 1, 'hi', 'category_name', 'तमाम', '2025-01-22 07:03:03', '2025-04-06 14:59:16'),
 (11, 'App\\Models\\Admin\\Course\\CourseSubCategory', 1, 'en', 'sub_category_name', 'CPA Marketing', '2025-01-22 07:04:00', '2025-02-23 04:47:01'),
 (12, 'App\\Models\\Admin\\Course\\CourseSubCategory', 1, 'bn', 'sub_category_name', 'সিপিএ বিপণন', '2025-01-22 07:04:00', '2025-02-23 04:47:02'),
 (13, 'App\\Models\\Admin\\Course\\CourseSubCategory', 1, 'hi', 'sub_category_name', 'सीपीए विपणन', '2025-01-22 07:04:00', '2025-02-23 04:47:03'),
@@ -736,12 +834,12 @@ INSERT INTO `translations` (`id`, `translationable_type`, `translationable_id`, 
 (29, 'App\\Models\\Admin\\Course\\Course', 1, 'hi', 'course_headline', 'asdsadasdasdasdasdasd', NULL, '2025-03-02 06:56:47'),
 (30, 'App\\Models\\Admin\\Course\\Course', 1, 'bn', 'course_details', '<p>asd&nbsp; d dfg gfdg&nbsp;</p>', NULL, '2025-03-02 06:56:47'),
 (31, 'App\\Models\\Admin\\Course\\Course', 1, 'hi', 'course_details', '<p>dddddd</p>', NULL, '2025-03-02 06:56:47'),
-(32, 'App\\Models\\Admin\\Course\\CourseCategory', 2, 'en', 'category_name', 'Web And App Development', '2025-02-23 04:39:07', '2025-02-23 04:46:33'),
-(33, 'App\\Models\\Admin\\Course\\CourseCategory', 2, 'bn', 'category_name', 'ওয়েব এবং অ্যাপ্লিকেশন বিকাশ', '2025-02-23 04:39:08', '2025-02-23 04:46:34'),
-(34, 'App\\Models\\Admin\\Course\\CourseCategory', 2, 'hi', 'category_name', 'वेब ray r ऐप ऐप', '2025-02-23 04:39:10', '2025-02-23 04:46:35'),
-(35, 'App\\Models\\Admin\\Course\\CourseCategory', 3, 'en', 'category_name', 'Graphics And Multimedia', '2025-02-23 04:43:32', NULL),
-(36, 'App\\Models\\Admin\\Course\\CourseCategory', 3, 'bn', 'category_name', 'গ্রাফিক্স এবং মাল্টিমিডিয়া', '2025-02-23 04:43:34', NULL),
-(37, 'App\\Models\\Admin\\Course\\CourseCategory', 3, 'hi', 'category_name', 'तमाम', '2025-02-23 04:43:34', NULL),
+(32, 'App\\Models\\Admin\\Course\\CourseCategory', 2, 'en', 'category_name', 'Global Pharmaceutical accreditation', '2025-02-23 04:39:07', '2025-04-06 15:04:44'),
+(33, 'App\\Models\\Admin\\Course\\CourseCategory', 2, 'bn', 'category_name', 'গ্লোবাল ফার্মাসিউটিক্যাল স্বীকৃতি', '2025-02-23 04:39:08', '2025-04-06 15:04:45'),
+(34, 'App\\Models\\Admin\\Course\\CourseCategory', 2, 'hi', 'category_name', 'अफ़मणता', '2025-02-23 04:39:10', '2025-04-06 15:04:46'),
+(35, 'App\\Models\\Admin\\Course\\CourseCategory', 3, 'en', 'category_name', 'Industrial Pharmacy', '2025-02-23 04:43:32', '2025-04-06 15:01:43'),
+(36, 'App\\Models\\Admin\\Course\\CourseCategory', 3, 'bn', 'category_name', 'শিল্প ফার্মাসি', '2025-02-23 04:43:34', '2025-04-06 15:01:45'),
+(37, 'App\\Models\\Admin\\Course\\CourseCategory', 3, 'hi', 'category_name', 'तमाम', '2025-02-23 04:43:34', '2025-04-06 15:01:45'),
 (38, 'App\\Models\\Admin\\Course\\CourseSubCategory', 2, 'en', 'sub_category_name', 'Web Application Development', '2025-02-23 04:47:38', NULL),
 (39, 'App\\Models\\Admin\\Course\\CourseSubCategory', 2, 'bn', 'sub_category_name', 'ওয়েব অ্যাপ্লিকেশন বিকাশ', '2025-02-23 04:47:39', NULL),
 (40, 'App\\Models\\Admin\\Course\\CourseSubCategory', 2, 'hi', 'sub_category_name', 'अराध्य', '2025-02-23 04:47:40', NULL),
@@ -807,7 +905,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `username`, `image`, `email_verified_at`, `password`, `status`, `delete`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'MD. Mutasim Naib Sumit', 'mutasim@gmail.com', '01724698392', NULL, NULL, NULL, '$2y$12$4ucPbpCy/mURWG9RhdkapOFDs02h.k338W2MueZu4mDz0oMMcY6MW', 1, 0, NULL, '2025-02-18 06:44:11', '2025-02-18 06:44:11');
+(1, 'MD. Mutasim Naib Sumit', 'mutasim@gmail.com', '01724698392', NULL, NULL, NULL, '$2y$12$4ucPbpCy/mURWG9RhdkapOFDs02h.k338W2MueZu4mDz0oMMcY6MW', 1, 0, NULL, '2025-02-18 06:44:11', '2025-02-18 06:44:11'),
+(2, 'TEST', 'test@test.com', '12345678998', NULL, NULL, NULL, '$2y$12$Y56MjzbaK3Bq/kYVlaRh/.RDz8cvwtbx/uS1f.e9iDVEUVNBwvzhS', 1, 0, NULL, '2025-04-06 08:23:24', '2025-04-06 08:23:24');
 
 --
 -- Indexes for dumped tables
@@ -953,6 +1052,12 @@ ALTER TABLE `model_has_roles`
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
@@ -972,6 +1077,21 @@ ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `purchases`
+--
+ALTER TABLE `purchases`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `purchase_courses`
+--
+ALTER TABLE `purchase_courses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchase_courses_purchase_id_foreign` (`purchase_id`),
+  ADD KEY `purchase_courses_user_id_foreign` (`user_id`),
+  ADD KEY `purchase_courses_course_id_foreign` (`course_id`);
 
 --
 -- Indexes for table `roles`
@@ -1010,13 +1130,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `admin_profile_details`
 --
 ALTER TABLE `admin_profile_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `api_keys`
@@ -1046,7 +1166,7 @@ ALTER TABLE `course_batches`
 -- AUTO_INCREMENT for table `course_carts`
 --
 ALTER TABLE `course_carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `course_categories`
@@ -1076,7 +1196,7 @@ ALTER TABLE `course_sub_categories`
 -- AUTO_INCREMENT for table `course_videos`
 --
 ALTER TABLE `course_videos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1100,7 +1220,13 @@ ALTER TABLE `maintenances`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1115,10 +1241,22 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `purchases`
+--
+ALTER TABLE `purchases`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `purchase_courses`
+--
+ALTER TABLE `purchase_courses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `translations`
@@ -1130,7 +1268,7 @@ ALTER TABLE `translations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -1226,6 +1364,14 @@ ALTER TABLE `model_has_permissions`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `purchase_courses`
+--
+ALTER TABLE `purchase_courses`
+  ADD CONSTRAINT `purchase_courses_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `purchase_courses_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`),
+  ADD CONSTRAINT `purchase_courses_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `role_has_permissions`
