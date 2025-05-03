@@ -464,6 +464,11 @@ Hero Area
         // })
     </script>
     @endif
+    @if (session()->get('success_payment'))
+    <script>
+        toastr.success("{{ session()->get('success_payment') }}",{timeOut:5000,showMethod:'slideDown'});
+    </script>
+    @endif
     <script>
         $('.goToLogin').click(function(){
             window.location.replace("{{ route('user.login','login') }}");

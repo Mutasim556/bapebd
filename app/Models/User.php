@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\FrontEnd\PurchaseCourse;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,6 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -47,4 +50,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function purchasedCourses($id){
+        $data = PurchaseCourse::with('batch')->where('user_id',$id)->get();
+        $arr = [];
+        foreach($data as $value){
+            dd($value->batch());
+            if($value->course_type=='Live' && $value->batch->batch_end_date<=date('Y-m-d')){
+
+                $arr[]=$value->course_id;
+            }
+            if($value->course_type=='Pre-recorded'){
+                $arr[]=$value->course_id;
+            }
+        }
+        return $arr;
+    }
 }

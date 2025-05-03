@@ -188,8 +188,22 @@ $categories = \App\Models\Admin\Course\CourseCategory::with('courses')->where([[
                                 <span class="text-success mx-auto" style="font-size: 15px;text-align: center"><Strong>{{ __('admin_local.Price') }}</Strong> : {{ $course->course_price }} {{ $course->course_price_currency }}</span>
                             @endif
                             <div class="course-meta py-1 my-0">
+                                
+                                @if (Auth::user())
+                                    @php
+                                        $purchased_courses = Auth::user()->purchasedCourses(Auth::user()->id);
+                                    @endphp
+                                    @if (!empty($purchased_courses)&& in_array($course->id,$purchased_courses))
+                                    <a href="{{ route('frontend.courses.single',$course->course_name_slug) }}" class="btn btn-success mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.View Course') }}</a>
+                                    @else
+                                    <a class="btn btn-primary mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
+                                    <a href="{{ route('frontend.course.addCart',$course->course_name_slug) }}" class="btn btn-info mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Add Cart') }}</a>
+                                    @endif
+                                @else
                                 <a class="btn btn-primary mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
                                 <a href="{{ route('frontend.course.addCart',$course->course_name_slug) }}" class="btn btn-info mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Add Cart') }}</a>
+                                @endif
+                                
                             </div>
                             
                             @if ($course->course_type=='Live')

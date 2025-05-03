@@ -9,7 +9,7 @@
         <div class="woocommerce-notices-wrapper" >
             <div class="woocommerce-message">{{ __('admin_local.Shipping costs updated') }}</div>
         </div>
-        <form action="#" id="course_purchase_form" class="woocommerce-cart-form">
+        <form method="post" action="{{ route('frontend.course.cartPayment') }}" id="course_purchase_form" class="woocommerce-cart-form">
             @csrf
             <table class="cart_table">
                 <thead>
@@ -54,10 +54,10 @@
                             @php
                                 $liveCount++;
                             @endphp
-                            <select name="live_course_batch[]" id="live_course_batch" class="form-control">
+                            <select name="live_course_batch[]" id="live_course_batch" class="form-control" required>
                                 <option value="">{{ __('admin_local.Select Batch') }}</option>
                                 @foreach ($course_batches as $course_batch)
-                                 <option value="{{ encrypt($course_batch->batch_code.'|'.$course_batch->id) }}">{{ $course_batch->batch_name }}</option>
+                                 <option value="{{ $course_batch->id }}">{{ $course_batch->batch_name }}</option>
                                 @endforeach
                             </select>
                             <span class="err-mgs" id="live_course_batch_err"></span>
@@ -117,7 +117,7 @@
                                         <select name="payment_mode" id="payment_mode" class="form-select" onchange="$(this).val()=='manual_payment'?$('#manual_pay_option').removeClass('d-none'):$('#manual_pay_option').addClass('d-none')">
                                             <option value="" disabled>{{ __('admin_local.Select Payment Option') }}</option>
                                             <option value="manual_payment">{{ __('admin_local.Manual Payment') }}</option>
-                                            <option value="sslcomerz" selected="selected">{{ __('admin_local.Sslcomerz') }}</option>
+                                            <option value="sslcommerz" selected="selected">{{ __('admin_local.Sslcommerz') }}</option>
                                         </select>
                                         <span class="err-mgs" id="payment_mode_err"></span>
                                     </p>
@@ -222,26 +222,48 @@
         })
     </script>
     <script>
-        $('#course_purchase_form').on('submit',function(e){
-            e.preventDefault();
-            $.ajax({
-                type: "post",
-                url: "{{ url('course/cart-payment') }}",
-                data : $(this).serialize(),
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (data) {
+        var obj = {};
+    // If you want to pass some value from frontend, you can do like this, but be aware, this value can be modified by anyone, so it's not secure to pass total_amount, store_passwd etc from frontend.
+    // obj.cus_name = $('#customer_name').val();
+    // obj.cus_phone = $('#mobile').val();
+    // obj.cus_email = $('#email').val();
+    // obj.cus_addr1 = $('#address').val();
 
-                },
-                error : function(err){
-                    $('#applied_coupons').empty();
-                    $('#applied_coupon_discount').empty();
-                    $('#total_payable').empty().append(err.responseJSON.subTotal+` ${err.responseJSON.currency}`);
-                    toastr.error(err.responseJSON.invalid_message,{timeOut:5000,showMethod:'slideDown'});
-                }
-            })
-        })
+    // $('#sslczPayBtn').prop('postdata', obj);
+
+    // (function (window, document) {
+    //     var loader = function () {
+    //         var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+    //         // script.src = "https://seamless-epay.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR LIVE
+    //         script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7); // USE THIS FOR SANDBOX
+    //         tag.parentNode.insertBefore(script, tag);
+    //     };
+
+    //     window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+    // })(window, document);
+
+
+
+        // $('#course_purchase_form').on('submit',function(e){
+        //     e.preventDefault();
+        //     $.ajax({
+        //         type: "post",
+        //         url: "{{ url('course/cart-payment') }}",
+        //         data : $(this).serialize(),
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         success: function (data) {
+                    
+        //         },
+        //         error : function(err){
+        //             $('#applied_coupons').empty();
+        //             $('#applied_coupon_discount').empty();
+        //             $('#total_payable').empty().append(err.responseJSON.subTotal+` ${err.responseJSON.currency}`);
+        //             toastr.error(err.responseJSON.invalid_message,{timeOut:5000,showMethod:'slideDown'});
+        //         }
+        //     })
+        // })
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

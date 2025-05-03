@@ -326,7 +326,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (data) {
-
+                    window.location.reload();
                 },
                 error : function(err){
                     if(err.status=401){

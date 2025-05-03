@@ -149,7 +149,7 @@
                                     @endforeach
 
                                 </select>
-                                <span class="text-danger err-mgs"></span>
+                                <span class="text-danger err-mgs"></span> 
                             </div>
                             <div class="col-lg-6 mt-2">
                                 <label for="name"><strong>{{ __('admin_local.Name') }} ( {{ __('admin_local.Default') }} ) *</strong></label>

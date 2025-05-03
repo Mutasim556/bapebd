@@ -462,7 +462,7 @@ return array (
   'Payment Options' => 'Payment Options',
   'Select Payment Option' => 'Select Payment Option',
   'Manual Payment' => 'Manual Payment',
-  'Sslcomerz' => 'Sslcomerz',
+  'Sslcommerz' => 'Sslcommerz',
   'Select Paid By' => 'Select Paid By',
   'Phone Number' => 'Phone Number',
   'Transaction ID' => 'Transaction ID',
