@@ -61,7 +61,7 @@
                             </div>
                             @endforeach
                         @endif
-                        
+
                     </div>
                 </div>
                 <div class="th-sort-bar course-sort-bar">
@@ -70,103 +70,22 @@
                             <p class="woocommerce-result-count">{{ __("admin_local.Showing") }} {{ count($courses) }} {{ __('admin_local.Results') }}</p>
                         </div>
 
-                        <div class="col-md-auto">
+                        {{-- <div class="col-md-auto">
                             <div class="nav" role=tablist>
                                 <a class="active" href="#" id="tab-shop-list" data-bs-toggle="tab" data-bs-target="#tab-list" role="tab" aria-controls="tab-grid" aria-selected="false"><i class="fa-solid fa-grid-2 me-2"></i>Grid</a>
                                 <a href="#" id="tab-shop-grid" data-bs-toggle="tab" data-bs-target="#tab-grid" role="tab" aria-controls="tab-grid" aria-selected="true"><i class="fa-solid fa-list me-2"></i>List</a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
-                
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade" id="tab-grid" role="tabpanel" aria-labelledby="tab-shop-grid">
-                        <div class="row gy-30">
-                            @foreach ($courses as $course)
-                            @php
-                                $course_images = $course->course_images?explode(',',$course->course_images):asset('public/bipebd/assets/img/course/course_1_1.png');
-                            @endphp
-                            <div class="col-12">
-                                <div class="course-grid">
-                                    <div class="course-img">
-                                        <img src="{{ asset($course->course_images?$course_images[0]:$course_images) }}" alt="img">
-                                        @if ($course->course_discount>0)
-                                            <span class="tag mt-0"><i class="fas fa-clock"></i>{{ $course->course_discount_type=='Flat'?__('admin_local.Flat'):'' }} {{$course->course_discount}} {{ $course->course_discount_type=='Flat'?$course->course_price_currency:'%' }} {{ __('admin_local.Discount') }}</span>
-                                        @else
-                                            
-                                        @endif
-                                    </div>
-                                    <div class="course-content" style="width: 100%">
-                                        <div class="d-flex justify-content-between">
-                                            @if ($course->course_type=='Live')
-                                            @php
-                                                $inctructor = \App\Models\Admin\Course\CourseInstructor::with('instructor')->where([['course_id',$course->id]])->orderBy('id','DESC')->first();
-                                                $batches = \App\Models\Admin\Course\CourseBatch::where([['batch_status',1],['batch_delete',0],['course_id',$course->id]])->get();
-                                            @endphp
-                                            <div class="offer-tag bg-danger text-white px-2" style="border-radius: 6px;font-size:10px;">{{ __('admin_local.Live') }}</div>
-                                            @else
-                                            @php
-                                                $inctructor = \App\Models\Admin\Course\CourseInstructor::with('instructor')->where([['course_id',$course->id]])->orderBy('id','DESC')->first();
-                                                $videos = \App\Models\Admin\Course\CourseVideo::where([['video_status',1],['video_delete',0]])->get();
-                                            @endphp
-                                            <div class="offer-tag bg-success text-white px-2" style="border-radius: 6px;font-size:10px;">{{ __('admin_local.Pre-recorded') }}</div>
-                                            @endif
-                                        </div>
 
-                                        <h3 class="course-title"><a href="{{ route('frontend.courses.single',$course->course_name_slug) }}">{{ $course->course_name }}</a></h3>
-                                       
-                                        @if ($course->course_discount>0)
-                                        <span></span>
-                                        <div class="course-meta mb-0">
-                                            <span class="text-success mx-auto" style="font-size: 15px;text-align: center"><Strong>{{ __('admin_local.Price') }}</Strong> : <strike class="text-danger">{{ $course->course_price }} {{ $course->course_price_currency }}</strike> {{ $course->course_discount_price }} {{ $course->course_price_currency }}</span>
-                                            {{-- <span class="text-success" style="font-size: 13px"><Strong>{{ __('admin_local.Descounted Price') }}</Strong> : {{ $course->course_discount_price }} {{ $course->course_price_currency }}</span> --}}
-                                            
-                                        </div>
-                                        
-                                        @else
-                                            <span class="text-success mx-auto" style="font-size: 15px;text-align: center"><Strong>{{ __('admin_local.Price') }}</Strong> : {{ $course->course_price }} {{ $course->course_price_currency }}</span>
-                                        @endif
-                                        <div class="course-meta py-1 my-0" style="float: right;">
-                                            <a class="btn btn-primary mt-0 p-1 px-2 mx-3" style="font-size: 15px;text-align: center;float:left">{{ __('admin_local.Enroll Now') }}</a>
-                                            <a class="btn btn-info mt-0 p-1 px-2" style="font-size: 15px;text-align: center;float:left">{{ __('admin_local.Add Cart') }}</a>
-                                        </div>
-                                        <br><br>
-                                        @if ($course->course_type=='Live')
-                                        <div class="course-meta text-primary ">
-                                            <span><i class="fal fa-file"></i>{{ __('admin_local.Batches') }} : {{ count($batches) }}</span>
-                                            <span><i class="fal fa-user"></i>{{ __('admin_local.Students') }} : {{ $course->enrolled_count }}</span>
-                                            <span><i class="fal fa-chart-simple"></i>{{ $course->course_level }}</span>
-                                        </div>
-                                        @else
-                                        <div class="course-meta">
-                                            <span><i class="fal fa-file"></i>{{ __('admin_local.Videos') }} : {{ count($videos) }}</span>
-                                            <span><i class="fal fa-user"></i>{{ __('admin_local.Enrolled') }} : {{ $course->enrolled_count }}</span>
-                                            <span><i class="fal fa-chart-simple"></i>{{ $course->course_level }}</span>
-                                        </div>
-                                        @endif
-                                        
-                                        <div class="course-author">
-                                            @if ($course->course_type=='Live')
-                                            <div class="author-info">
-                                                <img src="@if($inctructor->instructor->image) {{ asset($inctructor->instructor->image) }} @else {{ asset('public/bipebd/assets/img/course/author.png') }} @endif" alt="author">
-                                                <a href="{{ route('frontend.courses.single',$course->course_name_slug) }}" class="author-name">{{ $inctructor->instructor->name }}</a>
-                                            </div>
-                                            @else
-                                            <div class="author-info">
-                                                <img src="@if($inctructor->instructor->image) {{ asset($inctructor->instructor->image) }} @else {{ asset('public/bipebd/assets/img/course/author.png') }} @endif" alt="author">
-                                                <a href="course.html" class="author-name">{{ $inctructor->instructor->name }}</a>
-                                            </div>
-                                            @endif
-                                            <a href="course-details.html" class="link-btn">View Details<i class="fas fa-arrow-right ms-2"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
+                <div class="tab-content" id="nav-tabContent">
+
                     <div class="tab-pane fade active show" id="tab-list" role="tabpanel" aria-labelledby="tab-shop-list">
                         <div class="row gy-30">
+                            @php
+                                $purchased_courses = Auth::user()->purchasedCourses(Auth::user()->id);
+                            @endphp
                             @foreach ($courses as $course)
                             @php
                                 $course_images = $course->course_images?explode(',',$course->course_images):asset('public/bipebd/assets/img/course/course_1_1.png');
@@ -178,7 +97,7 @@
                                         @if ($course->course_discount>0)
                                             <span class="tag mt-0"><i class="fas fa-clock"></i>{{ $course->course_discount_type=='Flat'?__('admin_local.Flat'):'' }} {{$course->course_discount}} {{ $course->course_discount_type=='Flat'?$course->course_price_currency:'%' }} {{ __('admin_local.Discount') }}</span>
                                         @else
-                                            
+
                                         @endif
                                     </div>
                                     <div class="course-content px-2">
@@ -190,15 +109,21 @@
                                         <div class="course-meta mb-0">
                                             <span class="text-success mx-auto" style="font-size: 15px;text-align: center"><Strong>{{ __('admin_local.Price') }}</Strong> : <strike class="text-danger">{{ $course->course_price }} {{ $course->course_price_currency }}</strike> {{ $course->course_discount_price }} {{ $course->course_price_currency }}</span>
                                             {{-- <span class="text-success" style="font-size: 13px"><Strong>{{ __('admin_local.Descounted Price') }}</Strong> : {{ $course->course_discount_price }} {{ $course->course_price_currency }}</span> --}}
-                                            
+
                                         </div>
-                                        
+
                                         @else
                                             <span class="text-success mx-auto" style="font-size: 15px;text-align: center"><Strong>{{ __('admin_local.Price') }}</Strong> : {{ $course->course_price }} {{ $course->course_price_currency }}</span>
                                         @endif
                                         <div class="course-meta py-1 my-0">
+
+                                            @if (!empty($purchased_courses)&& in_array($course->id,$purchased_courses))
+                                            <a href="{{ route('frontend.courses.single',$course->course_name_slug) }}" class="btn btn-success mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.View Course') }}</a>
+                                            @else
                                             <a class="btn btn-primary mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
                                             <button data-course_slug="{{ $course->course_name_slug }}" id="add_cart" class="btn btn-info mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Add Cart') }}</button>
+                                            @endif
+
                                         </div>
                                         @if ($course->course_type=='Live')
                                         @php
@@ -287,17 +212,17 @@
                     <div class="widget widget_price_filter style2  ">
                         <h4 class="widget_title">{{ __("admin_local.Course Type") }}</h4>
                         <ul>
-                            
+
                             <li><input id="freecheck" name="freecheck" type="checkbox" {{ $url_slug['type']=='live'?'checked':'' }} onclick="window.location.replace('{{ route('frontend.courses.getAllCourses',['live']) }}')">
                                 <label for="freecheck">{{ __('admin_local.LIVE') }}<span class="checkmark"></span></label>
                             </li>
-                            
+
                             <li><input id="paidcheck" name="paidcheck" type="checkbox" {{ $url_slug['type']=='pre-recorded'?'checked':'' }} onclick="window.location.replace('{{ route('frontend.courses.getAllCourses',['pre-recorded']) }}')" >
                                 <label for="paidcheck">{{ __('admin_local.PRE-RECORDED') }}<span class="checkmark"></span></label>
                             </li>
                         </ul>
                     </div>
-                    
+
                     {{-- <div class="widget widget_instructor style2  ">
                         <h4 class="widget_title">Our Instructor</h4>
                         <ul>

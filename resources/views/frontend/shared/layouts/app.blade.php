@@ -78,11 +78,11 @@
                             $subTotal = 0;
                         @endphp
                         @foreach ($carts as $kcart=>$cart)
-                        
+
                         @php
                             if($cart->course->course_status==0 || $cart->course->course_delete==1){
                                 continue;
-                            } 
+                            }
                             $cart_course_images = '';
                             $cart_course_images = $cart->course->course_images?explode(',',$cart->course->course_images):asset('public/bipebd/assets/img/course/course_1_1.png');
                         @endphp
@@ -102,7 +102,7 @@
                     </ul>
                     <p class="woocommerce-mini-cart__total total">
                         <strong>{{ __('admin_local.Subtotal') }}:</strong>
-                        
+
                         <span class="woocommerce-Price-amount amount" id="subTotal">{{ floor($subTotal) }} @if (count($carts)>0) {{ $cart->course->course_price_currency }} @endif</span>
                     </p>
                     <p class="woocommerce-mini-cart__buttons buttons">
@@ -114,7 +114,7 @@
         </div>
     </div>
     @endif
-    
+
     <div class="popup-search-box d-none d-lg-block">
         <button class="searchClose"><i class="fal fa-times"></i></button>
         <form action="#">
@@ -137,7 +137,7 @@
                     <button type="submit"><i class="far fa-search"></i></button>
                 </form>
                 @include('frontend.shared.nav.nav')
-                
+
             </div>
             <div class="row py-0 px-1">
                 <div class="col-md-12 py-0 text-center">
@@ -145,9 +145,9 @@
                     <a class="th-btn style1 py-10 px-10" href="#"><i class="fa-solid fa-user"></i>  {{ Auth::user()->name }}</a><br><br>
                     <a class="th-btn style1 py-10 px-10 mt-3" href="{{ route('user.attemptLogout') }}"><i class="fa-solid fa-right-from-bracket"></i>  {{ __("admin_local.Sign Out") }}</a>
                     @else
-                    <a class="th-btn style1 py-10 px-10 mr-5" href="{{ route('user.login','login') }}"><i class="fa-solid fa-right-to-bracket"></i>  {{ __('admin_local.Login') }}</a> <a href="{{ route('user.login','register') }}" class="th-btn style3 py-10 px-10" href="contact.html"><i class="fa-regular fa-user-plus"></i> {{ __('admin_local.Register') }}</a>   
+                    <a class="th-btn style1 py-10 px-10 mr-5" href="{{ route('user.login','login') }}"><i class="fa-solid fa-right-to-bracket"></i>  {{ __('admin_local.Login') }}</a> <a href="{{ route('user.login','register') }}" class="th-btn style3 py-10 px-10" href="contact.html"><i class="fa-regular fa-user-plus"></i> {{ __('admin_local.Register') }}</a>
                     @endif
-                    
+
                 </div>
             </div>
         </div>
@@ -171,7 +171,7 @@
                                     @else
                                     <i class="far fa-user"></i><a href="{{ route('user.login','login') }}">{{ __('admin_local.Login') }}</a> / <a href="{{ route('user.login','register') }}">{{ __('admin_local.Register') }}</a>
                                     @endif
-                                    
+
                                 </li>
                             </ul>
                         </div>
@@ -189,7 +189,7 @@
                                         <a href="https://www.instagram.com/"><i class="fab fa-skype"></i></a> --}}
                                     </div>
                                 </li>
-                                
+
                             </ul>
                         </div>
                     </div>
@@ -412,7 +412,7 @@ Hero Area
     </footer>
 
     <!--********************************
-			Code End  Here 
+			Code End  Here
 	******************************** -->
 
     <!-- Scroll To Top -->
@@ -457,6 +457,16 @@ Hero Area
     @if (session()->get('cart_add_success'))
     <script>
         toastr.success("{{ session()->get('cart_add_success') }}",{timeOut:5000,showMethod:'slideDown'});
+        // toastr.success('We do have the Kapua suite available.', 'Turtle Bay Resort', {timeOut: 15000})
+
+        // toastr.success({
+        //     text:'asdasdasdasdas'
+        // })
+    </script>
+    @endif
+    @if (session()->get('cart_add_invalid'))
+    <script>
+        toastr.error("{{ session()->get('cart_add_invalid') }}",{timeOut:5000,showMethod:'slideDown'});
         // toastr.success('We do have the Kapua suite available.', 'Turtle Bay Resort', {timeOut: 15000})
 
         // toastr.success({

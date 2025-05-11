@@ -87,8 +87,8 @@
 </div>
 <!--======== / Hero Section ========-->
 <!--==============================
-    
-Contact Area  
+
+Contact Area
 ==============================-->
 
 @php
@@ -160,15 +160,15 @@ $categories = \App\Models\Admin\Course\CourseCategory::with('courses')->where([[
                 $course_images = $course->course_images?explode(',',$course->course_images):asset('public/bipebd/assets/img/course/course_1_1.png');
             @endphp
                 <div class="col-md-6 col-xxl-3 col-lg-4" >
-                    <div class="course-box px-0" style="border:1px dashed lightgrey">
+                    <div class="course-box px-0" style="border:1px dashed lightgrey"> 
                         <div class="course-img">
                             <a href="{{ route('frontend.courses.single',$course->course_name_slug) }}"><img style="height:250px" src="{{ $course->course_images?$course_images[0]:$course_images }}" alt="img"></a>
                             @if ($course->course_discount>0)
                             <span class="tag"><i class="fas fa-clock"></i>{{ $course->course_discount_type=='Flat'?__('admin_local.Flat'):'' }} {{$course->course_discount}} {{ $course->course_discount_type=='Flat'?$course->course_price_currency:'%' }} {{ __('admin_local.Discount') }}</span>
                             @else
-                                
+
                             @endif
-                            
+
                         </div>
                         <div class="course-content px-2 text-center" >
                             {{-- <div class="course-rating my-0">
@@ -182,13 +182,13 @@ $categories = \App\Models\Admin\Course\CourseCategory::with('courses')->where([[
                             <div class="course-meta mb-0">
                                 <span class="text-success mx-auto" style="font-size: 15px;text-align: center"><Strong>{{ __('admin_local.Price') }}</Strong> : <strike class="text-danger">{{ $course->course_price }} {{ $course->course_price_currency }}</strike> {{ $course->course_discount_price }} {{ $course->course_price_currency }}</span>
                                 {{-- <span class="text-success" style="font-size: 13px"><Strong>{{ __('admin_local.Descounted Price') }}</Strong> : {{ $course->course_discount_price }} {{ $course->course_price_currency }}</span> --}}
-                                
+
                             </div>
                             @else
                                 <span class="text-success mx-auto" style="font-size: 15px;text-align: center"><Strong>{{ __('admin_local.Price') }}</Strong> : {{ $course->course_price }} {{ $course->course_price_currency }}</span>
                             @endif
                             <div class="course-meta py-1 my-0">
-                                
+
                                 @if (Auth::user())
                                     @php
                                         $purchased_courses = Auth::user()->purchasedCourses(Auth::user()->id);
@@ -203,9 +203,9 @@ $categories = \App\Models\Admin\Course\CourseCategory::with('courses')->where([[
                                 <a class="btn btn-primary mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
                                 <a href="{{ route('frontend.course.addCart',$course->course_name_slug) }}" class="btn btn-info mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Add Cart') }}</a>
                                 @endif
-                                
+
                             </div>
-                            
+
                             @if ($course->course_type=='Live')
                             @php
                                 $inctructor = \App\Models\Admin\Course\CourseInstructor::with('instructor')->where([['course_id',$course->id]])->orderBy('id','DESC')->first();
@@ -241,19 +241,19 @@ $categories = \App\Models\Admin\Course\CourseCategory::with('courses')->where([[
                                     <div class="offer-tag bg-success text-white px-2" style="border-radius: 6px;font-size:11px;">{{ __('admin_local.Pre-recorded') }}</div>
                                 </div>
                             @endif
-                            
+
                         </div>
                     </div>
                 </div>
             @endforeach
             </div>
-            
+
         </div>
     </div>
 </section>
 
 <!--==============================
-About Area  
+About Area
 ==============================-->
 <section class="py-5 bg-smoke overflow-hidden" id="team-sec">
     <div class="shape-mockup team2-bg-shape1 jump-reverse d-lg-block d-none" data-left="-2%" data-top="0">
@@ -321,7 +321,7 @@ About Area
                     </div>
                 </div>
             @endforeach
-            
+
         </div>
     </div>
 </section>
@@ -356,7 +356,7 @@ About Area
     </div>
 </div>
 <!--==============================
-Contact Area  
+Contact Area
 ==============================-->
 
 <div class="overflow-hidden space" id="about-sec">
@@ -403,7 +403,7 @@ Contact Area
     </div>
 </div>
 <!--==============================
-Testimonial Area  
+Testimonial Area
 ==============================-->
 
 <section class="testi-area-4 overflow-hidden space py-4" data-bg-src="{{ asset('public/bipebd/assets/img/bg/testi_bg_3.png') }}">

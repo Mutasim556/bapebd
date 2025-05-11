@@ -31,10 +31,10 @@
                     @php
                         if($cart->course->course_status==0 || $cart->course->course_delete==1){
                                 continue;
-                        } 
+                        }
                         $cart_course_images = '';
                         $cart_course_images = $cart->course->course_images?explode(',',$cart->course->course_images):asset('public/bipebd/assets/img/course/course_1_1.png');
-                        
+
                         if($cart->course->course_type=='Live'){
                             $course_batches =  \App\Models\Admin\Course\CourseBatch::where([['batch_status',1],['batch_delete',0],['course_id',$cart->course->id]])->whereDate('batch_start_date','>=',date('Y-m-d'))->get();
                             if (count($course_batches)==0) {
@@ -72,7 +72,7 @@
                             @else
                             <span class="amount text-uppercase" style="background-color: #F20F10;color:white;padding:3px 10px;border-radius:10px;font-size:12px;font-weight:600"><bdi>{{ $cart->course->course_discount }} % </bdi></span>
                             @endif
-                            
+
                         @else N/A @endif
                         </td>
                         <td data-title="Total">
@@ -86,7 +86,7 @@
                         $cartSubTotal = floor($cartSubTotal + ($cart->course->course_discount>0?$cart->course->course_discount_price:$cart->course->course_price))
                     @endphp
                     @endforeach
-                    
+
                     <tr class="button-tr">
                         <td colspan="6" class="actions">
                             <a href="shop.html" class="th-btn">{{ __('admin_local.Continue Purchase Course') }}</a>
@@ -98,7 +98,7 @@
                     </tr>
                 </tbody>
             </table>
-        
+
             <div class="row justify-content-end">
                 <div class="col-md-8 col-lg-7 col-xl-6">
                     <h2 class="h4 summary-title">{{ __('admin_local.Cart Totals') }}</h2>
@@ -114,28 +114,45 @@
                                 <th>{{ __('admin_local.Payment Options') }}</th>
                                 <td data-title="Shipping and Handling">
                                     <p class="form-row py-0">
-                                        <select name="payment_mode" id="payment_mode" class="form-select" onchange="$(this).val()=='manual_payment'?$('#manual_pay_option').removeClass('d-none'):$('#manual_pay_option').addClass('d-none')">
+                                        <select name="payment_mode" id="payment_mode" class="form-select" onchange="$(this).val()=='manual_payment'?manual_pay_option():$('#manual_pay_option').addClass('d-none')">
                                             <option value="" disabled>{{ __('admin_local.Select Payment Option') }}</option>
-                                            <option value="manual_payment">{{ __('admin_local.Manual Payment') }}</option>
-                                            <option value="sslcommerz" selected="selected">{{ __('admin_local.Sslcommerz') }}</option>
+                                            <option value="manual_payment" @if($errors->any()) selected @endif>{{ __('admin_local.Manual Payment') }}</option>
+                                            <option value="sslcommerz" @if(!$errors->any()) selected="selected" @endif>{{ __('admin_local.Sslcommerz') }}</option>
                                         </select>
                                         <span class="err-mgs" id="payment_mode_err"></span>
                                     </p>
-                                    <div id="manual_pay_option" class="d-none">
+                                    <script>
+                                        function manual_pay_option(){
+                                            $('#manual_pay_option').removeClass('d-none');
+                                            $('[name=pay_option]').prop('required',true);
+                                            $('[name=phone_number]').prop('required',true);
+                                            $('[name=transaction_id]').prop('required',true);
+                                        }
+                                    </script>
+                                    <div id="manual_pay_option" @if(!$errors->any()) class="d-none" @endif>
                                         <p class="form-row">
-                                            <select class="form-select" name="pay_option">
+                                            <select class="form-select  @error('pay_option') is-invalid @enderror" name="pay_option">
                                                 <option value="" selected disabled>{{ __('admin_local.Select Paid By') }}</option>
                                                 <option value="Bkash">Bkash</option>
                                                 <option value="Nagad">Nagad</option>
                                                 <option value="Rocket">Rocket</option>
                                             </select>
                                             <span class="err-mgs" id="pay_option_id"></span>
+                                            @error('pay_option')
+                                                <span class="text-danger">{{ __('admin_local.Pay Option Required') }}</span>
+                                            @enderror
                                         </p>
                                         <p>
-                                            <input type="text" class="form-select" name="phone_number" placeholder="{{ __('admin_local.Phone Number') }}">
+                                            <input type="text" class="form-select @error('pay_option') is-invalid @enderror" name="phone_number" placeholder="{{ __('admin_local.Phone Number') }}">
+                                            @error('phone_number')
+                                                <span class="text-danger">{{ __('admin_local.Phone Number Required') }}</span>
+                                            @enderror
                                         </p>
                                         <p>
-                                            <input type="text" class="form-select" name="transaction_id" placeholder="{{ __('admin_local.Transaction ID') }}">
+                                            <input type="text" class="form-select @error('pay_option') is-invalid @enderror" name="transaction_id" onkeypress="$(this).val($(this).val().toUpperCase())" placeholder="{{ __('admin_local.Transaction ID') }}">
+                                            @error('transaction_id')
+                                                <span class="text-danger">{{ __('admin_local.Transaction ID Required') }}</span>
+                                            @enderror
                                         </p>
                                     </div>
                                 </td>
@@ -254,7 +271,7 @@
         //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         //         },
         //         success: function (data) {
-                    
+
         //         },
         //         error : function(err){
         //             $('#applied_coupons').empty();
@@ -281,9 +298,9 @@
                 if (result.isConfirmed) {
                     window.location.replace("{{ url('course/delete-from-cart') }}"+"/"+slugg);
                 }
-                
+
             })
         }
-        
+
     </script>
 @endsection

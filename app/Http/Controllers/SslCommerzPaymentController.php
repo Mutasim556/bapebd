@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
+use App\Models\Admin\Course\Course;
 use App\Models\FrontEnd\CourseCart;
 use App\Models\FrontEnd\Purchase;
 use App\Models\FrontEnd\PurchaseCourse;
@@ -165,13 +166,13 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        
+
         echo "Transaction is Successful";
 
         $tran_id = $request->input('tran_id');
         $amount = $request->input('amount');
         $currency = $request->input('currency');
-        
+
 
 
         $sslc = new SslCommerzNotification();
@@ -202,7 +203,7 @@ class SslCommerzPaymentController extends Controller
                             $course_id = $course_id."|";
                         }
                     }
-    
+
                     $purchase = new Purchase();
                     $purchase->courses = json_encode($course_id);
                     $purchase->total_amount = $request->value_b;
@@ -228,13 +229,19 @@ class SslCommerzPaymentController extends Controller
                         }else{
                             $purchase_course->batch_id = null;
                         }
-                        
+
                         $purchase_course->status = 1;
                         $purchase_course->save();
                     }
+                    if($cart->course->course_type=='Pre-recorded'){
+
+                        $course_u = Course::findOrFail($cart->course_id);
+                        $course_u->enrolled_count = $course_u->enrolled_count+1;
+                        $course_u->save();
+                    }
                     $carts  = CourseCart::with('course')->where('user_id',Auth::user()->id)->delete();
                     return to_route('frontend.course.viewCart')->with('success_payment',__('admin_local.Course purchase successfully done'));
-                    
+
             }
         } else if ($order_details->status == 'Processing' || $order_details->status == 'Complete') {
             /*
@@ -274,9 +281,14 @@ class SslCommerzPaymentController extends Controller
                     }else{
                         $purchase_course->batch_id = null;
                     }
-                    
+
                     $purchase_course->status = 1;
                     $purchase_course->save();
+                }
+                if($cart->course->course_type=='Pre-recorded'){
+                    $course_u = Course::findOrFail($cart->course_id);
+                    $course_u->enrolled_count = $course_u->enrolled_count+1;
+                    $course_u->save();
                 }
                 $carts  = CourseCart::with('course')->where('user_id',Auth::user()->id)->delete();
             return to_route('frontend.course.viewCart')->with('success_payment',__('admin_local.Course purchase successfully done'));

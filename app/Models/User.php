@@ -52,10 +52,9 @@ class User extends Authenticatable
     ];
 
     public function purchasedCourses($id){
-        $data = PurchaseCourse::with('batch')->where('user_id',$id)->get();
+        $data = PurchaseCourse::with('batch')->where([['user_id',$id],['status',1]])->get();
         $arr = [];
         foreach($data as $value){
-            dd($value->batch());
             if($value->course_type=='Live' && $value->batch->batch_end_date<=date('Y-m-d')){
 
                 $arr[]=$value->course_id;

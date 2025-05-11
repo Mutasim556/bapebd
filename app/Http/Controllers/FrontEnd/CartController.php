@@ -7,6 +7,8 @@ use App\Library\SslCommerz\SslCommerzNotification;
 use App\Models\Admin\Course\Course;
 use App\Models\Admin\Course\CourseCoupon;
 use App\Models\FrontEnd\CourseCart;
+use App\Models\FrontEnd\Purchase;
+use App\Models\FrontEnd\PurchaseCourse;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,25 +23,29 @@ class CartController extends Controller
         // $cart->user_id = Auth::user()->id;
         // $cart->course_id = $course->id;
         // $cart->save();
-        CourseCart::updateOrInsert([
-            'user_id'                =>  Auth::user()->id,
-            'course_id'                   => $course->id,
-        ],[
-            'created_at'            => Carbon::now(),
-            'updated_at'            => Carbon::now(),
-        ]);
-        if(request()->ajax()){
-            return true;
-        }else{
-            return back()->with('cart_add_success',__("admin_local.Successfully added to the cart"));
+        $check_purchase_request = PurchaseCourse::where([['course_id',$course->id],['status',0]])->first();
+        if($check_purchase_request){
+            return back()->with('cart_add_invalid',__("admin_local.You have aleady a purchase request of this course"));
         }
+        // CourseCart::updateOrInsert([
+        //     'user_id'                =>  Auth::user()->id,
+        //     'course_id'                   => $course->id,
+        // ],[
+        //     'created_at'            => Carbon::now(),
+        //     'updated_at'            => Carbon::now(),
+        // ]);
+        // if(request()->ajax()){
+        //     return true;
+        // }else{
+        //     return back()->with('cart_add_success',__("admin_local.Successfully added to the cart"));
+        // }
     }
 
     public function deleteCart(string $slug){
         if(request()->ajax()){
             $course = Course::where([['course_name_slug',$slug]])->select('id')->first();
             $delete = CourseCart::where([['course_id',$course->id],['user_id',Auth::user()->id]])->delete();
-           
+
             $cart_total = CourseCart::with('course')->where([['user_id',Auth::user()->id]])->get();
             $cart_count = count($cart_total);
             $subTotal = 0;
@@ -53,10 +59,10 @@ class CartController extends Controller
         }else{
             $course = Course::where([['course_name_slug',$slug]])->select('id')->first();
             $delete = CourseCart::where([['course_id',$course->id],['user_id',Auth::user()->id]])->delete();
-           
+
             return back();
         }
-        
+
     }
 
     public function viewCart(){
@@ -67,7 +73,7 @@ class CartController extends Controller
 
     public function applyCoupon(Request $data){
         $check_coupon = CourseCoupon::with('applicableCourses')->where([['coupon',$data->coupon],['coupon_status',1],['coupon_delete',0]])->whereDate('coupon_start_date','<=',date('Y-m-d'))->whereDate('coupon_end_date','>=',date('Y-m-d'))->first();
-        
+
         if($check_coupon){
             $applicable_courses = [];
             $coupon_deduction = 0;
@@ -79,7 +85,7 @@ class CartController extends Controller
             foreach($cart_courses as $cart_course){
                 $subTotal = floor($subTotal + ($cart_course->course->course_discount>0?$cart_course->course->course_discount_price:$cart_course->course->course_price));
                 if(in_array($cart_course->course_id,$applicable_courses)){
-                    
+
                     if(str_replace(' ','_',strtolower($check_coupon->apply_type))=='discount_on_regular_price'){
                         if($check_coupon->coupon_discount_type=='Flat'){
                             $coupon_deduction = $coupon_deduction + $check_coupon->coupon_discount;
@@ -87,7 +93,7 @@ class CartController extends Controller
                             $discount = (($cart_course->course->course_price * $check_coupon->coupon_discount)/100);
                             $coupon_deduction = $coupon_deduction + (($check_coupon->has_maximum_discount&&$discount>$check_coupon->maximum_discount)?$check_coupon->maximum_discount:$discount);
                         }
-                        
+
                     }elseif(str_replace(' ','_',strtolower($check_coupon->apply_type))=='discount_on_discounted_price'){
                         if($check_coupon->coupon_discount_type=='Flat'){
                             $coupon_deduction = $coupon_deduction + $check_coupon->coupon_discount;
@@ -111,7 +117,7 @@ class CartController extends Controller
                                 $coupon_deduction = $coupon_deduction + (($check_coupon->has_maximum_discount&&$discount>$check_coupon->maximum_discount)?$check_coupon->maximum_discount:$discount);
                             }
                         }
-                        
+
                     }
                 }
             }
@@ -132,7 +138,7 @@ class CartController extends Controller
                     'subTotal'=>$subTotal,
                 ],404);
             }
-            
+
         }else{
             $coupon_deduction = 0;
             $subTotal = 0;
@@ -152,7 +158,7 @@ class CartController extends Controller
 
     public function cartPayment(Request $data){
         // dd($data->all());
-        
+
             if($data->applied_coupons){
                 $check_coupon = CourseCoupon::with('applicableCourses')->where([['coupon',$data->applied_coupons],['coupon_status',1],['coupon_delete',0]])->whereDate('coupon_start_date','<=',date('Y-m-d'))->whereDate('coupon_end_date','>=',date('Y-m-d'))->first();
                 if($check_coupon){
@@ -166,7 +172,7 @@ class CartController extends Controller
                     foreach($cart_courses as $cart_course){
                         $subTotal = floor($subTotal + ($cart_course->course->course_discount>0?$cart_course->course->course_discount_price:$cart_course->course->course_price));
                         if(in_array($cart_course->course_id,$applicable_courses)){
-                            
+
                             if(str_replace(' ','_',strtolower($check_coupon->apply_type))=='discount_on_regular_price'){
                                 if($check_coupon->coupon_discount_type=='Flat'){
                                     $coupon_deduction = $coupon_deduction + $check_coupon->coupon_discount;
@@ -174,7 +180,7 @@ class CartController extends Controller
                                     $discount = (($cart_course->course->course_price * $check_coupon->coupon_discount)/100);
                                     $coupon_deduction = $coupon_deduction + (($check_coupon->has_maximum_discount&&$discount>$check_coupon->maximum_discount)?$check_coupon->maximum_discount:$discount);
                                 }
-                                
+
                             }elseif(str_replace(' ','_',strtolower($check_coupon->apply_type))=='discount_on_discounted_price'){
                                 if($check_coupon->coupon_discount_type=='Flat'){
                                     $coupon_deduction = $coupon_deduction + $check_coupon->coupon_discount;
@@ -198,7 +204,7 @@ class CartController extends Controller
                                         $coupon_deduction = $coupon_deduction + (($check_coupon->has_maximum_discount&&$discount>$check_coupon->maximum_discount)?$check_coupon->maximum_discount:$discount);
                                     }
                                 }
-                                
+
                             }
                         }
                     }
@@ -224,10 +230,68 @@ class CartController extends Controller
                 $payAmount = $subTotal-$coupon_deduction;
                 // dd($data->live_course_batch);
                 $this->sslPay($payAmount,$data->live_course_batch?implode(',',$data->live_course_batch):'',$subTotal);
-        
+
+            }elseif($data->payment_mode=='manual_payment'){
+                // dd($data->all());
+                $data->validate([
+                    'pay_option'=>'required',
+                    'phone_number'=>'required',
+                    'transaction_id'=>'required',
+                ]);
+
+                $payAmount = $subTotal-$coupon_deduction;
+
+                $carts  = CourseCart::with('course')->where('user_id',Auth::user()->id)->get();
+
+                $course_id = '';
+                foreach($carts as $key=>$cart){
+                    $course_id = $course_id.$cart->course_id;
+                    if($key<count($carts)){
+                        $course_id = $course_id."|";
+                    }
+                }
+
+                $purchase = new Purchase();
+                $purchase->courses = json_encode($course_id);
+                $purchase->total_amount = $payAmount;
+                $purchase->subtotal = $subTotal;
+                $purchase->dicount_amount = $coupon_deduction;
+                $purchase->payment_method = 'manual_payment';
+                $purchase->payment_status = 0;
+                $purchase->transaction_id = $data->transaction_id;
+                $purchase->payment_option = $data->pay_option;
+                $purchase->save();
+                $live_count = 0;
+                $live_batch = explode(',',$data->live_course_batch?implode(',',$data->live_course_batch):'');
+                // dd($live_batch);
+                foreach($carts as $key=>$cart){
+                    $purchase_course = new PurchaseCourse();
+                    $purchase_course->purchase_id = $purchase->id;
+                    $purchase_course->user_id = Auth::user()->id;
+                    $purchase_course->course_id = $cart->course_id;
+                    $purchase_course->course_type = $cart->course->course_type;
+                    if($purchase_course->course_type=='Live'){
+                        $purchase_course->batch_id = $live_batch[$live_count]??'';
+                        $live_count++;
+                    }else{
+                        $purchase_course->batch_id = null;
+                    }
+
+                    $purchase_course->status = 0;
+                    $purchase_course->save();
+                }
+                if($cart->course->course_type=='Pre-recorded'){
+
+                    $course_u = Course::findOrFail($cart->course_id);
+                    $course_u->enrolled_count = $course_u->enrolled_count+1;
+                    $course_u->save();
+                }
+                $carts  = CourseCart::with('course')->where('user_id',Auth::user()->id)->delete();
+
+                return to_route('frontend.course.viewCart')->with('success_payment',__('admin_local.We have recived your purchase request.Please wait for purchase confirmation'));
             }
-            
-        
+
+
     }
 
     public function sslPay($payAmount,$formData,$subTotal){
@@ -271,7 +335,7 @@ class CartController extends Controller
         $post_data['value_d'] = "ref004";
 
         #Before  going to initiate the payment order status need to insert or update as Pending.
-       
+
         $update_product = DB::table('orders')
             ->where('transaction_id', $transaction_id)
             ->updateOrInsert([
@@ -284,11 +348,11 @@ class CartController extends Controller
                 'transaction_id' => $transaction_id,
                 'currency' => 'BDT'
             ]);
-        
+
                 $sslc = new SslCommerzNotification();
                 # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
                 $payment_options = $sslc->makePayment($post_data, 'hosted');
-        
+
                 if (!is_array($payment_options)) {
                     print_r($payment_options);
                     $payment_options = array();

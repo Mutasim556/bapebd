@@ -30,7 +30,7 @@
           <button type="button" class="btn-primary btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="youtube_player_body">
-            
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary p-5" onclick="$('#youtube_player').attr('src','')" data-bs-dismiss="modal">Close</button>
@@ -38,6 +38,13 @@
       </div>
     </div>
 </div>
+@php
+    $purchased_courses = Auth::user()->purchasedCourses(Auth::user()->id);
+    $flag = 0;
+    if(!empty($purchased_courses)&& in_array($course->id,$purchased_courses)){
+        $flag=1;
+    }
+@endphp
 <section class="space-top space-extra2-bottom">
     <div class="container">
         <div class="row">
@@ -52,7 +59,7 @@
                             @if ($course->course_discount>0)
                                 <span class="tag mt-0"><i class="fas fa-clock"></i>{{ $course->course_discount_type=='Flat'?__('admin_local.Flat'):'' }} {{$course->course_discount}} {{ $course->course_discount_type=='Flat'?$course->course_price_currency:'%' }} {{ __('admin_local.Discount') }}</span>
                             @else
-                                
+
                             @endif
                         </div>
                         @if ($course->course_type=='Live')
@@ -76,7 +83,7 @@
                             <span><i class="fal fa-chart-simple"></i>{{ $course->course_level }}</span>
                         </div>
                         @endif
-                        
+
                         <h2 class="course-title">{{ $course->course_name }}</h2>
                         <ul class="course-single-meta">
                             <li class="course-single-meta-author">
@@ -123,7 +130,7 @@
                         <div class="tab-content" id="productTabContent px-0" >
                             <div class="tab-pane fade show active" id="Coursedescription" role="tabpanel" aria-labelledby="description-tab" >
                                 <div class="course-description px-2 mb-0 pb-0" >
-                                    
+
                                         @if ($course->course_type=='Live')
                                         <div class="border border-neutral-30 rounded-12 bg-main-25 px-10 py-20" style="box-shadow: 0px 0px 10px lightgray">
                                             <div class="accordion common-accordion style-three" id="accordionExampleTwo">
@@ -140,36 +147,36 @@
                                                         </h2>
                                                         <div id="collapseOneTwo{{ $key."batch" }}" class="accordion-collapse collapse {{ $key==0?'show':'' }}" data-bs-parent="#accordionExampleTwo">
                                                             <div class="accordion-body p-0 px-0">
-                                                                    <span class="curriculam-item flex-between text-neutral-500 fw-medium hover-text-main-600 py-5">   
+                                                                    <span class="curriculam-item flex-between text-neutral-500 fw-medium hover-text-main-600 py-5">
                                                                         <span class="flex-align gap-12">
                                                                             <a class="text-line-2" ><span>{{ __('admin_local.Instructor') }} : </span> {{ $batch->instructor->name }} , <span>{{ __('admin_local.Total Enroll') }} : </span>{{ $batch->enrolled_count }}/{!! $batch->enroll_limit>0?$batch->enroll_limit:'<span class="" style="color:black;font-size:18px;">&infin;</span>' !!}</a>
                                                                         </span>
                                                                     </span>
-                                                                    <span class="curriculam-item flex-between text-neutral-500 fw-medium hover-text-main-600 py-5">   
+                                                                    <span class="curriculam-item flex-between text-neutral-500 fw-medium hover-text-main-600 py-5">
                                                                         <span class="flex-align gap-12">
                                                                             <a class="text-line-2" ><span>{{ __('admin_local.Batch Time') }} : </span> {{ date('d-M-Y',strtotime($batch->batch_start_date)) }} {{ __('admin_local.To') }} {{ date('d-M-Y',strtotime($batch->batch_end_date)) }} ( {{ ($batch->batch_day?$batch->batch_day." - ":'').date('h:i A',strtotime($batch->batch_time)) }} )</a>
                                                                         </span>
                                                                     </span>
-                                                                    <span class="curriculam-item flex-between text-neutral-500 fw-medium hover-text-main-600 py-5">   
+                                                                    <span class="curriculam-item flex-between text-neutral-500 fw-medium hover-text-main-600 py-5">
                                                                         <span class="flex-align gap-12">
                                                                             <a class="text-line-2" ><span>{{ __('admin_local.Live In') }} : </span> {{ $batch->live_in }}</a>
                                                                         </span>
                                                                     </span>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </div>
                                                     @endforeach
                                                 @else
                                                     <h4 class="mx-auto text-center">{{ __('admin_local.No Batch Available Right Now') }}</h4>
                                                 @endif
-                                                
+
                                             </div>
                                         </div>
                                         @else
                                         <div class="border border-neutral-30 rounded-12 bg-main-25 px-10 py-20" style="box-shadow: 0px 0px 10px lightgray">
                                             <div class="accordion common-accordion style-three" id="accordionExampleTwo">
-                    
+
                                                 <div class="accordion-item mb-5" style="border:1px solid #0d5ef4">
                                                     <h2 class="accordion-header p-0">
                                                         <button class="accordion-button py-12" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneTwo" aria-expanded="true" aria-controls="collapseOneTwo">
@@ -182,14 +189,14 @@
                                                                 $free_videos = \App\Models\Admin\Course\CourseVideo::where([['video_status',1],['video_delete',0],['video_type','Free'],['course_id',$course->id]])->get();
                                                             @endphp
                                                             @foreach ($free_videos as $key=>$free_video)
-                                                                <span class="curriculam-item flex-between text-neutral-500 fw-medium hover-text-main-600">   
+                                                                <span class="curriculam-item flex-between text-neutral-500 fw-medium hover-text-main-600">
                                                                     <span class="flex-align gap-12">
                                                                         <i class="text-xl d-flex ph-bold ph-video-camera"></i>
                                                                         <a data-video="{{ encrypt($free_video->id) }}" id="get_video_details" data-title="{{ $free_video->video_no }}. {{ $free_video->video_title }}" onclick="$('#exampleModalLabel').empty().append($(this).data('title'))" class="text-line-2" data-bs-keyboard="false" data-bs-backdrop="static" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ $free_video->video_no }}. {{ $free_video->video_title }}</a>
                                                                     </span>
-                                                                    
+
                                                                     <span class="flex-align gap-12 flex-shrink-0">
-                                                                        {{ $free_video->video_duration }} 
+                                                                        {{ $free_video->video_duration }}
                                                                         <i class="text-xl d-flex ph-bold ph-lock-open"></i>
                                                                     </span>
                                                                 </span>
@@ -215,21 +222,21 @@
                                                         <div id="collapseTwoTwo{{ $group }}" class="accordion-collapse collapse" data-bs-parent="#accordionExampleTwo">
                                                         <div class="accordion-body p-0">
                                                             @foreach ($group_video as $key=>$video)
-                                                                <span class="curriculam-item flex-between text-neutral-500 fw-medium hover-text-main-600">   
+                                                                <span class="curriculam-item flex-between text-neutral-500 fw-medium hover-text-main-600">
                                                                     <span class="flex-align gap-12">
                                                                         <i class="text-xl d-flex ph-bold ph-video-camera"></i>
-                                                                        @if ($video->video_type=='Free')
-                                                                        
+                                                                        @if ($video->video_type=='Free' || $flag==1)
+
                                                                         <a data-video="{{ encrypt($video->id) }}" id="get_video_details" data-title="{{ $video->video_no }}. {{ $video->video_title }}" onclick="$('#exampleModalLabel').empty().append($(this).data('title'))" class="text-line-2" data-bs-keyboard="false" data-bs-backdrop="static" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ $video->video_no }}. {{ $video->video_title }}</a>
                                                                         @else
                                                                         <span>{{ $video->video_no }}. {{ $video->video_title }}</span>
                                                                         @endif
-                                                                        
+
                                                                     </span>
-                                                                    
+
                                                                     <span class="flex-align gap-12 flex-shrink-0">
-                                                                        {{ $video->video_duration }} 
-                                                                        @if ($video->video_type=='Free')
+                                                                        {{ $video->video_duration }}
+                                                                        @if ($video->video_type=='Free' || $flag==1)
                                                                         <i class="text-xl d-flex ph-bold ph-lock-open"></i>
                                                                         @else
                                                                         <i class="text-xl d-flex ph-bold ph-lock"></i>
@@ -237,9 +244,16 @@
                                                                     </span>
                                                                 </span>
                                                                 @if ($video->videos_file)
-                                                                <span class="ml-25" style="margin-top: -20px">
-                                                                    <a target="__blank" href="{{ URL::to('/').'/'.$video->videos_file }}" class="btn btn-info p-5" style="font-size: 12px;">{{ __('admin_local.Download Video File') }}</a>
-                                                                </span>
+                                                                    @if ($video->video_type=='Free' || $flag==1)
+                                                                    <span class="ml-25" style="margin-top: -20px">
+                                                                        <a target="__blank" href="{{ URL::to('/').'/'.$video->videos_file }}" class="btn btn-info p-5" style="font-size: 12px;">{{ __('admin_local.Download Video File') }}</a>
+                                                                    </span>
+                                                                    @else
+                                                                    <span class="ml-25" style="margin-top: -20px">
+                                                                        <a target="__blank" href="#" class="btn btn-info p-5" style="font-size: 12px;">{{ __('admin_local.Download Video File') }}</a>
+                                                                    </span>
+                                                                    @endif
+
                                                                 @endif
                                                             @endforeach
                                                         </div>
@@ -424,8 +438,10 @@
                     <div class="widget widget_info px-2">
                         <span>{{ $course->course_name }}</span>
                         <span class="h4 course-price">@if($course->course_discount>0) <strike>{{ $course->course_price }}</strike> {{ $course->course_discount_price }} {{ $course->course_price_currency }} @else {{ $course->course_price }} {{ $course->course_price_currency }} @endif<span class="tag">{{ $course->course_discount_type=='Flat'?__('admin_local.Flat'):'' }} {{$course->course_discount}} {{ $course->course_discount_type=='Flat'?$course->course_price_currency:'%' }} {{ __('admin_local.Discount') }}</span></span>
-                        <a href="cart.html" class="th-btn py-10">{{ __('admin_local.Add To Cart') }}</a>
+                        @if($flag!=1)
+                        <a href="{{ route('frontend.course.addCart',$course->course_name_slug) }}" class="th-btn py-10">{{ __('admin_local.Add To Cart') }}</a>
                         <a href="cart.html" class="th-btn style4 py-10">{{ __("admin_local.Buy Now") }}</a>
+                        @endif
                         <h3 class="widget_title">{{ __('admin_local.Course Information') }}</h3>
                         <div class="info-list">
                             <ul>
@@ -485,7 +501,7 @@
                                     <span>04</span>
                                 </li> --}}
                                 @endif
-                                
+
                             </ul>
                         </div>
                         {{-- <a href="https://www.linkedin.com/" class="th-btn style6 mt-35 mb-0"><i class="far fa-share-nodes me-2"></i>Share This Course</a> --}}
@@ -513,7 +529,7 @@
                                             @if ($course->course_discount>0)
                                             <span class="tag py-1"><i class="fas fa-clock"></i>{{ $course->course_discount_type=='Flat'?__('admin_local.Flat'):'' }} {{$course->course_discount}} {{ $course->course_discount_type=='Flat'?$course->course_price_currency:'%' }} {{ __('admin_local.Discount') }}</span>
                                             @else
-                                                
+
                                             @endif
                                         </div>
                                         <div class="course-content text-center px-4" >
@@ -522,18 +538,18 @@
                                             <span style="font-size:14px">
                                                 <strike class="text-danger">{{ $course->course_price }} {{ $course->course_price_currency }}</strike> {{ $course->course_discount_price }} {{ $course->course_price_currency }}
                                             </span>
-                                            
+
                                             @else
                                             <span style="font-size:14px">
                                                 {{ $course->course_price }} {{ $course->course_price_currency }}
                                             </span>
-                                            
+
                                             @endif
                                             <div class="course-author">
                                                 <a class="btn btn-primary mx-auto mt-0 p-1 px-5 py-5" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
                                             </div>
                                             <div class="course-author" style="border-top: 1px dashed grey">
-                                                
+
                                                 @if ($course->course_type=='Live')
                                                 @php
                                                     $inctructor = \App\Models\Admin\Course\CourseInstructor::with('instructor')->where([['course_id',$course->id]])->orderBy('id','DESC')->first();
@@ -550,21 +566,21 @@
                                                 <div class="author-info">
                                                     <img src="@if($inctructor->instructor->image) {{ asset($inctructor->instructor->image) }} @else {{ asset('public/bipebd/assets/img/course/author.png') }} @endif" alt="author">
                                                     <a href="#" class="author-name" style="font-size:14px">{{ $inctructor->instructor->name }}</a>
-                                                    
+
                                                 </div>
                                                 <div class="offer-tag bg-success text-white px-4" style="border-radius: 6px;font-size:10px;">{{ __('admin_local.Pre-recorded') }}</div>
                                                 @endif
                                             </div>
                                         </div>
                                     </a>
-                                    
+
                                 </div>
                             </div>
                             @endforeach
                         </div>
                     </div>
                 </aside>
-            
+
             </div>
         </div>
     </div>
