@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\Localization\BackendLanguageController;
 use App\Http\Controllers\Admin\Localization\ChangeLanguageController;
 use App\Http\Controllers\Admin\Localization\LanguageController;
+use App\Http\Controllers\Admin\PurchaseHistory\PurchaseHistoryController;
 use App\Http\Controllers\Admin\Role\RoleAndPermissionController;
 use App\Http\Controllers\Admin\Settings\MaintenanceModeController;
 use App\Http\Controllers\Admin\User\InstructorController;
@@ -73,6 +74,9 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
             Route::get('/secret-code/delete/{id}',[MaintenanceModeController::class,'destroy'])->name('secret-code.delete');
             Route::get('/secret-code/delete-all',[MaintenanceModeController::class,'destroyAll'])->name('secret-code.delete-all');
         });
+
+
+        Route::resource('/purchase-history',PurchaseHistoryController::class);
     });
     require __DIR__.'/bipebd/course.php';
 });

@@ -129,7 +129,7 @@
         <div class="th-menu-area text-center">
             <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
             <div class="mobile-logo">
-                <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logo.svg') }}" alt="Edura"></a>
+                <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logo2.png') }}" alt="Edura"></a>
             </div>
             <div class="th-mobile-menu">
                 <form class="search-form mx-3">
@@ -205,7 +205,7 @@
                             <div class="row align-items-center justify-content-between">
                                 <div class="col-auto">
                                     <div class="header-logo">
-                                        <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logo-white.svg')}}" alt="Edura"></a>
+                                        <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logou.png')}}" style="height: 44px;" alt="Edura">BIPEBD</a>
                                     </div>
                                 </div>
                                 <div class="col-auto">

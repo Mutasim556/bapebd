@@ -73,6 +73,23 @@
             </ul>
         </li>
     @endif
+     @if (hasPermission(['purchase-history-index', 'purchase-history-create', 'purchase-history-update', 'purchase-history-delete']))
+        <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title" href="javascript:void(0)" aria-expanded="false">
+                <i data-feather="unlock"></i>
+                <span class="lan-3">{{ __('admin_local.Purchase History') }}</span>
+            </a>
+            <ul class="sidebar-submenu">
+                @if (hasPermission(['purchase-history-index', 'purchase-history-create', 'purchase-history-update', 'purchase-history-delete']))
+                    <li>
+                        <a href="{{ route('admin.purchase-history.index') }}" class="sidebar-link">
+                            <span> {{ __('admin_local.Purchase History') }} </span>
+                        </a>
+                    </li>
+                @endif
+            </ul>
+        </li>
+    @endif
     @if (hasPermission(['role-permission-index', 'role-permission-create', 'role-permission-update', 'role-permission-delete']))
         <li class="sidebar-list">
             <a class="sidebar-link sidebar-title" href="javascript:void(0)" aria-expanded="false">
@@ -87,14 +104,6 @@
                         </a>
                     </li>
                 @endif
-
-                {{-- @if (hasPermission(['backend-string-index']))
-                    <li>
-                        <a href="{{ route('admin.backend.language.index') }}" class="sidebar-link">
-                            <span> {{ __('admin_local.Backed Language') }} </span>
-                        </a>
-                    </li>
-                @endif --}}
             </ul>
         </li>
     @endif

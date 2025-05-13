@@ -27,18 +27,18 @@ class CartController extends Controller
         if($check_purchase_request){
             return back()->with('cart_add_invalid',__("admin_local.You have aleady a purchase request of this course"));
         }
-        // CourseCart::updateOrInsert([
-        //     'user_id'                =>  Auth::user()->id,
-        //     'course_id'                   => $course->id,
-        // ],[
-        //     'created_at'            => Carbon::now(),
-        //     'updated_at'            => Carbon::now(),
-        // ]);
-        // if(request()->ajax()){
-        //     return true;
-        // }else{
-        //     return back()->with('cart_add_success',__("admin_local.Successfully added to the cart"));
-        // }
+        CourseCart::updateOrInsert([
+            'user_id'                =>  Auth::user()->id,
+            'course_id'                   => $course->id,
+        ],[
+            'created_at'            => Carbon::now(),
+            'updated_at'            => Carbon::now(),
+        ]);
+        if(request()->ajax()){
+            return true;
+        }else{
+            return back()->with('cart_add_success',__("admin_local.Successfully added to the cart"));
+        }
     }
 
     public function deleteCart(string $slug){

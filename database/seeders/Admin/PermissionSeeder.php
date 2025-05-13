@@ -78,10 +78,15 @@ class PermissionSeeder extends Seeder
         // Permission::create(['guard_name'=>'admin','name'=>'course-video-update','group_name'=>'Course']);
         // Permission::create(['guard_name'=>'admin','name'=>'course-video-delete','group_name'=>'Course']);
 
-        Permission::create(['guard_name'=>'admin','name'=>'course-coupon-index','group_name'=>'Course Coupon']);
-        Permission::create(['guard_name'=>'admin','name'=>'course-coupon-create','group_name'=>'Course Coupon']);
-        Permission::create(['guard_name'=>'admin','name'=>'course-coupon-update','group_name'=>'Course Coupon']);
-        Permission::create(['guard_name'=>'admin','name'=>'course-coupon-delete','group_name'=>'Course Coupon']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-coupon-index','group_name'=>'Course Coupon']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-coupon-create','group_name'=>'Course Coupon']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-coupon-update','group_name'=>'Course Coupon']);
+        // Permission::create(['guard_name'=>'admin','name'=>'course-coupon-delete','group_name'=>'Course Coupon']);
+
+        // Permission::create(['guard_name'=>'admin','name'=>'purchase-history-index','group_name'=>'Purchase History']);
+        // Permission::create(['guard_name'=>'admin','name'=>'purchase-history-create','group_name'=>'Purchase History']);
+        // Permission::create(['guard_name'=>'admin','name'=>'purchase-history-update','group_name'=>'Purchase History']);
+        // Permission::create(['guard_name'=>'admin','name'=>'purchase-history-delete','group_name'=>'Purchase History']);
 
     }
 }
