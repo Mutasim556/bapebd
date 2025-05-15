@@ -258,6 +258,7 @@ class CartController extends Controller
                 $purchase->dicount_amount = $coupon_deduction;
                 $purchase->payment_method = 'manual_payment';
                 $purchase->payment_status = 0;
+                $purchase->phone = $data->phone_number;
                 $purchase->transaction_id = $data->transaction_id;
                 $purchase->payment_option = $data->pay_option;
                 $purchase->save();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\PurchaseHistory;
 
 use App\Http\Controllers\Controller;
+use App\Models\FrontEnd\Purchase;
 use Illuminate\Http\Request;
 
 class PurchaseHistoryController extends Controller
@@ -12,7 +13,8 @@ class PurchaseHistoryController extends Controller
      */
     public function index()
     {
-        return view('backend.blade.purchase_history.index');
+        $purchases = Purchase::where([['delete',0]])->get();
+        return view('backend.blade.purchase_history.index',compact('purchases'));
     }
 
     /**
@@ -26,9 +28,19 @@ class PurchaseHistoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $data)
     {
-        //
+        $purchases = Purchase::whereBetween('created_at',[date('Y-m-d',strtotime($data->start_date)),date('Y-m-d',strtotime($data->end_date))])->where([['payment_status',$data->payment_status],['delete',0]])->get();
+
+        foreach($purchases as $key=>$purchase){
+            $purchases[$key]->create_date = date('Y-m-d',strtotime($purchase->created_at));
+        }
+        return response([
+            'purchases'=>$purchases,
+            'hasAnyPermission' => hasPermission(['course-category-update', 'course-category-delete']),
+            'hasEditPermission' => hasPermission(['course-category-update']),
+            'hasDeletePermission' => hasPermission(['course-category-delete']),
+        ]);
     }
 
     /**
