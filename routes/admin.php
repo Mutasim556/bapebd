@@ -77,6 +77,7 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
 
 
         Route::resource('/purchase-history',PurchaseHistoryController::class);
+        Route::get('/purchase-history/purchase-status/change/{id}/{status}',[PurchaseHistoryController::class,'changeStatus']);
     });
     require __DIR__.'/bipebd/course.php';
 });

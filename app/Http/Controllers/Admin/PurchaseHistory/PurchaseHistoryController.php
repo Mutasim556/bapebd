@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\PurchaseHistory;
 
 use App\Http\Controllers\Controller;
 use App\Models\FrontEnd\Purchase;
+use App\Models\FrontEnd\PurchaseCourse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PurchaseHistoryController extends Controller
@@ -13,7 +15,14 @@ class PurchaseHistoryController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::where([['delete',0]])->get();
+        $purchases = Purchase::where([['delete',0]]);
+        if(request()->start_date && request()->start_date){
+             $purchases = $purchases->whereBetween('created_at',[date('Y-m-d',strtotime(request()->start_date)),date('Y-m-d',strtotime(request()->end_date))]);
+        }
+        if(isset(request()->payment_status)){
+            $purchases = $purchases->where([['payment_status',request()->payment_status]]);
+        }
+         $purchases = $purchases->get();
         return view('backend.blade.purchase_history.index',compact('purchases'));
     }
 
@@ -48,7 +57,8 @@ class PurchaseHistoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $purchases_courses = PurchaseCourse::with('course','batch')->where([['purchase_id',$id]])->get();
+        return $purchases_courses;
     }
 
     /**
@@ -56,7 +66,7 @@ class PurchaseHistoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
@@ -73,5 +83,17 @@ class PurchaseHistoryController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function changeStatus(Request $data){
+        $purchases = Purchase::findOrFail(request()->id);
+        $purchases->payment_status=request()->status;
+        $purchases->updated_at=Carbon::now();
+        $purchases->save();
+
+        $purchaseCourse = PurchaseCourse::where('purchase_id',request()->id)->update([
+            'status'=>request()->status,
+        ]);
+        return response($purchases);
     }
 }

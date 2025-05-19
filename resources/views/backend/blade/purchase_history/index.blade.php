@@ -76,7 +76,7 @@
 
     {{-- Add role Modal Start --}}
 
-    <div class="modal fade" id="edit-role-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
+    <div class="modal fade" id="view-courses-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
@@ -88,34 +88,34 @@
                 <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
-                    <form action="" id="edit_role_form">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" id="role_id" name="role_id" value="">
-                        <div class="row">
-                            <div class="col-lg-12 mt-2">
-                                <label for="role_name"><strong>{{ __('admin_local.Role Name') }} *</strong></label>
-                                <input type="text" class="form-control" name="role_name" id="role_name">
-                                <span class="text-danger err-mgs"></span>
-                            </div>
-                            <div id="edit_permission">
-                               <span>{{ __('admin_local.Getting Permissons') }} ...... <i class="fa fa-spinner fa-spin" ></i></span>
-                            </div>
-
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="bg-info">{{ __('admin_local.Course ID') }}</th>
+                                    <th class="bg-info">{{ __('admin_local.Course Name') }}</th>
+                                    <th class="bg-info">{{ __('admin_local.Batch NO') }}</th>
+                                    <th class="bg-info">{{ __('admin_local.Course Type') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody id="append_purchased_courses">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row mt-4 mb-2">
+                        <div class="form-group col-lg-12">
+                            <button class="btn btn-danger text-white font-weight-medium waves-effect text-start"
+                                data-bs-dismiss="modal" style="float: right"
+                                type="button">{{ __('admin_local.Close') }}</button>
                         </div>
 
-                        <div class="row mt-4 mb-2">
-                            <div class="form-group col-lg-12">
-
-                                <button class="btn btn-danger text-white font-weight-medium waves-effect text-start"
-                                    data-bs-dismiss="modal" style="float: right"
-                                    type="button">{{ __('admin_local.Close') }}</button>
-                                <button class="btn btn-primary mx-2" style="float: right"
-                                    type="submit">{{ __('admin_local.Submit') }}</button>
-                            </div>
-
-                        </div>
-                    </form>
+                    </div>
                 </div>
 
             </div>
@@ -192,7 +192,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="" id="search_form">
+                        <form method="GET" action="{{ route('admin.purchase-history.index') }}" id="search_formw" >
                             @csrf
                             <div class="row pt-3 pb-2 mb-4" style="background-color:aquamarine;border-radius:10px;">
                                 <div class="col-md-3">
@@ -201,7 +201,7 @@
                                             <label for="">{{ __('admin_local.Start Date') }}</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="date" class="form-control" value="{{ date('Y-m-d') }}" name="start_date" id="start_date">
+                                            <input type="date" class="form-control" value="{{ request()->start_date??date('Y-m-d') }}" name="start_date" id="start_date">
                                         </div>
                                     </div>
                                 </div>
@@ -211,7 +211,7 @@
                                             <label for="" class="text-right">{{ __('admin_local.End Date') }}</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="date" class="form-control" value="{{ date('Y-m-d') }}" name="end_date" id="end_date">
+                                            <input type="date" class="form-control" value="{{  request()->end_date??date('Y-m-d') }}" name="end_date" id="end_date">
                                         </div>
                                     </div>
                                 </div>
@@ -222,8 +222,8 @@
                                         </div>
                                         <div class="col-md-7">
                                             <select name="payment_status" id="payment_status" class="form-control">
-                                                <option value="0" selected>{{ __('admin_local.Unpaid') }}</option>
-                                                <option value="1">{{ __('admin_local.Paid') }}</option>
+                                                <option value="0" {{  request()->payment_status&&request()->payment_status==0?'selected':''}} {{ request()->payment_status?'':'selected' }}>{{ __('admin_local.Unpaid') }}</option>
+                                                <option value="1" {{ request()->payment_status&&request()->payment_status==1?'selected':'' }}>{{ __('admin_local.Paid') }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -263,7 +263,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($purchases as $purchase)
-                                        <tr>
+                                        <tr data-id="{{ $purchase->id }}">
                                             <td>{{ $purchase->id }}</td>
                                             <td>{{ $purchase->phone??__('admin_local.Empty') }}</td>
                                             <td>{{ $purchase->total_amount }}</td>
@@ -294,8 +294,8 @@
                                                     <div class="dropdown-content">
                                                         @if (hasPermission(['purchase-history-update']))
                                                         <a data-bs-toggle="modal" style="cursor: pointer;"
-                                                            data-bs-target="#edit-course-category-modal" class="text-primary"
-                                                            id="edit_button"><i class=" fa fa-edit mx-1"></i>{{ __('admin_local.Edit') }}</a>
+                                                            data-bs-target="#view-courses-modal" class="text-primary"
+                                                            id="view_course"><i class=" fa fa-edit mx-1"></i>{{ __('admin_local.Edit') }}</a>
                                                         @endif
                                                         @if (hasPermission(['course-category-delete']))
                                                         <a class="text-danger" id="delete_button"

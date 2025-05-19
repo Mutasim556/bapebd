@@ -14,4 +14,8 @@ class PurchaseCourse extends Model
     public function batch(){
         return $this->belongsTo(CourseBatch::class,'batch_id','id');
     }
+
+    public function course(){
+        return $this->belongsTo(Course::class,'course_id','id');
+    }
 }
