@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2025 at 07:37 AM
+-- Generation Time: May 19, 2025 at 03:31 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.12
 
@@ -149,7 +149,7 @@ CREATE TABLE `courses` (
 INSERT INTO `courses` (`id`, `category_id`, `sub_category_id`, `course_name`, `course_name_slug`, `course_name_metaphone`, `course_headline`, `course_details`, `no_of_videos`, `course_duration`, `course_duration_type`, `course_level`, `course_type`, `course_price`, `course_price_currency`, `course_discount`, `course_discount_type`, `course_discount_price`, `has_enroll_limit`, `enroll_limit`, `enrolled_count`, `course_images`, `course_cupon_status`, `course_multiple_cupon_status`, `course_status`, `course_delete`, `course_added_by`, `course_updated_by`, `created_at`, `updated_at`) VALUES
 (1, 2, 1, 'Web design and development', 'web-design-and-development', 'WBTSNNTTFLPMNT', 'TESH', '<p><span style=\"font-size:18px\"><strong>The Course Curriculam</strong></span></p>\r\n\r\n<p>Grursus mal suada faci lisis Lorem ipsum dolarorit more ametion consectetur elit. Vesti at bulum nec odio aea the dumm ipsumm ipsum that dolocons rsus mal suada and fadolorit to the consectetur elit. All the Lorem Ipsum generators on the Internet tend to repeat that predefined chunks as necessary, making this the first true dummy generator on the Internet.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n</ul>', 2, 160.00, 'Hour', 'Intermediate', 'Pre-recorded', 5000.00, 'BDT', 50, 'Flat', 4950.00, NULL, NULL, 0, 'public/admin/file/course/course-images/COURSE-1740898604765.jpg', 1, 1, 1, 0, 1, 1, '2025-01-22 10:59:33', '2025-03-02 06:56:47'),
 (3, 1, 1, 'CPA Marketing', 'cpa-marketing', 'KPMRKTNK', 'CPA Marketing', '<p><strong>The Course Curriculam</strong></p>\r\n\r\n<p>Grursus mal suada faci lisis Lorem ipsum dolarorit more ametion consectetur elit. Vesti at bulum nec odio aea the dumm ipsumm ipsum that dolocons rsus mal suada and fadolorit to the consectetur elit. All the Lorem Ipsum generators on the Internet tend to repeat that predefined chunks as necessary, making this the first true dummy generator on the Internet.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n</ul>', 4, 160.00, 'Day', 'Beginner', 'Live', 5000.00, 'BDT', 50, 'Percent', 2500.00, NULL, NULL, 0, 'public/admin/file/course/course-images/COURSE-1737545245133.png', 0, 0, 1, 0, 1, 1, '2025-01-22 11:27:28', '2025-02-17 07:28:04'),
-(4, 2, 2, 'MERN Stack Development', 'mern-stack-development', 'MRNSTKTFLPMNT', 'Make Full Stack Web Applications Through', '<p>MERN Stack is a combination of four different technologies that is used to develop a website in an efficient manner. In this course, you can gain your expertise in three areas- Web Development, Web Design and App Development. Most of the companies nowadays are using the MERN Stack Programme for its easily customizable, cost-effective features. Enroll in this course to develop your skills in this field.</p>', 60, 160.00, 'Hour', 'Intermediate', 'Pre-recorded', 8000.00, 'BDT', 100, 'Flat', 7900.00, NULL, NULL, NULL, 'public/admin/file/course/course-images/COURSE-1740287060041.png', 1, 1, 1, 0, 1, 1, '2025-02-23 05:04:21', '2025-02-23 05:04:21'),
+(4, 2, 2, 'MERN Stack Development', 'mern-stack-development', 'MRNSTKTFLPMNT', 'Make Full Stack Web Applications Through', '<p>MERN Stack is a combination of four different technologies that is used to develop a website in an efficient manner. In this course, you can gain your expertise in three areas- Web Development, Web Design and App Development. Most of the companies nowadays are using the MERN Stack Programme for its easily customizable, cost-effective features. Enroll in this course to develop your skills in this field.</p>', 60, 160.00, 'Hour', 'Intermediate', 'Pre-recorded', 8000.00, 'BDT', 100, 'Flat', 7900.00, NULL, NULL, 1, 'public/admin/file/course/course-images/COURSE-1740287060041.png', 1, 1, 1, 0, 1, 1, '2025-02-23 05:04:21', '2025-05-12 08:47:54'),
 (5, 3, 4, 'Professional Graphic Design', 'professional-graphic-design', 'PRFSNLKRFKTSN', 'Turn Your Passion into an Artistic Profession', '<p>Considering the growing demand for visual content, marketers are promoting their products through graphical ideas nowadays. The increasing need for graphic designers has unlocked many opportunities for the people who prefer working independently. A study shows, all the companies prioritize their visual acceptance, even a small company spends up to 500 dollars to create a perfect logo. If you are passionate about making designs, this updated Graphic Design course is for you.</p>', 50, 200.00, 'Hour', 'Advanced', 'Live', 10000.00, 'BDT', 10, 'Percent', 9000.00, NULL, NULL, NULL, 'public/admin/file/course/course-images/COURSE-1740287418135.jpg', 1, 0, 1, 0, 1, 1, '2025-02-23 05:10:19', '2025-02-23 05:10:19'),
 (6, 2, 3, 'App Development With Kotlin', 'app-development-with-kotlin', 'APTFLPMNTW0KTLN', 'Start Your Career As an Android Developer', '<p>How would you feel if you start using an app developed by yourself? It sounds more interesting in reality, where you combine the programming language and frameworks to have an excellent outcome. A study shows, the demand for app developers is having an upward trend, which might increase by 24% by 2026. New apps are replacing the old ones with improved features and qualities. If you want to develop such a unique app, this course is for you.</p>', 60, 3.00, 'Month', 'Advanced', 'Live', 15000.00, 'BDT', 200, 'Flat', 14800.00, NULL, NULL, NULL, 'public/admin/file/course/course-images/COURSE-1740287828166.png', 1, 1, 1, 0, 1, 1, '2025-02-23 05:17:10', '2025-02-23 05:17:10');
 
@@ -513,7 +513,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (36, '2025_02_24_164644_create_course_carts_table', 15),
 (37, '2025_03_23_131837_create_purchases_table', 16),
 (38, '2025_03_23_132448_create_puchase_courses_table', 16),
-(42, '2025_03_23_132448_create_purchase_courses_table', 17);
+(42, '2025_03_23_132448_create_purchase_courses_table', 17),
+(44, '2025_05_14_162340_add_phone_purchases_table', 18),
+(46, '2025_05_15_094441_add_delete_purchases_table', 19);
 
 -- --------------------------------------------------------
 
@@ -662,7 +664,11 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `group_name`, `created_at
 (49, 'course-coupon-index', 'admin', 'Course Coupon', '2025-02-02 07:29:26', '2025-02-02 07:29:26'),
 (50, 'course-coupon-create', 'admin', 'Course Coupon', '2025-02-02 07:29:26', '2025-02-02 07:29:26'),
 (51, 'course-coupon-update', 'admin', 'Course Coupon', '2025-02-02 07:29:26', '2025-02-02 07:29:26'),
-(52, 'course-coupon-delete', 'admin', 'Course Coupon', '2025-02-02 07:29:26', '2025-02-02 07:29:26');
+(52, 'course-coupon-delete', 'admin', 'Course Coupon', '2025-02-02 07:29:26', '2025-02-02 07:29:26'),
+(53, 'purchase-history-index', 'admin', 'Purchase History', '2025-05-12 09:06:25', '2025-05-12 09:06:25'),
+(54, 'purchase-history-create', 'admin', 'Purchase History', '2025-05-12 09:06:25', '2025-05-12 09:06:25'),
+(55, 'purchase-history-update', 'admin', 'Purchase History', '2025-05-12 09:06:25', '2025-05-12 09:06:25'),
+(56, 'purchase-history-delete', 'admin', 'Purchase History', '2025-05-12 09:06:25', '2025-05-12 09:06:25');
 
 -- --------------------------------------------------------
 
@@ -697,8 +703,10 @@ CREATE TABLE `purchases` (
   `subtotal` double(8,2) NOT NULL,
   `payment_method` varchar(30) NOT NULL,
   `payment_status` tinyint(1) NOT NULL DEFAULT 0,
+  `phone` varchar(30) DEFAULT NULL,
   `transaction_id` varchar(255) DEFAULT NULL,
   `payment_option` varchar(255) DEFAULT NULL,
+  `delete` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -707,13 +715,8 @@ CREATE TABLE `purchases` (
 -- Dumping data for table `purchases`
 --
 
-INSERT INTO `purchases` (`id`, `courses`, `total_amount`, `dicount_amount`, `subtotal`, `payment_method`, `payment_status`, `transaction_id`, `payment_option`, `created_at`, `updated_at`) VALUES
-(1, '\"4|3|1|6|5|\"', 39150.00, 0.00, 39150.00, 'sslcommerz', 1, '67dfd09290b9a', 'BKASH-BKash', '2025-03-23 09:12:57', '2025-03-23 09:12:57'),
-(2, '\"4|3|1|6|5|\"', 39150.00, 0.00, 39150.00, 'sslcommerz', 1, '67dfd09290b9a', 'BKASH-BKash', '2025-03-23 09:13:08', '2025-03-23 09:13:08'),
-(3, '\"4|3|1|6|5|\"', 39150.00, 0.00, 39150.00, 'sslcommerz', 1, '67dfd104f0627', 'BKASH-BKash', '2025-03-23 09:14:52', '2025-03-23 09:14:52'),
-(4, '\"1|\"', 4950.00, 0.00, 4950.00, 'sslcommerz', 1, '67f5e4908255c', 'BKASH-BKash', '2025-04-09 03:08:18', '2025-04-09 03:08:18'),
-(5, '\"4|\"', 7900.00, 0.00, 7900.00, 'sslcommerz', 1, '67f7661d11088', 'BKASH-BKash', '2025-04-10 06:33:09', '2025-04-10 06:33:09'),
-(6, '\"6|\"', 14800.00, 0.00, 14800.00, 'sslcommerz', 1, '67f76f7ee2004', 'BKASH-BKash', '2025-04-10 07:13:12', '2025-04-10 07:13:12');
+INSERT INTO `purchases` (`id`, `courses`, `total_amount`, `dicount_amount`, `subtotal`, `payment_method`, `payment_status`, `phone`, `transaction_id`, `payment_option`, `delete`, `created_at`, `updated_at`) VALUES
+(7, '\"4|\"', 7900.00, 0.00, 7900.00, 'manual_payment', 0, NULL, '12WER', 'Bkash', 0, '2025-05-12 08:47:54', '2025-05-19 04:55:46');
 
 -- --------------------------------------------------------
 
@@ -732,6 +735,13 @@ CREATE TABLE `purchase_courses` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `purchase_courses`
+--
+
+INSERT INTO `purchase_courses` (`id`, `purchase_id`, `user_id`, `course_id`, `course_type`, `batch_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 7, 2, 4, 'Pre-recorded', NULL, 0, '2025-05-12 08:47:54', '2025-05-19 04:55:46');
 
 -- --------------------------------------------------------
 
@@ -1166,7 +1176,7 @@ ALTER TABLE `course_batches`
 -- AUTO_INCREMENT for table `course_carts`
 --
 ALTER TABLE `course_carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `course_categories`
@@ -1220,7 +1230,7 @@ ALTER TABLE `maintenances`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1232,7 +1242,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1244,13 +1254,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `purchase_courses`
 --
 ALTER TABLE `purchase_courses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
