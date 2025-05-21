@@ -94,5 +94,10 @@ class PermissionSeeder extends Seeder
         // Permission::create(['guard_name'=>'admin','name'=>'logo-update','group_name'=>'Logos']);
         // Permission::create(['guard_name'=>'admin','name'=>'logo-delete','group_name'=>'Logos']);
 
+        Permission::create(['guard_name'=>'admin','name'=>'homepage-slider-index','group_name'=>'Homepage Sliders']);
+        Permission::create(['guard_name'=>'admin','name'=>'homepage-slider-create','group_name'=>'Homepage Sliders']);
+        Permission::create(['guard_name'=>'admin','name'=>'homepage-slider-update','group_name'=>'Homepage Sliders']);
+        Permission::create(['guard_name'=>'admin','name'=>'homepage-slider-delete','group_name'=>'Homepage Sliders']);
+
     }
 }

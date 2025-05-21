@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UploadLogoRequest;
 
-use App\Models\Logo;
+use App\Models\Admin\Logo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
 
 class LogoController extends Controller
 {
@@ -16,117 +18,126 @@ class LogoController extends Controller
         return view('backend.blade.logos.index');
     }
 
-    public function UploadLogo(UploadLogoRequest $data){
-        
+    public function UploadLogo(Request $data){
+        // return response([
+        //     'message'=>'ERR'
+        // ],200);
         if($data->type=='image'){
             $data->validate([
                 'image'=>'mimes:png,jpg,jpeg|max:2000|required'
             ]);
-            $img = Image::make($data->image);
-            $height = Image::make($data->image)->height();
-            $width = Image::make($data->image)->width();
+            $manager = new ImageManager(new Driver);
+            $image = $manager->read($data->image);
+
+            $height = $image->height();
+            $width = $image->width();
+
             if($data->position=='admin_top'){
-                if($height!=60 || $width!=200){
-                    return response()->json(['message'=>'Admin top image must be 200x60'],422);
+                // if($height!=60 || $width!=92){
+                if($height!=60 || $width!=92){
+                    return response()->json(['message'=>__('admin_local.Admin top image must be 92x60')],422);
                 }else{
                     $file = $data->image;
                     $extension = $file->getClientOriginalExtension();
                     $file_name = "admin_top-".time().'.'.$extension;
-                    
-                    $file->move(public_path('files/web_images'),$file_name);
+
+                    $file->move(public_path('bipebd/files/web_images'),$file_name);
                     $create = Logo::create([
                         'logo_for'=>$data->content_for,
                         'logo_position'=>$data->position,
-                        'company_name'=> 'Dreams',
+                        'company_name'=> 'Bipebd',
                         'logo_type'=> $data->type,
-                        'logo_image' => 'public/files/web_images/'.$file_name,
+                        'logo_image' => 'public/bipebd/files/web_images/'.$file_name,
                         'logo_image_dimention'=>$width.'x'.$height,
-                        'logo_image_size'=> Image::make(public_path('files/web_images/'.$file_name))->filesize(),
+                        'logo_image_size'=> filesize(public_path('bipebd/files/web_images/'.$file_name)),
                     ]);
 
                     if($create){
                         return $create;
                     }else{
-                        return response()->json(['message'=>'Server error'],422); 
+                        return response()->json(['message'=>'Server error'],422);
                     }
 
                 }
             }elseif($data->position=='admin_bottom'){
-                if($height!=60 || $width!=200){
-                    return response()->json(['message'=>'Admin bottom image must be 200x60'],422);
+                // if($height!=60 || $width!=92){
+                if(1!=1){
+                    return response()->json(['message'=>__('admin_local.Admin bottom image must be 92x60')],422);
                 }else{
                     $file = $data->file('image');
                     $extension = $file->getClientOriginalExtension();
                     $file_name = "admin_bottom-".time().'.'.$extension;
-                    
-                    $file->move(public_path('files/web_images'),$file_name);
+
+                    $file->move(public_path('bipebd/files/web_images'),$file_name);
                     $create = Logo::create([
                         'logo_for'=>$data->content_for,
                         'logo_position'=>$data->position,
-                        'company_name'=> 'Dreams',
+                        'company_name'=> 'Bipebd',
                         'logo_type'=> $data->type,
-                        'logo_image' => 'public/files/web_images/'.$file_name,
+                        'logo_image' => 'public/bipebd/files/web_images/'.$file_name,
                         'logo_image_dimention'=>$width.'x'.$height,
-                        'logo_image_size'=> Image::make(public_path('files/web_images/'.$file_name))->filesize(),
+                        'logo_image_size'=> filesize(public_path('bipebd/files/web_images/'.$file_name)),
                     ]);
 
                     if($create){
                         return $create;
                     }else{
-                        return response()->json(['message'=>'Server error'],422); 
+                        return response()->json(['message'=>__('admin_local.Server error')],422);
                     }
 
                 }
-            }elseif($data->position=='spark_top'){
-                if($height!=80 || $width!=160){
-                    return response()->json(['message'=>'Spark it top logo must be 160x80'],422);
+            }elseif($data->position=='bipebd_top'){
+                // if($height!=44 || $width!=182){
+                if(1!=1){
+                    return response()->json(['message'=>__('admin_local.Bipebd it top logo must be 182x44')],422);
                 }else{
                     $file = $data->file('image');
                     $extension = $file->getClientOriginalExtension();
-                    $file_name = "spark_top-".time().'.'.$extension;
-                    
-                    $file->move(public_path('files/web_images/spark-it'),$file_name);
+                    $file_name = "bipebd_top-".time().'.'.$extension;
+
+                    $file->move(public_path('bipebd/files/web_images/bipebd'),$file_name);
                     $create = Logo::create([
                         'logo_for'=>$data->content_for,
                         'logo_position'=>$data->position,
-                        'company_name'=> 'Spark It Solution',
+                        'company_name'=> 'Bipebd',
                         'logo_type'=> $data->type,
-                        'logo_image' => 'public/files/web_images/spark-it/'.$file_name,
+                        'logo_image' => 'public/bipebd/files/web_images/bipebd/'.$file_name,
                         'logo_image_dimention'=>$width.'x'.$height,
-                        'logo_image_size'=> Image::make(public_path('files/web_images/spark-it/'.$file_name))->filesize(),
+                        'logo_image_size'=> filesize(public_path('bipebd/files/web_images/bipebd/'.$file_name)),
                     ]);
 
                     if($create){
                         return $create;
                     }else{
-                        return response()->json(['message'=>'Server error'],422); 
+                        return response()->json(['message'=>__('admin_local.Server error')],422);
                     }
 
                 }
             }
-            elseif($data->position=='spark_bottom'){
-                if($height!=80 || $width!=160){
-                    return response()->json(['message'=>'Spark it bottom logo must be 160x80'],422);
+            elseif($data->position=='bipebd_bottom'){
+                // if($height!=44 || $width!=182){
+                if(1!=1){
+                    return response()->json(['message'=>__('admin_local.Bipebd it bottom logo must be 182x44')],422);
                 }else{
                     $file = $data->file('image');
                     $extension = $file->getClientOriginalExtension();
-                    $file_name = "spark_bottom-".time().'.'.$extension;
-                    
-                    $file->move(public_path('files/web_images/spark-it'),$file_name);
+                    $file_name = "bipebd_bottom-".time().'.'.$extension;
+
+                    $file->move(public_path('bipebd/files/web_images/bipebd'),$file_name);
                     $create = Logo::create([
                         'logo_for'=>$data->content_for,
                         'logo_position'=>$data->position,
-                        'company_name'=> 'Spark It Solution',
+                        'company_name'=> 'Bipebd',
                         'logo_type'=> $data->type,
-                        'logo_image' => 'public/files/web_images/spark-it/'.$file_name,
+                        'logo_image' => 'public/bipebd/files/web_images/bipebd/'.$file_name,
                         'logo_image_dimention'=>$width.'x'.$height,
-                        'logo_image_size'=> Image::make(public_path('files/web_images/spark-it/'.$file_name))->filesize(),
+                        'logo_image_size'=> filesize(public_path('bipebd/files/web_images/bipebd/'.$file_name)),
                     ]);
 
                     if($create){
                         return $create;
                     }else{
-                        return response()->json(['message'=>'Server error'],422); 
+                        return response()->json(['message'=>__('admin_local.Server error')],422);
                     }
 
                 }
@@ -149,7 +160,7 @@ class LogoController extends Controller
             if($create){
                 return $create;
             }else{
-                return response()->json(['message'=>'Server error'],422); 
+                return response()->json(['message'=>__('admin_local.Server error')],422);
             }
         }
     }
@@ -167,19 +178,19 @@ class LogoController extends Controller
         }
 
         if(!$data->content_for_serach && !$data->position_serach && !$data->type_serach){
-            return response()->json(['message'=>'Blank search . Please select one for search'],422);
+            return response()->json(['message'=>__('admin_local.Blank search . Please select one for search')],422);
         }
         $logoes = $logoes->get();
 
-        
+
         if($logoes->count()>0){
             return $logoes;
         }else{
             return response()->json([
-                'message'=>'No result found',
+                'message'=>__('admin_local.No result found'),
             ],422);
         }
-       
+
     }
 
     public function LogoStatusChange(){
@@ -195,7 +206,7 @@ class LogoController extends Controller
                 return $check_logo;
             }else{
                 return response()->json([
-                    'message'=>'You cant change status . Because all logo is inactive'
+                    'message'=>__('admin_local.You cant change status . Because all logo is inactive')
                 ],422);
             }
 

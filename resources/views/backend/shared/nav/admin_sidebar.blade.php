@@ -65,7 +65,7 @@
                 @endif
                 @if (hasPermission(['course-index', 'course-update', 'course-delete']))
                 <li>
-                    <a href="{{ route('admin.course.index') }}" class="sidebar-link" id="course-sidebar-link"> 
+                    <a href="{{ route('admin.course.index') }}" class="sidebar-link" id="course-sidebar-link">
                         <span> {{ __('admin_local.View Courses') }} </span>
                     </a>
                 </li>
@@ -132,7 +132,7 @@
             </ul>
         </li>
     @endif
-    @if (hasPermission(['maintenance-mode-index']))
+    @if (hasPermission(['maintenance-mode-index','homepage-slider-index','logo-index']))
         <li class="sidebar-list">
             <a class="sidebar-link sidebar-title" href="javascript:void(0)" aria-expanded="false">
                 <i data-feather="settings"></i>
@@ -146,12 +146,24 @@
                         </a>
                     </li>
                 @endif
-                @if (hasPermission(['maintenance-mode-index']))
+                @if (hasPermission(['logo-index']))
                     <li>
                         <a href="{{ route('admin.logo') }}" class="sidebar-link">
                             <span> {{ __('admin_local.Logos') }} </span>
                         </a>
                     </li>
+                @endif
+
+                @if (hasPermission(['homepage-slider-index']))
+                    <li>
+                        <a href="{{ route('admin.settings.homepage.main_slider') }}">{{ __('admin_local.Main Slider') }}</a>
+                    </li>
+                    {{-- <li><a class="submenu-title" href="javascript:void(0)">{{ __('admin_local.Homepage') }}<span
+                                class="sub-arrow"><i class="fa fa-angle-right"></i></span></a>
+                        <ul class="nav-sub-childmenu submenu-content">
+                            <li><a href="{{ route('admin.settings.homepage.main_slider') }}">{{ __('admin_local.Main Slider') }}</a></li>
+                        </ul>
+                    </li> --}}
                 @endif
             </ul>
         </li>

@@ -63,6 +63,10 @@
     </style>
     @stack('css')
 </head>
+@php
+    $logo_top = DB::table('logos')->where([['logo_position','bipebd_top'],['logo_for','bipebd'],['logo_status','Active'],['logo_delete',0]])->first();
+    $logo_bottom = DB::table('logos')->where([['logo_position','bipebd_bottom'],['logo_for','bipebd'],['logo_status','Active'],['logo_delete',0]])->first();
+@endphp
 {!! Toastr::message() !!}
 <body>
     @if (Auth::check())
@@ -129,7 +133,7 @@
         <div class="th-menu-area text-center">
             <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
             <div class="mobile-logo">
-                <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logo1.svg') }}" alt="Edura"></a>
+                <a href="{{ url('/') }}"><img src="{{ $logo_top?$logo_top->logo_image:'' }}" alt="{{env('COMPANY_NAME ')}}"></a>
             </div>
             <div class="th-mobile-menu">
                 <form class="search-form mx-3">
@@ -205,7 +209,7 @@
                             <div class="row align-items-center justify-content-between" style="backgroud:white;">
                                 <div class="col-auto" style="backgroud:white;">
                                     <div class="header-logo" style="backgroud:white;">
-                                        <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logo3.png')}}" style="height: 44px;" alt="Edura"></a>
+                                        <a href="{{ url('/') }}"><img src="{{ $logo_top?$logo_top->logo_image:'' }}" style="height: 44px;" alt="{{env('COMPANY_NAME ')}}"></a>
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -324,7 +328,8 @@ Hero Area
                 </div>
             </div>
         </div>
-        <div class="footer-wrap" data-bg-src="{{ asset('public/bipebd/assets/img/bg/jiji.png')}}">
+        {{-- <div class="footer-wrap" data-bg-src="{{ asset('public/bipebd/assets/img/bg/jiji.png')}}"> --}}
+        <div class="footer-wrap" >
             <div class="widget-area">
                 <div class="container">
                     <div class="row justify-content-between">
@@ -332,7 +337,7 @@ Hero Area
                             <div class="widget footer-widget">
                                 <div class="th-widget-about">
                                     <div class="about-logo">
-                                        <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logo-white.svg')}}" alt="Edura"></a>
+                                        <a href="{{ url('/') }}"><img src="{{ $logo_bottom?$logo_bottom->logo_image:'' }}" alt="{{env('COMPANY_NAME ')}}"></a>
                                     </div>
                                     <p class="about-text">Continually optimize backward manufactured products whereas communities negotiate life compelling alignments</p>
                                     <div class="th-social">

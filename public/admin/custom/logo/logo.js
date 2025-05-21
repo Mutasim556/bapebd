@@ -2,13 +2,13 @@ $('#content_for').change(function(){
     if($(this).val()=='admin'){
         $('#position').empty();
         $('#position').append('<option value="" selected disabled>Please Select</option><option value="admin_top">Admin Top</option><option value="admin_bottom">Admin Bottom</option><option value="admin_title_image">Admin Title Image</option>')
-    }else if($(this).val()=='spark'){
+    }else if($(this).val()=='bipebd'){
         $('#position').empty();
-        $('#position').append('<option value="" selected disabled>Please Select</option><option value="spark_top">Spark It Top</option><option value="spark_bottom">Spark It Bottom</option>')
+        $('#position').append('<option value="" selected disabled>Please Select</option><option value="bipebd_top">Bipebd Top</option><option value="bipebd_bottom">Bipebd Bottom</option>')
     }
 });
 $('#position').change(function(){
-    if($(this).val()=='admin_title_image' || $(this).val()=='spark_top' || $(this).val()=='spark_bottom'){
+    if($(this).val()=='admin_title_image' || $(this).val()=='bipebd_top' || $(this).val()=='bipebd_bottom'){
         $('#type').empty();
         $('#type').append('<option value="" selected disabled>Please Select</option><option value="image">Image</option>')
     }else{
@@ -42,14 +42,14 @@ $('#content_for_serach').change(function(){
     if($(this).val()=='admin'){
         $('#position_serach').empty();
         $('#position_serach').append('<option value="">Please Select</option><option value="admin_top">Admin Top</option><option value="admin_bottom">Admin Bottom</option><option value="admin_title_image">Admin Title Image</option>')
-    }else if($(this).val()=='spark'){
+    }else if($(this).val()=='bipebd'){
         $('#position_serach').empty();
-        $('#position_serach').append('<option value="">Please Select</option><option value="spark_top">Spark It Top</option><option value="spark_bottom">Spark It Bottom</option>')
+        $('#position_serach').append('<option value="">Please Select</option><option value="bipebd_top">Bipebd Top</option><option value="bipebd_bottom">Bipebd Bottom</option>')
     }
 });
 
 $('#position_serach').change(function(){
-    if($(this).val()=='admin_title_image' || $(this).val()=='spark_top' || $(this).val()=='spark_bottom'){
+    if($(this).val()=='admin_title_image' || $(this).val()=='bipebd_top' || $(this).val()=='bipebd_bottom'){
         $('#type_serach').empty();
         $('#type_serach').append('<option value="">Please Select</option><option value="image">Image</option>')
     }else{

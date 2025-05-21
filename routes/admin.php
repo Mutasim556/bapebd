@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Localization\ChangeLanguageController;
 use App\Http\Controllers\Admin\Localization\LanguageController;
 use App\Http\Controllers\Admin\PurchaseHistory\PurchaseHistoryController;
 use App\Http\Controllers\Admin\Role\RoleAndPermissionController;
+use App\Http\Controllers\Admin\Settings\HomepageSettingController;
 use App\Http\Controllers\Admin\Settings\MaintenanceModeController;
 use App\Http\Controllers\Admin\User\InstructorController;
 use App\Http\Controllers\Admin\User\LogoController;
@@ -52,13 +53,13 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
             // Route::get('/user-role','index')->name('userPermission');
         });
 
-        //language controller 
+        //language controller
         Route::resource('language',LanguageController::class)->except(['craete','show']);
         Route::controller(LanguageController::class)->name('language.')->prefix('language')->group(function () {
             Route::get('/update/status/{id}/{status}', 'updateStatus')->name('language_status');
         });
 
-        //backend language controller 
+        //backend language controller
         Route::resource('backend/language',BackendLanguageController::class,['as'=>'backend'])->except(['craete','show','edit','distroy']);
         Route::controller(BackendLanguageController::class)->name('backend.language.')->prefix('backend/language')->group(function () {
             Route::post('/store/translate/string', 'storeTranslateString')->name('storeTranslateString');
@@ -88,6 +89,19 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
             Route::get('/delete-logo/{id}','DeleteLogo');
 
         });
+
+        Route::prefix('settings')->name('settings.')->group(function(){
+            Route::controller(HomepageSettingController::class)->prefix('homepage')->name('homepage.')->group(function(){
+                Route::get('/main-slider','mainSlider')->name('main_slider');
+                Route::post('/main-slider','mainSliderStore')->name('main_slider_store');
+                Route::get('/main-slider-delete/{id}','mainSliderDelete')->name('main_slider_delete');
+                Route::get('/slider/update/status/{id}/{status}','updateSliderStatus');
+                Route::get('/slider/{id}/edit','edit');
+                Route::put('/slider/{id}','update');
+                Route::delete('/slider/{id}','destroySlider');
+            });
+        });
+
     });
     require __DIR__.'/bipebd/course.php';
 });
