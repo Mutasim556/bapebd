@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PurchaseHistory\PurchaseHistoryController;
 use App\Http\Controllers\Admin\Role\RoleAndPermissionController;
 use App\Http\Controllers\Admin\Settings\MaintenanceModeController;
 use App\Http\Controllers\Admin\User\InstructorController;
+use App\Http\Controllers\Admin\User\LogoController;
 use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -78,6 +79,15 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
 
         Route::resource('/purchase-history',PurchaseHistoryController::class);
         Route::get('/purchase-history/purchase-status/change/{id}/{status}',[PurchaseHistoryController::class,'changeStatus']);
+
+        Route::controller(LogoController::class)->group(function(){
+            Route::get('/logo','GetLogo')->name('logo');
+            Route::post('/upload-logo','UploadLogo')->name('upload_logo');
+            Route::post('/search-logo','SearchLogo')->name('search_logo');
+            Route::get('/logo-status-change/{id}','LogoStatusChange');
+            Route::get('/delete-logo/{id}','DeleteLogo');
+
+        });
     });
     require __DIR__.'/bipebd/course.php';
 });

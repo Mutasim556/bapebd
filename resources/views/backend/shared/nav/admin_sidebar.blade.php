@@ -146,6 +146,13 @@
                         </a>
                     </li>
                 @endif
+                @if (hasPermission(['maintenance-mode-index']))
+                    <li>
+                        <a href="{{ route('admin.logo') }}" class="sidebar-link">
+                            <span> {{ __('admin_local.Logos') }} </span>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </li>
     @endif

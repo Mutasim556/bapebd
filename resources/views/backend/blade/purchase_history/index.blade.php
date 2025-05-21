@@ -128,12 +128,12 @@
 
     {{-- Add permission to specific user Modal start--}}
 
-    <div class="modal fade" id="add-specific-user-permission-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
+    <div class="modal fade" id="gift-course-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('admin_local.Add Specific Permission') }}
+                        {{ __('admin_local.Gift a course') }}
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -141,21 +141,37 @@
                 <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
-                    <form action="" id="add_specific_user_permission_form">
+                    <form action="" id="gift_course_form">
                         @csrf
                         <div class="row">
-                            <div class="col-lg-12 mt-2">
-                                <label for="user_id"><strong>{{ __('admin_local.Select User') }} *</strong></label>
-                                <select class="form-control js-example-basic-single3" name="user_id" id="user_id">
+                            <div class="col-lg-6 mt-2">
+                                <label for=""><strong>{{ __('admin_local.Select User') }} *</strong></label>
+                                <select class="form-control js-example-basic-single3" name="user_id" id="user_id" required>
                                     <option value="">{{ __('admin_local.Select Please') }}</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name." - ".$user->phone.' - '.$user->email }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            <div class="col-lg-6 mt-2">
+                                <label for=""><strong>{{ __('admin_local.Select Course') }} *</strong></label>
+                                <select class="form-control js-example-basic-single3" name="course_id" id="course_id" required>
+                                    <option value="">{{ __('admin_local.Select Please') }}</option>
+                                    @foreach ($courses as $course)
+                                        <option value="{{ $course->id }}">{{ $course->course_name }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+
+                            <div class="col-lg-6 mt-2 d-none" id="batch_div">
+                                <label for=""><strong>{{ __('admin_local.Select Batch') }} *</strong></label>
+                                <select class="form-control js-example-basic-single3" name="course_batch" id="course_batch" >
                                     
                                 </select>
                                 <span class="text-danger err-mgs"></span>
                             </div>
-                            
-                        </div>
-                        <div class="row" id="role_and_permission">
-
                         </div>
 
                         <div class="row mt-4 mb-2">
@@ -165,7 +181,7 @@
                                     data-bs-dismiss="modal" style="float: right"
                                     type="button">{{ __('admin_local.Close') }}</button>
                                 <button class="btn btn-primary mx-2" style="float: right"
-                                    type="submit">{{ __('admin_local.Submit') }}</button>
+                                    type="submit">{{ __('admin_local.Gift') }}</button>
                             </div>
 
                         </div>
@@ -239,7 +255,7 @@
                             @if (hasPermission(['specific-permission-create']))
                             <div class="col-md-9 offset-md-3">
                                 <button class="btn btn-outline-success" style="float:right" type="btn" data-bs-toggle="modal"
-                                    data-bs-target="#add-specific-user-permission-modal">+  {{ __('admin_local.Gift A Course')}}</button>
+                                    data-bs-target="#gift-course-modal">+  {{ __('admin_local.Gift A Course')}}</button>
                             </div>
                             @endif
                         </div> 
@@ -339,7 +355,7 @@
             dropdownParent: $('#edit-role-modal')
         });
         $('.js-example-basic-single3').select2({
-            dropdownParent: $('#add-specific-user-permission-modal')
+            dropdownParent: $('#gift_course_form')
         });
         $(document).on('select2:open', () => {
             document.querySelector('.select2-search__field').focus();
@@ -352,7 +368,8 @@
         var no_permission = `<span class="badge badge-danger">{{ __('admin_local.No Permission') }}</span>`;
         var submit_btn_after = `{{ __('admin_local.Searching') }}`;
         var submit_btn_before = `{{ __('admin_local.Search') }}`;
-        var index_url = `{{ route('admin.purchase-history.store') }}`;
+        var form_url = `{{ route('admin.purchase-history.store') }}`;
+        var csrf  = `@csrf`
     </script>
     <script src="{{ asset('public/admin/custom/purchase_history/purchase_history.js') }}"></script>
 @endpush

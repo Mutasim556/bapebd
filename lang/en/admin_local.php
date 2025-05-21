@@ -273,8 +273,15 @@ return array (
   'Edit Role' => 'Edit Role',
   'Course ID' => 'Course ID',
   'Batch NO' => 'Batch NO',
+<<<<<<< HEAD
   'Add Specific Permission' => 'Add Specific Permission',
+=======
+  'Gift a course' => 'Gift a course',
+>>>>>>> 1ef6dbaf05b18585d614e2816e2848e477c1029f
   'Select User' => 'Select User',
+  'Select Course' => 'Select Course',
+  'Select Batch' => 'Select Batch',
+  'Gift' => 'Gift',
   'Payment Status' => 'Payment Status',
   'Unpaid' => 'Unpaid',
   'Gift A Course' => 'Gift A Course',
@@ -289,6 +296,10 @@ return array (
   'Searching' => 'Searching',
   'Roles And Permissions' => 'Roles And Permissions',
   'Getting Permissons' => 'Getting Permissons',
+<<<<<<< HEAD
+=======
+  'Add Specific Permission' => 'Add Specific Permission',
+>>>>>>> 1ef6dbaf05b18585d614e2816e2848e477c1029f
   'Add Role' => 'Add Role',
   'Give Permission To Specific User' => 'Give Permission To Specific User',
   'Permission' => 'Permission',
@@ -386,6 +397,7 @@ return array (
   'Api key updated successfully.' => 'Api key updated successfully.',
   'Language create successfully.' => 'Language create successfully.',
   'Language updated successfully.' => 'Language updated successfully.',
+  'You can\\\'t delete the purchase history as it is paid.' => 'You can\\\'t delete the purchase history as it is paid.',
   'User created successfully' => 'User created successfully',
   'Role-permission updated successfully' => 'Role-permission updated successfully',
   'Warning !' => 'Warning !',
@@ -471,7 +483,6 @@ return array (
   'Shipping costs updated' => 'Shipping costs updated',
   'Price' => 'Price',
   'Remove' => 'Remove',
-  'Select Batch' => 'Select Batch',
   'Continue Purchase Course' => 'Continue Purchase Course',
   'Apply Coupon' => 'Apply Coupon',
   'Cart Totals' => 'Cart Totals',
