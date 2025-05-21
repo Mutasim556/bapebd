@@ -23,10 +23,10 @@
     <link rel="apple-touch-icon" sizes="144x144" href="assets/img/favicons/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="assets/img/favicons/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('public/bipebd/assets/img/logou.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('public/bipebd/assets/img/logou.png')}}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('public/bipebd/assets/img/logou.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('public/bipebd/assets/img/logou.png')}}">
     {{-- <link rel="manifest" href="assets/img/favicons/manifest.json"> --}}
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="assets/img/favicons/ms-icon-144x144.png">
@@ -129,7 +129,7 @@
         <div class="th-menu-area text-center">
             <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
             <div class="mobile-logo">
-                <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logo2.png') }}" alt="Edura"></a>
+                <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logo1.svg') }}" alt="Edura"></a>
             </div>
             <div class="th-mobile-menu">
                 <form class="search-form mx-3">
@@ -202,10 +202,10 @@
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-xl-auto">
-                            <div class="row align-items-center justify-content-between">
-                                <div class="col-auto">
-                                    <div class="header-logo">
-                                        <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logou.png')}}" style="height: 44px;" alt="Edura">BIPEBD</a>
+                            <div class="row align-items-center justify-content-between" style="backgroud:white;">
+                                <div class="col-auto" style="backgroud:white;">
+                                    <div class="header-logo" style="backgroud:white;">
+                                        <a href="{{ url('/') }}"><img src="{{ asset('public/bipebd/assets/img/logo3.png')}}" style="height: 44px;" alt="Edura"></a>
                                     </div>
                                 </div>
                                 <div class="col-auto">

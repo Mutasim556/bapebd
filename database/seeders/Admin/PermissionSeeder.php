@@ -88,5 +88,11 @@ class PermissionSeeder extends Seeder
         // Permission::create(['guard_name'=>'admin','name'=>'purchase-history-update','group_name'=>'Purchase History']);
         // Permission::create(['guard_name'=>'admin','name'=>'purchase-history-delete','group_name'=>'Purchase History']);
 
+
+        // Permission::create(['guard_name'=>'admin','name'=>'logo-index','group_name'=>'Logos']);
+        // Permission::create(['guard_name'=>'admin','name'=>'logo-create','group_name'=>'Logos']);
+        // Permission::create(['guard_name'=>'admin','name'=>'logo-update','group_name'=>'Logos']);
+        // Permission::create(['guard_name'=>'admin','name'=>'logo-delete','group_name'=>'Logos']);
+
     }
 }
