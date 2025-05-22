@@ -84,7 +84,7 @@
                     <div class="tab-pane fade active show" id="tab-list" role="tabpanel" aria-labelledby="tab-shop-list">
                         <div class="row gy-30">
                             @php
-                                $purchased_courses = Auth::user()->purchasedCourses(Auth::user()->id);
+                                $purchased_courses =  Auth::check()?Auth::user()->purchasedCourses(Auth::user()->id):null;
                             @endphp
                             @foreach ($courses as $course)
                             @php

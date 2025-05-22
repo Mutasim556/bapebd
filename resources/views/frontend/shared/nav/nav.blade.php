@@ -48,7 +48,7 @@
     <li class="menu-item-has-children">
         <a href="#">{{ __('admin_local.About Us') }}</a>
         <ul class="sub-menu">
-            <li><a href="team.html">{{ __('admin_local.Blogs') }}</a></li>
+            {{-- <li><a href="team.html">{{ __('admin_local.Blogs') }}</a></li> --}}
             <li><a href="team.html">{{ __('admin_local.Instructors') }}</a></li>
             <li><a href="team.html">{{ __('admin_local.About BipeBD') }}</a></li>
         </ul>

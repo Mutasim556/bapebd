@@ -158,12 +158,12 @@
                     <li>
                         <a href="{{ route('admin.settings.homepage.main_slider') }}">{{ __('admin_local.Main Slider') }}</a>
                     </li>
-                    {{-- <li><a class="submenu-title" href="javascript:void(0)">{{ __('admin_local.Homepage') }}<span
-                                class="sub-arrow"><i class="fa fa-angle-right"></i></span></a>
-                        <ul class="nav-sub-childmenu submenu-content">
-                            <li><a href="{{ route('admin.settings.homepage.main_slider') }}">{{ __('admin_local.Main Slider') }}</a></li>
-                        </ul>
-                    </li> --}}
+                @endif
+
+                 @if (hasPermission(['homepage-slider-index']))
+                    <li>
+                        <a href="{{ route('admin.settings.contactinfo.index') }}">{{ __('admin_local.Contact Info') }}</a>
+                    </li>
                 @endif
             </ul>
         </li>

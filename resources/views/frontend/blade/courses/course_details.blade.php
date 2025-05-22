@@ -39,7 +39,7 @@
     </div>
 </div>
 @php
-    $purchased_courses = Auth::user()->purchasedCourses(Auth::user()->id);
+    $purchased_courses = Auth::check()?Auth::user()->purchasedCourses(Auth::user()->id):null;
     $flag = 0;
     if(!empty($purchased_courses)&& in_array($course->id,$purchased_courses)){
         $flag=1;

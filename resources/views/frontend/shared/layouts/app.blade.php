@@ -62,11 +62,14 @@
         }
     </style>
     @stack('css')
+
+    @php
+        $logo_top = \App\Models\Admin\Logo::where([['logo_position','bipebd_top'],['logo_for','bipebd'],['logo_status','Active'],['logo_delete',0]])->first();
+        $logo_bottom = \App\Models\Admin\Logo::where([['logo_position','bipebd_bottom'],['logo_for','bipebd'],['logo_status','Active'],['logo_delete',0]])->first();
+        $contact_info = \App\Models\Admin\ContactInfo::find(1);
+    @endphp
 </head>
-@php
-    $logo_top = DB::table('logos')->where([['logo_position','bipebd_top'],['logo_for','bipebd'],['logo_status','Active'],['logo_delete',0]])->first();
-    $logo_bottom = DB::table('logos')->where([['logo_position','bipebd_bottom'],['logo_for','bipebd'],['logo_status','Active'],['logo_delete',0]])->first();
-@endphp
+
 {!! Toastr::message() !!}
 <body>
     @if (Auth::check())
@@ -133,7 +136,7 @@
         <div class="th-menu-area text-center">
             <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
             <div class="mobile-logo">
-                <a href="{{ url('/') }}"><img src="{{ $logo_top?$logo_top->logo_image:'' }}" alt="{{env('COMPANY_NAME ')}}"></a>
+                <a href="{{ url('/') }}"><img src="{{ $logo_top?asset($logo_top->logo_image):'' }}" alt="{{env('COMPANY_NAME ')}}"></a>
             </div>
             <div class="th-mobile-menu">
                 <form class="search-form mx-3">
@@ -167,8 +170,8 @@
                     <div class="col-auto d-none d-lg-block">
                         <div class="header-links">
                             <ul>
-                                <li><i class="far fa-phone"></i><a href="tel:+11156456825">+111 (564) 568 25</a></li>
-                                <li class="d-none d-xl-inline-block"><i class="far fa-envelope"></i><a href="mailto:info@Edura.com">info@edura.com</a></li>
+                                @if($contact_info->phone)<li><i class="far fa-phone"></i><a href="tel:{{ $contact_info->phone }}">{{ $contact_info->phone }}</a></li>@endif
+                                @if($contact_info->phone)<li class="d-none d-xl-inline-block"><i class="far fa-envelope"></i><a href="mailto:{{ $contact_info->email }}">{{ $contact_info->email }}</a></li>@endif
                                 <li class="d-none d-lg-inline-block" style="text-align: right">
                                     @if (Auth::check())
                                     <a style="text-align: right" href="{{ route('user.login','login') }}"><i class="far fa-user"></i> {{ Auth::user()->name }}</a>
@@ -186,11 +189,11 @@
                                 <li >
                                     <div class="header-social">
                                         <span class="social-title">Follow Us:</span>
-                                        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
-                                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
-                                        {{-- <a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a>
-                                        <a href="https://www.instagram.com/"><i class="fab fa-skype"></i></a> --}}
+                                        @if($contact_info->facebook)<a target="__blank" href="{{ $contact_info->facebook }}"><i class="fab fa-facebook-f"></i></a>@endif
+                                        @if($contact_info->twitter)<a target="__blank" href="{{ $contact_info->twitter }}"><i class="fab fa-twitter"></i></a>@endif
+                                        @if($contact_info->linkedin)<a target="__blank" href="{{ $contact_info->linkedin }}"><i class="fab fa-linkedin-in"></i></a>@endif
+                                        @if($contact_info->youtube)<a target="__blank" href="{{ $contact_info->youtube }}"><i class="fab fa-youtube"></i></a>@endif
+                                        {{-- <a href="https://www.instagram.com/"><i class="fab fa-skype"></i></a> --}}
                                     </div>
                                 </li>
 
@@ -209,7 +212,7 @@
                             <div class="row align-items-center justify-content-between" style="backgroud:white;">
                                 <div class="col-auto" style="backgroud:white;">
                                     <div class="header-logo" style="backgroud:white;">
-                                        <a href="{{ url('/') }}"><img src="{{ $logo_top?$logo_top->logo_image:'' }}" style="height: 44px;" alt="{{env('COMPANY_NAME ')}}"></a>
+                                        <a href="{{ url('/') }}"><img src="{{ $logo_top?asset($logo_top->logo_image):'' }}" style="height: 44px;" alt="{{env('COMPANY_NAME ')}}"></a>
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -288,10 +291,10 @@ Hero Area
 ==============================-->
     <footer class="footer-wrapper footer-layout1" data-bg-src="{{ asset('public/bipebd/assets/img/bg/footer-bg.png')}}">
         <div class="shape-mockup footer-shape1 jump" data-left="60px" data-top="70px">
-            <img src="assets/img/normal/footer-bg-shape1.png" alt="img">
+            <img src="{{ asset('public/bipebd/assets/img/normal/footer-bg-shape1.png') }}" alt="img">
         </div>
         <div class="shape-mockup footer-shape2 jump-reverse" data-right="80px" data-bottom="120px">
-            <img src="assets/img/normal/footer-bg-shape2.png" alt="img">
+            <img src="{{ asset('public/bipebd/assets/img/normal/footer-bg-shape2.png') }}" alt="img">
         </div>
         <div class="footer-top">
             <div class="container">
@@ -301,8 +304,8 @@ Hero Area
                             <i class="fal fa-phone"></i>
                         </div>
                         <div class="media-body">
-                            <p class="footer-contact_text">Call us any time:</p>
-                            <a href="tel+11234567890" class="footer-contact_link">+256 214 203 215</a>
+                            <p class="footer-contact_text">{{ __('admin_local.Call us any time') }}:</p>
+                            <a href="tel{{ $contact_info->phone }}" class="footer-contact_link">{{ $contact_info->phone }}</a>
                         </div>
                     </div>
                     <div class="divider"></div>
@@ -311,18 +314,18 @@ Hero Area
                             <i class="fal fa-envelope"></i>
                         </div>
                         <div class="media-body">
-                            <p class="footer-contact_text">Email us 24/7 hours:</p>
-                            <a href="mailto:info@edura.com" class="footer-contact_link">info@edura.com</a>
+                            <p class="footer-contact_text">{{ __('admin_local.Email us 24/7 hours') }}:</p>
+                            <a href="mailto:{{ $contact_info->email }}" class="footer-contact_link">{{ $contact_info->email }}</a>
                         </div>
                     </div>
                     <div class="divider"></div>
-                    <div class="footer-contact">
+                    <div class="footer-contact" style="max-width: 400px">
                         <div class="footer-contact_icon icon-btn">
                             <i class="fal fa-location-dot"></i>
                         </div>
                         <div class="media-body">
-                            <p class="footer-contact_text">Our university location:</p>
-                            <a href="https://www.google.com/maps" class="footer-contact_link">147/I, Green Road, Dhaka</a>
+                            <p class="footer-contact_text">{{ __('admin_local.Our office location') }}:</p>
+                            <a @if($contact_info->location) target="__blank" @endif href="{{ $contact_info->location??'#' }}" class="footer-contact_link" style="font-size: 14px;">{{ $contact_info->address }}</a>
                         </div>
                     </div>
                 </div>
@@ -337,59 +340,57 @@ Hero Area
                             <div class="widget footer-widget">
                                 <div class="th-widget-about">
                                     <div class="about-logo">
-                                        <a href="{{ url('/') }}"><img src="{{ $logo_bottom?$logo_bottom->logo_image:'' }}" alt="{{env('COMPANY_NAME ')}}"></a>
+                                        <a href="{{ url('/') }}"><img src="{{ $logo_bottom?asset($logo_bottom->logo_image):'' }}" alt="{{env('COMPANY_NAME ')}}"></a>
                                     </div>
-                                    <p class="about-text">Continually optimize backward manufactured products whereas communities negotiate life compelling alignments</p>
+                                    {{-- <p class="about-text">Continually optimize backward manufactured products whereas communities negotiate life compelling alignments</p> --}}
                                     <div class="th-social">
-                                        <h6 class="title text-white">FOLLOW US ON:</h6>
-                                        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
-                                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
-                                        <a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a>
-                                        <a href="https://www.skype.com/"><i class="fab fa-skype"></i></a>
+                                        <h6 class="title text-white">{{ __('admin_local.FOLLOW US ON') }}:</h6>
+                                        @if($contact_info->facebook)<a target="__blank" href="{{ $contact_info->facebook }}"><i class="fab fa-facebook-f"></i></a>@endif
+                                        @if($contact_info->twitter)<a target="__blank" href="{{ $contact_info->twitter }}"><i class="fab fa-twitter"></i></a>@endif
+                                        @if($contact_info->linkedin)<a target="__blank" href="{{ $contact_info->linkedin }}"><i class="fab fa-linkedin-in"></i></a>@endif
+                                        @if($contact_info->youtube)<a target="__blank" href="{{ $contact_info->youtube }}"><i class="fab fa-youtube"></i></a>@endif
+                                        {{-- <a href="https://www.skype.com/"><i class="fab fa-skype"></i></a> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-xl-auto">
                             <div class="widget widget_nav_menu footer-widget">
-                                <h3 class="widget_title">Quick Links</h3>
+                                <h3 class="widget_title">{{ __('admin_local.Categories') }}</h3>
                                 <div class="menu-all-pages-container">
                                     <ul class="menu">
-                                        <li><a href="course.html">Life Coach</a></li>
-                                        <li><a href="course.html">Business Coach</a></li>
-                                        <li><a href="course.html">Health Coach</a></li>
-                                        <li><a href="course.html">Development</a></li>
-                                        <li><a href="course.html">Web Design</a></li>
-                                        <li><a href="course.html">SEO Optimize</a></li>
+                                        @php
+                                            $course_categories = \App\Models\Admin\Course\CourseCategory::where([['category_status',1],['category_delete',0]])->get();
+                                        @endphp
+                                        @foreach ($course_categories as $course_category)
+                                        <li><a href="{{ route('frontend.courses.getAllCourses',['category',$course_category->category_slug]) }}">{{ $course_category->category_name }}</a></li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-xl-auto">
                             <div class="widget widget_nav_menu footer-widget">
-                                <h3 class="widget_title">Resources</h3>
+                                <h3 class="widget_title">{{ __('admin_local.Resources') }}</h3>
                                 <div class="menu-all-pages-container">
                                     <ul class="menu">
-                                        <li><a href="contact.html">Community</a></li>
-                                        <li><a href="contact.html">Support</a></li>
-                                        <li><a href="contact.html">Video Guides</a></li>
-                                        <li><a href="contact.html">Documentation</a></li>
-                                        <li><a href="contact.html">Security</a></li>
-                                        <li><a href="contact.html">Template</a></li>
+                                        {{-- <li><a href="contact.html">{{ __('admin_local.Blogs') }}</a></li> --}}
+                                        <li><a href="contact.html">{{ __('admin_local.Instructors') }}</a></li>
+                                        <li><a href="contact.html">{{ __('admin_local.About Us') }}</a></li>
+                                        <li><a href="contact.html">{{ __('admin_local.Contact Us') }}</a></li>
+                                        <li><a href="contact.html">{{ __('admin_local.Privacy and Policy') }}</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-xxl-3 col-xl-3">
                             <div class="widget newsletter-widget footer-widget">
-                                <h3 class="widget_title">Get in touch!</h3>
-                                <p class="footer-text">Subscribe our newsletter to get our latest
-                                    Update & news</p>
+                                <h3 class="widget_title">{{ __('admin_local.Get in touch') }}!</h3>
+                                <p class="footer-text">{{ __('admin_local.Send us email to get touch in with us') }}</p>
                                 <form class="newsletter-form form-group">
                                     <input class="form-control" type="email" placeholder="Email Email" required="">
                                     <i class="far fa-envelope"></i>
-                                    <button type="submit" class="th-btn style3">Subscribe Now <i class="far fa-arrow-right ms-1"></i></button>
+                                    <button type="submit" class="th-btn style3">{{ __('admin_local.Send') }}<i class="far fa-arrow-right ms-1"></i></button>
                                 </form>
                             </div>
                         </div>
@@ -400,13 +401,12 @@ Hero Area
                 <div class="copyright-wrap">
                     <div class="row justify-content-between align-items-center">
                         <div class="col-md-6">
-                            <p class="copyright-text">Copyright © 2023 <a href="index.html">Edura</a> All Rights Reserved.</p>
+                            <p class="copyright-text">{{ __('admin_local.Copyright') }} © {{ date('Y') }} <a href="index.html">Bipebd</a> {{ __('admin_local.All Rights Reserved') }}</p>
                         </div>
                         <div class="col-md-6 text-end d-none d-md-block">
                             <div class="footer-links">
                                 <ul>
-                                    <li><a href="about.html">Privacy Policy</a></li>
-                                    <li><a href="about.html">Terms & Condition</a></li>
+                                    <li><a href="about.html">Designed & Developed By Md. Mutasim Naib</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Localization\ChangeLanguageController;
 use App\Http\Controllers\Admin\Localization\LanguageController;
 use App\Http\Controllers\Admin\PurchaseHistory\PurchaseHistoryController;
 use App\Http\Controllers\Admin\Role\RoleAndPermissionController;
+use App\Http\Controllers\Admin\Settings\ContactInfoController;
 use App\Http\Controllers\Admin\Settings\HomepageSettingController;
 use App\Http\Controllers\Admin\Settings\MaintenanceModeController;
 use App\Http\Controllers\Admin\User\InstructorController;
@@ -100,8 +101,14 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
                 Route::put('/slider/{id}','update');
                 Route::delete('/slider/{id}','destroySlider');
             });
+
+            Route::controller(ContactInfoController::class)->prefix('contactinfo')->name('contactinfo.')->group(function(){
+                Route::get('/','index')->name('index');
+                Route::post('/update','update')->name('update');
+            });
         });
 
+        
     });
     require __DIR__.'/bipebd/course.php';
 });
