@@ -16,6 +16,19 @@ class ContactInfoController extends Controller
 
     public function index(){
         $contactinfo = ContactInfo::first();
+        if(!$contactinfo){
+            $contactinfo = new ContactInfo();
+            $contactinfo->phone = null;
+            $contactinfo->email = null;
+            $contactinfo->address =null;
+            $contactinfo->location =null;
+            $contactinfo->facebook = null;
+            $contactinfo->twitter = null;
+            $contactinfo->youtube = null;
+            $contactinfo->linkedin = null;
+
+            $contactinfo->save();
+        }
         return view('backend.blade.settings.contactinfo.index',compact('contactinfo'));
     }
 

@@ -48,7 +48,7 @@
                 </div>
             </div>
         @endforeach
-        
+
 
 
         {{-- <div class="th-hero-slide">
@@ -113,7 +113,7 @@ $categories = \App\Models\Admin\Course\CourseCategory::with('courses')->where([[
                     </div>
                 </div>
                 <div class="col-xl-8">
-                    <div class="row slider-shadow th-carousel category-slider" data-slide-show="" data-ml-slide-show="3" data-md-slide-show="3" data-sm-slide-show="2" data-arrows="true" data-xl-arrows="true">
+                    <div class="row slider-shadow th-carousel category-slider" data-slide-show="3" data-ml-slide-show="3" data-md-slide-show="3" data-sm-slide-show="2" data-arrows="true" data-xl-arrows="true">
                         @foreach ($categories as $category)
                             <div class="col-md-6 col-xl-4" >
                                 <div class="category-card">
@@ -164,7 +164,7 @@ $categories = \App\Models\Admin\Course\CourseCategory::with('courses')->where([[
                 $course_images = $course->course_images?explode(',',$course->course_images):asset('public/bipebd/assets/img/course/course_1_1.png');
             @endphp
                 <div class="col-md-6 col-xxl-3 col-lg-4" >
-                    <div class="course-box px-0" style="border:1px dashed lightgrey"> 
+                    <div class="course-box px-0" style="border:1px dashed lightgrey">
                         <div class="course-img">
                             <a href="{{ route('frontend.courses.single',$course->course_name_slug) }}"><img style="height:250px" src="{{ $course->course_images?$course_images[0]:$course_images }}" alt="img"></a>
                             @if ($course->course_discount>0)
@@ -329,31 +329,35 @@ About Area
         </div>
     </div>
 </section>
-<div class="counter-area-2" data-bg-src="{{ asset('public/bipebd/assets/img/bg/counter-bg_1.png') }}">
+{{-- <div class="counter-area-2" data-bg-src="{{ asset('public/bipebd/assets/img/bg/counter-bg_1.png') }}" > --}}
+<div class="counter-area-2" >
+    @php
+        $counter = \App\Models\Admin\HomepageCounter::first();
+    @endphp
     <div class="container">
         <div class="row justify-content-between">
             <div class="col-sm-6 col-xl-3 counter-card-wrap">
                 <div class="counter-card">
-                    <h2 class="counter-card_number"><span class="counter-number">3.9</span>k<span class="fw-normal">+</span></h2>
-                    <p class="counter-card_text"><strong>Successfully</strong> Trained</p>
+                    <h2 class="counter-card_number"><span class="counter-number">{{ $counter?$counter->successfully_completed:0 }}</span><span class="fw-normal">+</span></h2>
+                    <p class="counter-card_text"><strong>{{ __('admin_local.Successfully Completed') }}</strong></p>
                 </div>
             </div>
             <div class="col-sm-6 col-xl-3 counter-card-wrap">
                 <div class="counter-card">
-                    <h2 class="counter-card_number"><span class="counter-number">15.8</span>k<span class="fw-normal">+</span></h2>
-                    <p class="counter-card_text"><strong>Classes</strong> Completed</p>
+                    <h2 class="counter-card_number"><span class="counter-number">{{ $counter?$counter->trainer:0 }}</span><span class="fw-normal">+</span></h2>
+                    <p class="counter-card_text"><strong>{{ __('admin_local.Experienced Trainer') }}</strong></p>
                 </div>
             </div>
             <div class="col-sm-6 col-xl-3 counter-card-wrap">
                 <div class="counter-card">
-                    <h2 class="counter-card_number"><span class="counter-number">97.5</span>k<span class="fw-normal">+</span></h2>
-                    <p class="counter-card_text"><strong>Satisfaction</strong> Rate</p>
+                    <h2 class="counter-card_number"><span class="counter-number">{{ $counter?$counter->certification:0 }}</span><span class="fw-normal">+</span></h2>
+                    <p class="counter-card_text"><strong>{{ __('admin_local.Satisfaction Rate') }}</strong> </p>
                 </div>
             </div>
             <div class="col-sm-6 col-xl-3 counter-card-wrap">
                 <div class="counter-card">
-                    <h2 class="counter-card_number"><span class="counter-number">100.2</span>k<span class="fw-normal">+</span></h2>
-                    <p class="counter-card_text"><strong>Students</strong> Community</p>
+                    <h2 class="counter-card_number"><span class="counter-number">{{ $counter?$counter->student:0 }}</span><span class="fw-normal">+</span></h2>
+                    <p class="counter-card_text"><strong>{{ __('admin_local.Students Community') }}</strong> </p>
                 </div>
             </div>
         </div>
@@ -368,20 +372,30 @@ Contact Area
     <div class="shape-mockup jump d-md-block d-none" data-right="76px" data-bottom="10%"><img src="{{ asset('public/bipebd/assets/img/normal/about_1_shape1.png') }}" alt="shapes"></div>
     <div class="container-fluid p-0">
         <div class="row">
+            @php
+                $aboutus = \App\Models\Admin\HomeAboutus::first();
+            @endphp
             <div class="col-xl-6 mb-50 mb-xl-0">
                 <div class="img-box2">
                     <div class="img1">
-                        <img src="{{ asset('public/bipebd/assets/img/normal/about_2_1.png') }}" alt="About">
+                        <img src="{{ $aboutus&&$aboutus->image1?asset('public/'.$aboutus->image1):asset('public/bipebd/assets/img/normal/about_2_1.png') }}" alt="About">
                     </div>
                     <div class="img2 tilt-active">
-                        <img src="{{ asset('public/bipebd/assets/img/normal/about_2_2.png') }}" alt="About">
+                        <img src="{{ $aboutus&&$aboutus->image2?asset('public/'.$aboutus->image2):asset('public/bipebd/assets/img/normal/about_2_2.png') }}" alt="About">
                     </div>
                     <div class="about-experience-wrap">
                         <div class="about-experience-icon">
                             <img src="{{ asset('public/bipebd/assets/img/icon/logo-icon.svg') }}" alt="img">
                         </div>
                         <div class="about-experience-tag">
-                            <span class="about-title-anime">24+ YEARS EXPERIENCE</span>
+                            <?php
+                                $date1 = new DateTime(env('COMPANY_START_DATE'));
+                                $date2 = new DateTime(date('Y-m-d'));
+
+                                $interval = $date1->diff($date2);
+                                // echo ; // Outputs: 25
+                            ?>
+                            <span class="about-title-anime">{{ $aboutus&&$aboutus->number_of_experince?$aboutus->number_of_experince:$interval->y+1 }}+ {{ __('admin_local.YEARS EXPERIENCE') }}</span>
                         </div>
                     </div>
                 </div>
@@ -389,18 +403,21 @@ Contact Area
             <div class="col-xl-6">
                 <div class="about2-title-wrap">
                     <div class="title-area mb-30">
-                        <span class="sub-title"><i class="fal fa-book me-2"></i> Get to Know About Us</span>
-                        <h2 class="sec-title">Dive into our Online Courses and Ignite Your Learning!</h2>
+                        <span class="sub-title"><i class="fal fa-book me-2"></i> {{ __('admin_local.Get to Know About Us') }} </span>
+                        <h2 class="sec-title">{{ $aboutus&&$aboutus->headline?$aboutus->headline:'' }}</h2>
                     </div>
-                    <p class="mt-n2 mb-35">Collaboratively simplify user friendly networks after principle centered coordinate effective methods of empowerment distributed niche markets pursue market positioning web-readiness after resource sucking applications. </p>
+                    <p class="mt-n2 mb-35">{{ $aboutus&&$aboutus->short_details?$aboutus->short_details:'' }}</p>
                     <div class="checklist style3 mb-45">
                         <ul>
-                            <li> Dramatically re-engineer value added systems via mission</li>
-                            <li> Access more then 100K online courses</li>
-                            <li> Learn the high-impact skills that top companies want.</li>
+                            @php
+                                $points = $aboutus&&$aboutus->points?json_decode($aboutus->points):[];
+                            @endphp
+                            @foreach ($points as $key=>$point)
+                            <li> {{ $point }}</li>
+                            @endforeach
                         </ul>
                     </div>
-                    <a href="about.html" class="th-btn">ABOUT MORE<i class="far fa-arrow-right ms-2"></i></a>
+                    <a href="about.html" class="th-btn">{{ $aboutus&&$aboutus->button_text?$aboutus->button_text:'' }}<i class="far fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
@@ -519,6 +536,72 @@ Testimonial Area
                         <div class="testi-box-author-details">
                             <h3 class="testi-box_name">Anadi Juila</h3>
                             <span class="testi-box_desig">IT Student</span>
+                        </div>
+                        <div class="testi-box_quote">
+                            <img src="{{ asset('public/bipebd/assets/img/icon/testi-quote2.svg')}}" alt="quote">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="testi-box style3">
+                    <div class="testi-box_review">
+                        <i class="fa-solid fa-star-sharp"></i>
+                        <i class="fa-solid fa-star-sharp"></i>
+                        <i class="fa-solid fa-star-sharp"></i>
+                        <i class="fa-solid fa-star-sharp"></i>
+                        <i class="fa-solid fa-star-sharp"></i>
+                        (4.7)
+                    </div>
+                    <div class="testi-box-bg-shape">
+                        <svg width="78" height="111" viewBox="0 0 78 111" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0L78 30V71C78 93.0914 60.0914 111 38 111H10C4.47715 111 0 106.523 0 101V0Z" fill="#0D5EF4" />
+                        </svg>
+                    </div>
+                    <div class="testi-box_content">
+
+                        <p class="testi-box_text">“Quickly maximize visionary solutions after mission critical action item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.</p>
+                    </div>
+                    <div class="testi-box_bottom">
+                        <div class="testi-box_img">
+                            <img src="{{ asset('public/bipebd/assets/img/testimonial/testi_3_1.jpg')}}" alt="Avater">
+                        </div>
+                        <div class="testi-box-author-details">
+                            <h3 class="testi-box_name">Zara Head Milan</h3>
+                            <span class="testi-box_desig">Regular Student</span>
+                        </div>
+                        <div class="testi-box_quote">
+                            <img src="{{ asset('public/bipebd/assets/img/icon/testi-quote2.svg')}}" alt="quote">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="testi-box style3">
+                    <div class="testi-box_review">
+                        <i class="fa-solid fa-star-sharp"></i>
+                        <i class="fa-solid fa-star-sharp"></i>
+                        <i class="fa-solid fa-star-sharp"></i>
+                        <i class="fa-solid fa-star-sharp"></i>
+                        <i class="fa-solid fa-star-sharp"></i>
+                        (4.7)
+                    </div>
+                    <div class="testi-box-bg-shape">
+                        <svg width="78" height="111" viewBox="0 0 78 111" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0L78 30V71C78 93.0914 60.0914 111 38 111H10C4.47715 111 0 106.523 0 101V0Z" fill="#0D5EF4" />
+                        </svg>
+                    </div>
+                    <div class="testi-box_content">
+
+                        <p class="testi-box_text">“Quickly maximize visionary solutions after mission critical action item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.</p>
+                    </div>
+                    <div class="testi-box_bottom">
+                        <div class="testi-box_img">
+                            <img src="{{ asset('public/bipebd/assets/img/testimonial/testi_3_1.jpg')}}" alt="Avater">
+                        </div>
+                        <div class="testi-box-author-details">
+                            <h3 class="testi-box_name">Zara Head Milan</h3>
+                            <span class="testi-box_desig">Regular Student</span>
                         </div>
                         <div class="testi-box_quote">
                             <img src="{{ asset('public/bipebd/assets/img/icon/testi-quote2.svg')}}" alt="quote">

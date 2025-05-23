@@ -44,7 +44,7 @@ Version: 1.0.0
     4.6. Blog
     4.7. Comments
     4.8. Hero Area
-    4.9. Error    
+    4.9. Error
     4.00. Popup Search
     4.00. Popup Side Menu
     4.00. Wocommerce
@@ -5913,7 +5913,7 @@ ol.wp-block-rss {
   padding-right: 10px;
   padding-left: 15px;
   height: 48px;
-  
+
 }
 
 
@@ -5974,7 +5974,7 @@ ol.wp-block-rss {
   padding-right: 10px;
   padding-left: 15px;
   height: 48px;
- 
+
 }
 
 .th-mobile-menu .search-form input:hover, .th-mobile-menu .search-form input:focus, .th-mobile-menu .search-form input:active {
@@ -15104,12 +15104,13 @@ span.select2-selection.select2-selection--single:focus {
 
 .testi-box {
   padding: 50px;
-  background-color: var(--white-color);
+  background-color: var(--theme-color);
   box-shadow: 0px 10px 15px 0px rgba(208, 219, 233, 0.3);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
   z-index: 1;
+  /* background: var(--theme) !important; */
   /* Medium Large devices */
 }
 
@@ -15719,7 +15720,7 @@ span.select2-selection.select2-selection--single:focus {
 
 .counter-card-wrap {
   border-right: 1px solid;
-  border-color: #357AFA !important;
+  border-color: #fafafa !important;
 }
 
 .counter-card-wrap:last-child {
@@ -24752,5 +24753,9 @@ span.select2-selection.select2-selection--single:focus {
   #categories_slick_slider{
       height: 60px !important;
   }
+}
+
+.counter-area-2{
+    background:var(--theme-color)
 }
 /* ================================= Accordion Css End =========================== */

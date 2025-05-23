@@ -100,6 +100,11 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
                 Route::get('/slider/{id}/edit','edit');
                 Route::put('/slider/{id}','update');
                 Route::delete('/slider/{id}','destroySlider');
+
+                /** Other Route of Homepage */
+                Route::get('/other-contents','otherContent')->name('otherContent');
+                Route::post('/update-counter','updateCounter')->name('updateCounter');
+                Route::post('/update-aboutus','updateAboutus')->name('updateAboutus');
             });
 
             Route::controller(ContactInfoController::class)->prefix('contactinfo')->name('contactinfo.')->group(function(){
@@ -108,7 +113,7 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
             });
         });
 
-        
+
     });
     require __DIR__.'/bipebd/course.php';
 });
