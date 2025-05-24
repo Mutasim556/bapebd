@@ -395,7 +395,7 @@ Contact Area
                                 $interval = $date1->diff($date2);
                                 // echo ; // Outputs: 25
                             ?>
-                            <span class="about-title-anime">{{ $aboutus&&$aboutus->number_of_experince?$aboutus->number_of_experince:$interval->y+1 }}+ {{ __('admin_local.YEARS EXPERIENCE') }}</span>
+                            <span class="about-title-anime">{{ $aboutus&&$aboutus->number_of_experience?$aboutus->number_of_experience:$interval->y+1 }}+ {{ __('admin_local.YEARS EXPERIENCE') }}</span>
                         </div>
                     </div>
                 </div>
