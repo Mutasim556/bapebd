@@ -296,4 +296,5 @@ class HomepageSettingController extends Controller
 
         return back();
     }
+
 }

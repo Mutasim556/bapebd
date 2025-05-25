@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ContactInfoController extends Controller
 {
-     public function __construct()
+    public function __construct()
     {
         $this->middleware('permission:contact-info-index,admin');
         $this->middleware('permission:contact-info-update,admin')->only(['edit','update','updateStatus']);

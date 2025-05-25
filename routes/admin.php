@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Localization\ChangeLanguageController;
 use App\Http\Controllers\Admin\Localization\LanguageController;
 use App\Http\Controllers\Admin\PurchaseHistory\PurchaseHistoryController;
 use App\Http\Controllers\Admin\Role\RoleAndPermissionController;
+use App\Http\Controllers\Admin\Settings\CommentsController;
 use App\Http\Controllers\Admin\Settings\ContactInfoController;
 use App\Http\Controllers\Admin\Settings\HomepageSettingController;
 use App\Http\Controllers\Admin\Settings\MaintenanceModeController;
@@ -111,6 +112,8 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
                 Route::get('/','index')->name('index');
                 Route::post('/update','update')->name('update');
             });
+
+            Route::resource('/comments',CommentsController::class);
         });
 
 

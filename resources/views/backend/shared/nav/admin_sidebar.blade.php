@@ -132,7 +132,7 @@
             </ul>
         </li>
     @endif
-    @if (hasPermission(['maintenance-mode-index','homepage-slider-index','logo-index','other-content-index']))
+    @if (hasPermission(['maintenance-mode-index','homepage-slider-index','logo-index','other-content-index','comments-index']))
         <li class="sidebar-list">
             <a class="sidebar-link sidebar-title" href="javascript:void(0)" aria-expanded="false">
                 <i data-feather="settings"></i>
@@ -168,6 +168,11 @@
                 @if (hasPermission(['other-content-index']))
                     <li>
                         <a href="{{ route('admin.settings.homepage.otherContent') }}">{{ __('admin_local.Other Contents') }}</a>
+                    </li>
+                @endif
+                @if (hasPermission(['comments-index']))
+                    <li>
+                        <a href="{{ route('admin.settings.comments.index') }}">{{ __('admin_local.Comments') }}</a>
                     </li>
                 @endif
             </ul>
