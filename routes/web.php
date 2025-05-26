@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FrontEnd\CartController;
 use App\Http\Controllers\FrontEnd\CourseController;
+use App\Http\Controllers\Frontend\OtherPageController;
 use App\Http\Controllers\Frontend\User\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SslCommerzPaymentController;
@@ -26,17 +27,17 @@ Route::group([
         // App::setLocale(env('FRONT_LOCALE'));
         return view('frontend.blade.homepage.index');
     })->name('HomePage');
-    
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['admin', 'verified'])->name('dashboard');
-    
+
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
-    
+
     Route::group(['prefix'=>'courses','as'=>'frontend.courses.'],function(){
         Route::controller(CourseController::class)->group(function(){
             Route::get('{slug?}','viewCourse')->name('single');
@@ -55,8 +56,12 @@ Route::group([
             Route::get('/view/cart','viewCart')->name('viewCart');
             Route::get('/apply-coupon','applyCoupon')->name('applyCoupon');
             Route::post('/cart-payment','cartPayment')->name('cartPayment');
-            
+
         });
+    });
+
+    Route::controller(OtherPageController::class)->group(function(){
+        Route::get('/about-us')
     });
 });
 // Route::post('/course/cart-payment/success',[CartController::class,'success']);
@@ -72,7 +77,7 @@ Route::group([
     Route::controller(AuthController::class)->group(function(){
         Route::get('/authentication/{type}','login')->name('login');
         Route::post('/login','attemptLogin')->name('attemptLogin');
-        
+
         Route::post('/register','register')->name('register');
     });
 });
