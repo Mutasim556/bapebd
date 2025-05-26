@@ -4,6 +4,7 @@ namespace App\Http\Middleware\FrontEnd;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,6 +17,7 @@ class UserStatusCheckMid
      */
     public function handle(Request $request, Closure $next): Response
     {
+         App::setLocale('bn');
         if(Auth::check()&&(Auth::user()->status==0 || Auth::user()->delete==1)){
             Auth::logout();
             return to_route('user.login','login')->with('banned',__('admin_local.Your accout has been banned.Please contact with admin'));

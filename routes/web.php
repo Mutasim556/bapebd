@@ -5,6 +5,7 @@ use App\Http\Controllers\FrontEnd\CourseController;
 use App\Http\Controllers\Frontend\User\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Models\Admin\Comment;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 

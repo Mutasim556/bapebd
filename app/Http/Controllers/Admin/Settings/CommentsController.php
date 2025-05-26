@@ -25,7 +25,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comment::where([['delete',0],['status',1]])->get();
+        $comments = Comment::where([['delete',0]])->get();
         return view('backend.blade.settings.comments.index',compact('comments'));
     }
 
@@ -111,15 +111,66 @@ class CommentsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Comment::withoutGlobalScope('translate')->find($id);
+        return $data;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $data, string $id)
     {
-        //
+         $data->validate([
+            'student_name'=>'required',
+            'student_department'=>'required',
+            'student_rating'=>'required',
+            'comment'=>'required',
+        ]);
+
+        $newcomment = Comment::findOrFail($id);
+
+        $newcomment->student_name = $data->student_name;
+        $newcomment->student_department = $data->student_department;
+        $newcomment->student_rating = $data->student_rating;
+        $newcomment->comment = $data->comment;
+        if($data->student_image){
+            $files = $data->student_image;
+            $file = time().'img1.'.$files->getClientOriginalExtension();
+            $file_name = 'bipebd/files/settings/homepage/comments/'.$file;
+            $manager = new ImageManager(new Driver);
+            $manager->read($data->student_image)->resize(70,70)->save(env('ASSET_DIRECTORY').'/'.'bipebd/files/settings/homepage/comments/'.$file);
+        }else{
+            $file_name = "";
+        }
+        $newcomment->student_image = $newcomment->student_image;
+
+        $newcomment->save();
+
+        $languages =  Language::where([['status', 1], ['delete', 0]])->get();
+        foreach ($languages as $lang) {
+            $comment = $lang->lang != 'en' ? 'comment_' . $lang->lang : 'comment';
+            if ($data->$comment == null) {
+                continue;
+            } else {
+                Translation::updateOrInsert([
+                    'translationable_type'  => 'App\Models\Admin\Comment',
+                    'translationable_id'    => $newcomment->id,
+                    'locale'                => $lang->lang,
+                    'key'                   => 'comment',
+                ],[
+                    'value'                 =>  $data->$comment,
+                    'updated_at'            => Carbon::now(),
+                ]);
+            }
+        }
+
+        return response()->json([
+            'comment' => Comment::findOrFail($id),
+            'title'=>__('admin_local.Congratulations !'),
+            'text'=>__('admin_local.Comment updated successfully.'),
+            'confirmButtonText'=>__('admin_local.Ok'),
+        ],200);
+ 
     }
 
     /**
@@ -127,6 +178,21 @@ class CommentsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $comments = Comment::findOrFail($id);
+        $comments->delete=1;
+        $comments->save();
+        return response([
+            'title'=>__('admin_local.Congratulations !'),
+            'text'=>__('admin_local.Comment deleted successfully.'),
+            'confirmButtonText'=>__('admin_local.Ok'),
+        ]);
+    }
+
+    public function updateStatus(Request $data){
+        $comments = Comment::findOrFail($data->id);
+        $comments->status=$data->status;
+        $comments->updated_at=Carbon::now();
+        $comments->save();
+        return response($comments);
     }
 }

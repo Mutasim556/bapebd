@@ -5,7 +5,7 @@
 
 @section('content')
 @php
-    $sliders = DB::table('homepage_silders')->where([['status',1],['delete',0]])->get();
+    $sliders = App\Models\Admin\HomepageSilder::where([['status',1],['delete',0]])->get();
 @endphp
 <div class="th-hero-wrapper hero-1" id="hero">
     <div class="hero-slider-1 th-carousel" data-fade="true" data-slide-show="1" data-md-slide-show="1" data-dots="true">
@@ -282,8 +282,8 @@ About Area
 
     <div class="container">
         <div class="title-area text-center">
-            <span class="sub-title"><i class="fal fa-book me-2"></i> Our Instructor</span>
-            <h2 class="sec-title">Meet Our Expert Instructor</h2>
+            <span class="sub-title"><i class="fal fa-book me-2"></i>{{ __('admin_local.Our Instructor') }}</span>
+            <h2 class="sec-title">{{ __('admin_local.Meet Our Expert Instructor') }}</h2>
         </div>
         <div class="row th-carousel slider-shadow py-0" data-slide-show="4" data-lg-slide-show="3" data-md-slide-show="2" data-sm-slide-show="2" data-xs-slide-show="1">
             <!-- Single Item -->
@@ -438,21 +438,30 @@ Testimonial Area
     </div>
     <div class="container">
         <div class="title-area text-center">
-            <span class="sub-title"><i class="fal fa-book me-2"></i> Our Students Testimonials</span>
-            <h2 class="sec-title text-white">Students Say’s About Us!</h2>
+            <span class="sub-title"><i class="fal fa-book me-2"></i> {{ __('admin_local.Our Students Testimonials') }}</span>
+            <h2 class="sec-title text-white">{{ __('admin_local.Students Say’s About Us!') }}</h2>
         </div>
     </div>
     <div class="container-fluid">
         <div class="row slider-shadow th-carousel testi-slider-4 dot-style2" data-slide-show="4" data-ml-slide-show="3" data-lg-slide-show="2" data-md-slide-show="1" data-dots="true">
+            @php
+                $comments = \App\Models\Admin\Comment::where([['status',1],['delete',0]])->get();
+            @endphp
+            @foreach ($comments as $comment)
             <div class="col-lg-6">
                 <div class="testi-box style3">
                     <div class="testi-box_review">
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        (4.7)
+                        @php
+                            $rating = floor( (int) $comment->student_rating);
+                        @endphp
+                        @for ($i=1;$i<=$rating;$i++)
+                            <i class="fa-solid fa-star-sharp"></i>
+                            
+                        @endfor
+                        @for ($i=1;$i<=5-$rating;$i++)
+                            <i class="fa-light fa-star"></i>
+                        @endfor
+                        ({{ $rating }})
                     </div>
                     <div class="testi-box-bg-shape">
                         <svg width="78" height="111" viewBox="0 0 78 111" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -461,15 +470,15 @@ Testimonial Area
                     </div>
                     <div class="testi-box_content">
 
-                        <p class="testi-box_text">“Quickly maximize visionary solutions after mission critical action item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.</p>
+                        <p class="testi-box_text">{{ $comment->comment }}</p>
                     </div>
                     <div class="testi-box_bottom">
                         <div class="testi-box_img">
-                            <img src="{{ asset('public/bipebd/assets/img/testimonial/testi_3_1.jpg')}}" alt="Avater">
+                            <img src="{{ asset($comment->student_image?'public/'.$comment->student_image:'public/bipebd/assets/img/testimonial/testi_3_1.jpg')}}" alt="Avater">
                         </div>
                         <div class="testi-box-author-details">
-                            <h3 class="testi-box_name">Zara Head Milan</h3>
-                            <span class="testi-box_desig">IT Student</span>
+                            <h3 class="testi-box_name">{{ $comment->student_name }}</h3>
+                            <span class="testi-box_desig">{{ $comment->student_department }}</span>
                         </div>
                         <div class="testi-box_quote">
                             <img src="{{ asset('public/bipebd/assets/img/icon/testi-quote2.svg')}}" alt="quote">
@@ -477,171 +486,8 @@ Testimonial Area
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="testi-box style3">
-                    <div class="testi-box_review">
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        (4.7)
-                    </div>
-                    <div class="testi-box-bg-shape">
-                        <svg width="78" height="111" viewBox="0 0 78 111" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0L78 30V71C78 93.0914 60.0914 111 38 111H10C4.47715 111 0 106.523 0 101V0Z" fill="#0D5EF4" />
-                        </svg>
-                    </div>
-                    <div class="testi-box_content">
+            @endforeach
 
-                        <p class="testi-box_text">They were able to provide me with a range of options for my roof replacement, item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning.</p>
-                    </div>
-                    <div class="testi-box_bottom">
-                        <div class="testi-box_img">
-                            <img src="{{ asset('public/bipebd/assets/img/testimonial/testi_3_2.jpg')}}" alt="Avater">
-                        </div>
-                        <div class="testi-box-author-details">
-                            <h3 class="testi-box_name">David H. Smith</h3>
-                            <span class="testi-box_desig">Regular Student</span>
-                        </div>
-                        <div class="testi-box_quote">
-                            <img src="{{ asset('public/bipebd/assets/img/icon/testi-quote2.svg')}}" alt="quote">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="testi-box style3">
-                    <div class="testi-box_review">
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        (4.7)
-                    </div>
-                    <div class="testi-box-bg-shape">
-                        <svg width="78" height="111" viewBox="0 0 78 111" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0L78 30V71C78 93.0914 60.0914 111 38 111H10C4.47715 111 0 106.523 0 101V0Z" fill="#0D5EF4" />
-                        </svg>
-                    </div>
-                    <div class="testi-box_content">
-
-                        <p class="testi-box_text">They worked tirelessly to complete the job on time and the final result item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.</p>
-                    </div>
-                    <div class="testi-box_bottom">
-                        <div class="testi-box_img">
-                            <img src="{{ asset('public/bipebd/assets/img/testimonial/testi_3_3.jpg')}}" alt="Avater">
-                        </div>
-                        <div class="testi-box-author-details">
-                            <h3 class="testi-box_name">Anadi Juila</h3>
-                            <span class="testi-box_desig">IT Student</span>
-                        </div>
-                        <div class="testi-box_quote">
-                            <img src="{{ asset('public/bipebd/assets/img/icon/testi-quote2.svg')}}" alt="quote">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="testi-box style3">
-                    <div class="testi-box_review">
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        (4.7)
-                    </div>
-                    <div class="testi-box-bg-shape">
-                        <svg width="78" height="111" viewBox="0 0 78 111" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0L78 30V71C78 93.0914 60.0914 111 38 111H10C4.47715 111 0 106.523 0 101V0Z" fill="#0D5EF4" />
-                        </svg>
-                    </div>
-                    <div class="testi-box_content">
-
-                        <p class="testi-box_text">“Quickly maximize visionary solutions after mission critical action item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.</p>
-                    </div>
-                    <div class="testi-box_bottom">
-                        <div class="testi-box_img">
-                            <img src="{{ asset('public/bipebd/assets/img/testimonial/testi_3_1.jpg')}}" alt="Avater">
-                        </div>
-                        <div class="testi-box-author-details">
-                            <h3 class="testi-box_name">Zara Head Milan</h3>
-                            <span class="testi-box_desig">Regular Student</span>
-                        </div>
-                        <div class="testi-box_quote">
-                            <img src="{{ asset('public/bipebd/assets/img/icon/testi-quote2.svg')}}" alt="quote">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="testi-box style3">
-                    <div class="testi-box_review">
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        (4.7)
-                    </div>
-                    <div class="testi-box-bg-shape">
-                        <svg width="78" height="111" viewBox="0 0 78 111" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0L78 30V71C78 93.0914 60.0914 111 38 111H10C4.47715 111 0 106.523 0 101V0Z" fill="#0D5EF4" />
-                        </svg>
-                    </div>
-                    <div class="testi-box_content">
-
-                        <p class="testi-box_text">“Quickly maximize visionary solutions after mission critical action item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.</p>
-                    </div>
-                    <div class="testi-box_bottom">
-                        <div class="testi-box_img">
-                            <img src="{{ asset('public/bipebd/assets/img/testimonial/testi_3_1.jpg')}}" alt="Avater">
-                        </div>
-                        <div class="testi-box-author-details">
-                            <h3 class="testi-box_name">Zara Head Milan</h3>
-                            <span class="testi-box_desig">Regular Student</span>
-                        </div>
-                        <div class="testi-box_quote">
-                            <img src="{{ asset('public/bipebd/assets/img/icon/testi-quote2.svg')}}" alt="quote">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="testi-box style3">
-                    <div class="testi-box_review">
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        <i class="fa-solid fa-star-sharp"></i>
-                        (4.7)
-                    </div>
-                    <div class="testi-box-bg-shape">
-                        <svg width="78" height="111" viewBox="0 0 78 111" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0L78 30V71C78 93.0914 60.0914 111 38 111H10C4.47715 111 0 106.523 0 101V0Z" fill="#0D5EF4" />
-                        </svg>
-                    </div>
-                    <div class="testi-box_content">
-
-                        <p class="testi-box_text">“Quickly maximize visionary solutions after mission critical action item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.</p>
-                    </div>
-                    <div class="testi-box_bottom">
-                        <div class="testi-box_img">
-                            <img src="{{ asset('public/bipebd/assets/img/testimonial/testi_3_1.jpg')}}" alt="Avater">
-                        </div>
-                        <div class="testi-box-author-details">
-                            <h3 class="testi-box_name">Zara Head Milan</h3>
-                            <span class="testi-box_desig">Regular Student</span>
-                        </div>
-                        <div class="testi-box_quote">
-                            <img src="{{ asset('public/bipebd/assets/img/icon/testi-quote2.svg')}}" alt="quote">
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>

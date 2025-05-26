@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-lg-6 mt-2">
                                 <label for="student_rating"><strong>{{ __('admin_local.Student Rating') }} *</strong></label>
-                                <input type="text" class="form-control" name="student_rating" id="student_rating">
+                                <input type="number" min="1" max="5" class="form-control" name="student_rating" id="student_rating">
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
@@ -117,63 +117,71 @@
 
     {{-- Add User Modal Start --}}
 
-    <div class="modal fade" id="edit-course-category-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg"
+    <div class="modal fade" id="edit-comment-modal" tabindex="-1" aria-labelledby="bs-example-modal-lg"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center" style="border-bottom:1px dashed gray">
                     <h4 class="modal-title" id="myLargeModalLabel">
-                        {{ __('admin_local.Edit Course Category') }}
+                        {{ __('admin_local.Edit Comments') }}
                     </h4>
                     <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <p class="px-3 text-danger"><i>{{ __('admin_local.The field labels marked with * are required input fields.') }}</i>
                 </p>
                 <div class="modal-body" style="margin-top: -20px">
-                    <form id="edit_category_form" enctype="multipart/form-data">
+                    <form id="edit_comment_form" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <input type="hidden" id="category_id" name="category_id" value="">
+                        <input type="hidden" id="comment_id" name="comment_id" value="">
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ({{ __('admin_local.Default') }})
+                                <label for="student_name"><strong>{{ __('admin_local.Student Name') }} ({{ __('admin_local.Default') }})
                                         *</strong></label>
-                                <input type="text" class="form-control" name="category_name"
-                                    id="category_name">
+                                <input type="text" class="form-control" name="student_name"
+                                    id="student_name">
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-6 mt-2">
-                                <label for="category_name"><strong>{{ __('admin_local.Category Slug') }} *</strong></label>
-                                <input type="text" class="form-control" name="category_slug" id="category_slug">
+                                <label for="student_department"><strong>{{ __('admin_local.Student Department') }} *</strong></label>
+                                <input type="text" class="form-control" name="student_department" id="student_department">
                                 <span class="text-danger err-mgs"></span>
                             </div>
+                            <div class="col-lg-6 mt-2">
+                                <label for="student_rating"><strong>{{ __('admin_local.Student Rating') }} *</strong></label>
+                                <input type="number" max="5" min="1" class="form-control" name="student_rating" id="student_rating">
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            <div class="col-lg-6 mt-2">
+                                <label for="student_image"><strong>{{ __('admin_local.Student Image') }}
+                                    </strong></label>
+                                <input type="file" class="form-control" name="student_image"
+                                    id="student_image" accept="image/png, image/gif, image/jpeg , image/jpg">
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+                            <div class="col-lg-12 mt-2">
+                                <label for="comment"><strong>{{ __('admin_local.Comemnts') }} ({{__('admin_local.Default')}}) *</strong></label>
+                                <textarea class="form-control" name="comment" id="comment"></textarea>
+                                <span class="text-danger err-mgs"></span>
+                            </div>
+
                             <div class="col-lg-6 mt-2">
                                 <input type="checkbox" name="translate_autometic" id="translate_autometic" > &nbsp;
                                 <label for="category_name"><strong>{{ __('admin_local.Translate Autometic') }}</strong></label>
                             </div>
-                            @foreach (getLangs() as $lang)
                             <div class="col-lg-6 mt-2">
-                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ( {{ $lang->name }} )
+                                <label for="category_name"><strong  id="append_loader"></strong></label>
+                            </div>
+                            @foreach (getLangs() as $lang)
+                            <div class="col-lg-12 mt-2">
+                                <label for="comment"><strong>{{ __('admin_local.Comments') }} ( {{ $lang->name }} )
                                     *</strong></label>
-                                <input type="text" class="form-control" name="category_name_{{ $lang->lang }}"
-                                    id="category_name_{{ $lang->lang }}">
+                                <textarea class="form-control" name="comment_{{ $lang->lang }}"
+                                    id="comment_{{ $lang->lang }}"></textarea>
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             @endforeach
-                            <div class="col-lg-6 mt-2">
-                                <label for="category_image"><strong>{{ __('admin_local.Category Image') }}
-                                    </strong></label>
-                                <input type="file" class="form-control" name="category_image"
-                                    id="category_image" accept="image/png, image/gif, image/jpeg">
-                                <span class="text-danger err-mgs"></span>
-                            </div>
-                            <div class="col-lg-6 mt-2">
-                                <label for="category_image"><strong>{{ __('admin_local.Previous Category Image') }}
-                                    </strong></label>
-                                <div style="height: 50px" id="image_preview">
-                                    <img src="" alt="">
-                                </div>
-                            </div>
+
                         </div>
 
                         <div class="row mt-4 mb-2">
@@ -267,7 +275,7 @@
                                                     <div class="dropdown-content">
                                                         @if (hasPermission(['comments-update']))
                                                         <a data-bs-toggle="modal" style="cursor: pointer;"
-                                                            data-bs-target="#edit-comments-modal" class="text-primary"
+                                                            data-bs-target="#edit-comment-modal" class="text-primary"
                                                             id="edit_button"><i class=" fa fa-edit mx-1"></i>{{ __('admin_local.Edit') }}</a>
                                                         @endif
                                                         @if (hasPermission(['comments-delete']))

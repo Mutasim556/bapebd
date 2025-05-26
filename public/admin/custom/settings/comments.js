@@ -193,29 +193,25 @@ $(document).on('click', '#edit_button', function () {
     let cat = $(this).closest('tr').data('id');
     $.ajax({
         type: "get",
-        url: 'comment/' + cat + "/edit",
+        url: 'comments/' + cat + "/edit",
         dataType: 'JSON',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (data) {
             $('#edit_comment_form #comment_id').val(data.id);
-            $('#edit_comment_form #comment_slug').val(data.comment_slug);
+            $('#edit_comment_form #student_name').val(data.student_name);
+            $('#edit_comment_form #student_department').val(data.student_department);
+            $('#edit_comment_form #student_rating').val(data.student_rating);
 
             $.each(data.translations,function(key,val){
                 if(val.locale=='en'){
-                    $('#edit_comment_form #comment_name').val(data.comment_name);
+                    $('#edit_comment_form #comment').val(data.comment);
                 }else{
-                    $('#edit_comment_form #comment_name_'+val.locale).val(val.value);
+                    $('#edit_comment_form #comment_'+val.locale).val(val.value);
                 }
-            })
-            $('#edit_comment_form #parent_comment').val(data.parent_comment_id);
-            $('#edit_comment_form #parent_comment').trigger('change');
-            if(data.comment_image==''){
-                $('#edit_comment_form #image_preview').empty().append(no_file);
-            }else{
-                $('#edit_comment_form #image_preview').empty().append(`<img src="${base_url+'/'+data.comment_image}">`);
-            }
+            });
+           
         },
         error: function (err) {
             if(err.status===403){
@@ -253,7 +249,7 @@ $('#edit_comment_form').submit(function (e) {
     formData.append("_method","PUT");
     $.ajax({
         type: "post",
-        url: 'comment/' + $('#comment_id','#edit_comment_form').val(),
+        url: 'comments/' + $('#comment_id','#edit_comment_form').val(),
         data: formData,
         dataType: 'JSON',
         headers: {
@@ -267,9 +263,11 @@ $('#edit_comment_form').submit(function (e) {
             console.log(data);
             $('button[type=submit]', '#edit_comment_form').html(submit_btn_before);
             $('button[type=submit]', '#edit_comment_form').removeClass('disabled');
-            $('td:nth-child(1)',trid).html(data.comment.comment_name);
-            $('td:nth-child(2)',trid).html(data.comment.comment_image?`<img style="height: 50px;width:50px;" src="${base_url+'/'+data.comment.comment_image}">`:no_file);
-            $('td:nth-child(3)',trid).html(data.comment.admin.name);
+            $('td:nth-child(1)',trid).html(data.comment.student_name);
+            $('td:nth-child(2)',trid).html(data.comment.student_department);
+            $('td:nth-child(3)',trid).html(data.comment.student_image?`<img style="height: 70px;width:70px;" src="${base_url+'/public/'+data.comment.student_image}">`:no_file);
+            $('td:nth-child(4)',trid).html(data.comment.student_rating);
+            $('td:nth-child(5)',trid).html(data.comment.comment);
             swal({
                 icon: "success",
                 title: data.title,
@@ -324,9 +322,9 @@ $(document).on('change','#status_change',function(){
     cat_td.empty().append(`<i class="fa fa-refresh fa-spin"></i>`);
     $.ajax({
         type: "get",
-        url: 'comment/update/status/'+update_id+"/"+status,
+        url: 'comments/update/status/'+update_id+"/"+status,
         success: function (data) {
-            cat_td.empty().append(`<span class="mx-2">${data.comment_status==0?'Inactive':'Active'}</span><input data-status="${data.comment_status==1?0:1}" id="status_change" type="checkbox" data-toggle="switchery" data-color="green"  data-secondary-color="red" data-size="small" ${data.comment_status==1?'checked':''} />`);
+            cat_td.empty().append(`<span class="mx-2">${data.status==0?'Inactive':'Active'}</span><input data-status="${data.status==1?0:1}" id="status_change" type="checkbox" data-toggle="switchery" data-color="green"  data-secondary-color="red" data-size="small" ${data.status==1?'checked':''} />`);
             // parent_td.children('input').each(function (idx, obj) {
             //     new Switchery($(this)[0], $(this).data());
             // });
@@ -357,7 +355,7 @@ $(document).on('click','#delete_button',function(){
         if (willDelete) {
             $.ajax({
                 type: "delete",
-                url: 'comment/'+delete_id,
+                url: 'comments/'+delete_id,
                 data: {
                     _token : $("input[name=_token]").val(),
                 },

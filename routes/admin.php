@@ -114,6 +114,9 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
             });
 
             Route::resource('/comments',CommentsController::class);
+             Route::controller(CommentsController::class)->prefix('comments')->group(function () {
+                Route::get('/update/status/{id}/{status}', 'updateStatus');
+            });
         });
 
 

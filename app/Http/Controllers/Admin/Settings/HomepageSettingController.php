@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class HomepageSettingController extends Controller
 {
@@ -24,6 +25,7 @@ class HomepageSettingController extends Controller
 
     public function mainSlider(){
         $sliders = HomepageSilder::where([['status',1],['delete',0]])->get();
+        // dd($sliders);
         return view('backend.blade.settings.homepage.main_slider',compact('sliders'));
     }
 
@@ -71,6 +73,39 @@ class HomepageSettingController extends Controller
 
 
         $slider->save();
+
+        $languages =  Language::where([['status', 1], ['delete', 0]])->get();
+        foreach ($languages as $lang) {
+            Translation::updateOrInsert([
+                'translationable_type'  => 'App\Models\Admin\HomepageSilder',
+                'translationable_id'    => $slider->id,
+                'locale'                => $lang->lang,
+                'key'                   => 'slider_title',
+            ],[
+                'value'                 =>  GoogleTranslate::trans($data->slider_title, $lang->lang, 'en'),
+                'updated_at'            => Carbon::now(),
+            ]);
+
+            Translation::updateOrInsert([
+                'translationable_type'  => 'App\Models\Admin\HomepageSilder',
+                'translationable_id'    => $slider->id,
+                'locale'                => $lang->lang,
+                'key'                   => 'slider_short_description',
+            ],[
+                'value'                 =>  GoogleTranslate::trans($data->slider_short_description, $lang->lang, 'en'),
+                'updated_at'            => Carbon::now(),
+            ]);
+
+            Translation::updateOrInsert([
+                'translationable_type'  => 'App\Models\Admin\HomepageSilder',
+                'translationable_id'    => $slider->id,
+                'locale'                => $lang->lang,
+                'key'                   => 'button_text',
+            ],[
+                'value'                 =>  GoogleTranslate::trans($data->button_text, $lang->lang, 'en'),
+                'updated_at'            => Carbon::now(),
+            ]);
+        }
 
         return response([
             'slider' => HomepageSilder::findOrFail($slider->id),
@@ -152,6 +187,39 @@ class HomepageSettingController extends Controller
         $slider->slider_image2 = $file_name;
 
         $slider->save();
+
+        $languages =  Language::where([['status', 1], ['delete', 0]])->get();
+        foreach ($languages as $lang) {
+            Translation::updateOrInsert([
+                'translationable_type'  => 'App\Models\Admin\HomepageSilder',
+                'translationable_id'    => $slider->id,
+                'locale'                => $lang->lang,
+                'key'                   => 'slider_title',
+            ],[
+                'value'                 =>  GoogleTranslate::trans($data->slider_title, $lang->lang, 'en'),
+                'updated_at'            => Carbon::now(),
+            ]);
+
+            Translation::updateOrInsert([
+                'translationable_type'  => 'App\Models\Admin\HomepageSilder',
+                'translationable_id'    => $slider->id,
+                'locale'                => $lang->lang,
+                'key'                   => 'slider_short_description',
+            ],[
+                'value'                 =>  GoogleTranslate::trans($data->slider_short_description, $lang->lang, 'en'),
+                'updated_at'            => Carbon::now(),
+            ]);
+
+            Translation::updateOrInsert([
+                'translationable_type'  => 'App\Models\Admin\HomepageSilder',
+                'translationable_id'    => $slider->id,
+                'locale'                => $lang->lang,
+                'key'                   => 'slider_button_text',
+            ],[
+                'value'                 =>  GoogleTranslate::trans($data->slider_button_text, $lang->lang, 'en'),
+                'updated_at'            => Carbon::now(),
+            ]);
+        }
 
         return response([
             'slider' => HomepageSilder::findOrFail($id),
