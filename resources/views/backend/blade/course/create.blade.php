@@ -246,14 +246,14 @@
                                     <span class="text-danger err-mgs" id="course_price_type_err"></span>
                                 </div>
                                 <div class="col-lg-4 mt-2">
-                                    <label for="category"><strong>{{ __('admin_local.Course Discount') }} 
+                                    <label for="category"><strong>{{ __('admin_local.Course Discount') }}
                                         </strong></label>
                                     <input type="text" class="form-control" name="course_discount"
                                         id="course_discount">
                                     <span class="text-danger err-mgs" id="course_discount_err"></span>
                                 </div>
                                 <div class="col-lg-4 mt-2">
-                                    <label for="category"><strong>{{ __('admin_local.Course Discount Type') }} 
+                                    <label for="category"><strong>{{ __('admin_local.Course Discount Type') }}
                                         </strong></label>
                                     <select class="js-example-basic-single form-control" name="course_discount_type"
                                         id="course_discount_type">
@@ -281,11 +281,11 @@
                                             {{ __('admin_local.Can use multiple coupon ?') }}</strong></label>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label for="product_image"><strong>{{ __('admin_local.Course Image / Images') }} * 
+                                    <label for="product_image"><strong>{{ __('admin_local.Course Image / Images') }} *
                                         </strong> <i style="font-size: 16px;cursor:pointer"
                                             class="fa fa-exclamation-circle" data-bs-toggle="tooltip"
                                             data-bs-placement="top"
-                                            title="{{ __('admin_local.You can upload multiple image. Only .jpeg, .jpg, .png, .gif file can be uploaded. First image will be base image.') }}"></i>
+                                            title="{{ __('admin_local.You can upload multiple image. Only .jpeg, .jpg, .png, .gif file can be uploaded. First image will be base image') }}"></i>
                                     </label>
                                     <div id="dropzoneDragArea" class="dropzone dropzone-info">
                                         <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
@@ -450,7 +450,7 @@
                                 <div class="col-md-12 mt-2">
                                     <div class="row">
                                         <div class="col-lg-9">
-    
+
                                         </div>
                                         <div class="col-lg-3" style="float:right">
                                             <button type="button" id="ad_more_video" class="btn btn-outline-info btn-sm py-1 px-2"
@@ -541,7 +541,7 @@
             dropdownParent: $('#add-brand-modal')
         });
         $('.js-example-basic-single1').select2({
-            dropdownParent: $('#edit-brand-modal') 
+            dropdownParent: $('#edit-brand-modal')
         });
         $(document).on('select2:open', () => {
             document.querySelector('.select2-search__field').focus();
@@ -550,7 +550,7 @@
         $('#ad_more_video').on('click',function(){
             count_div++;
             $('#add_more_video_append').next('div').append(`
-                
+
                 <div class="row mb-3">
                     <div class="col-lg-12"><hr class="mt-2" style="background-color:black;height:3px;"></div>
                     <div class="col-lg-4 mt-2">
@@ -624,7 +624,7 @@
         var oTable = $("#basic-1").DataTable({
             "language": {
                 "decimal": "",
-                "emptyTable": "{{ __('admin_local.admin_local.No size available in table') }}",
+                "emptyTable": "{{ __('admin_local.No size available in table') }}",
                 "info": "Showing _START_ to _END_ of _TOTAL_ entries",
                 "infoEmpty": "Showing 0 to 0 of 0 entries",
                 "infoFiltered": "(filtered from _MAX_ total entries)",

@@ -70,7 +70,7 @@
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-12 mt-2">
-                                <label for="comment"><strong>{{ __('admin_local.Comemnts') }} ({{__('admin_local.Default')}}) *</strong></label>
+                                <label for="comment"><strong>{{ __('admin_local.Comments') }} ({{__('admin_local.Default')}}) *</strong></label>
                                 <textarea class="form-control" name="comment" id="comment"></textarea>
                                 <span class="text-danger err-mgs"></span>
                             </div>
@@ -160,7 +160,7 @@
                                 <span class="text-danger err-mgs"></span>
                             </div>
                             <div class="col-lg-12 mt-2">
-                                <label for="comment"><strong>{{ __('admin_local.Comemnts') }} ({{__('admin_local.Default')}}) *</strong></label>
+                                <label for="comment"><strong>{{ __('admin_local.Comments') }} ({{__('admin_local.Default')}}) *</strong></label>
                                 <textarea class="form-control" name="comment" id="comment"></textarea>
                                 <span class="text-danger err-mgs"></span>
                             </div>

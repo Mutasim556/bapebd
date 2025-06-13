@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    
+
 
     {{-- Add User Modal End --}}
 
@@ -87,7 +87,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -105,7 +105,7 @@
                 <div class="modal-body" id="modal_body_2" style="display:none">
                     <h4 class="text-center">{{ __('admin_local.Course Videos') }}</h4>
                     <div class="table-responsive theme-scrollbar">
-                        
+
                         @if (hasPermission(['course-video-create']))
                             <div class="row mb-3">
                                 <div class="col-md-3">
@@ -128,7 +128,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -331,7 +331,7 @@
                                     <span class="text-danger err-mgs" id="batch_code_err"></span>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label for="">{{ __('admin_local.Batch Istructor') }} *</label>
+                                    <label for="">{{ __('admin_local.Batch Instructor') }} *</label>
                                     <select class="col-sm-12" name="batch_instructor"
                                     id="batch_instructor">
                                     <option value="">{{ __('admin_local.Select Please') }}</option>
@@ -380,7 +380,7 @@
                                     <label for="">{{ __('admin_local.Batch Day') }} *</label>
                                     <select class="form-control" name="batch_day[]" id="batch_day" multiple>
                                         <option value="" disabled>{{ __('admin_local.Select Please') }}</option>
-                                        <option value="Staturday">{{ __('admin_local.Staturday') }}</option>
+                                        <option value="Saturday">{{ __('admin_local.Saturday') }}</option>
                                         <option value="Sunday">{{ __('admin_local.Sunday') }}</option>
                                         <option value="Monday">{{ __('admin_local.Monday') }}</option>
                                         <option value="Tuesday">{{ __('admin_local.Tuesday') }}</option>
@@ -437,7 +437,7 @@
                                     <span class="text-danger err-mgs" id="batch_code_err"></span>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <label for="">{{ __('admin_local.Batch Istructor') }} *</label>
+                                    <label for="">{{ __('admin_local.Batch Instructor') }} *</label>
                                     <select class="col-sm-12" name="batch_instructor"
                                     id="batch_instructor">
                                     <option value="">{{ __('admin_local.Select Please') }}</option>
@@ -486,7 +486,7 @@
                                     <label for="">{{ __('admin_local.Batch Day') }} *</label>
                                     <select class="form-control" name="batch_day[]" id="batch_day" multiple>
                                         <option value="" selected disabled>{{ __('admin_local.Select Please') }}</option>
-                                        <option value="Staturday">{{ __('admin_local.Staturday') }}</option>
+                                        <option value="Saturday">{{ __('admin_local.Saturday') }}</option>
                                         <option value="Sunday">{{ __('admin_local.Sunday') }}</option>
                                         <option value="Monday">{{ __('admin_local.Monday') }}</option>
                                         <option value="Tuesday">{{ __('admin_local.Tuesday') }}</option>
@@ -648,9 +648,9 @@
     <script src="{{ asset(env('ASSET_DIRECTORY').'/'.'admin/plugins/switchery/switchery.min.js') }}"></script>
     <script src="{{ asset(env('ASSET_DIRECTORY').'/'.'admin/assets/js/select2/select2.full.min.js') }}"></script>
     {{-- <script src="{{ asset(env('ASSET_DIRECTORY').'/'.'inventory/assets/js/select2/select2-custom.js') }}"></script> --}}
-    
+
     <script>
-       
+
         $('[data-toggle="switchery"]').each(function(idx, obj) {
             new Switchery($(this)[0], $(this).data());
         });
@@ -720,7 +720,7 @@
             ],
             columnDefs: [
                 {
-                    width: 20, 
+                    width: 20,
                     targets: 0
                 }, {
                     width: 80,
@@ -732,7 +732,7 @@
             ],
         });
 
-        
+
 
 
         var form_url = "{{ route('admin.course.store') }}";

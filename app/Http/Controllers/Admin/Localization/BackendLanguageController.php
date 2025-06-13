@@ -49,7 +49,7 @@ class BackendLanguageController extends Controller
     {
         $directories = explode(',', $data->directory);
         $language_code = $data->lang;
-        $fileName = $data->file_name; 
+        $fileName = $data->file_name;
         $localizationStrings = [];
 
         foreach ($directories as $directory) {
@@ -123,14 +123,21 @@ class BackendLanguageController extends Controller
     }
 
     public function storeTranslateString(Request $data) : RedirectResponse {
-        $api_key =ApiKey::first();
-        if(!$api_key){
-            return back()->with('no_api_key',__("admin_local.No api key . Please insert a valid Microsoft Translate Api Key first"));
-        }
+        // $api_key =ApiKey::first();
+        // if(!$api_key){
+        //     return back()->with('no_api_key',__("admin_local.No api key . Please insert a valid Microsoft Translate Api Key first"));
+        // }
         $languageCode = $data->lang;
         $languageStrings = trans($data->file_name, [], $data->lang);
-        $keyString = array_keys($languageStrings);
-        $keyText = implode('|| ', $keyString);
+        $keyString0 = array_keys($languageStrings);
+
+        $half = ceil(count($keyString0) / 2);
+        $keyString1 = array_slice($keyString0, 0, $half);
+        $keyString2 = array_slice($keyString0, $half);
+        // dd($keyString1);
+        $keyText1 = str_replace('Content For','This Content For',str_replace('Content For','This Content For',implode(' || ', $keyString1)));
+        // dd($keyText1);
+        $keyText2 = implode('|| ', $keyString2);
         // $response  = Http::withHeaders([
         //     'X-RapidAPI-Host' => 'microsoft-translator-text.p.rapidapi.com',
         //     // 'X-RapidAPI-Key' => 'fdd77a90f3msh8a9f787264252d4p1cb68ejsn41d6ad25230e',
@@ -141,10 +148,16 @@ class BackendLanguageController extends Controller
         //         "Text" => $keyText
         //     ]
         // ]);
-        $translatedText = GoogleTranslate::trans($keyText, $languageCode, 'en');
-        $translatedString = explode('|| ', $translatedText);
+        $translatedText1 = GoogleTranslate::trans($keyText1, $languageCode, 'en');
+
+        $translatedString1 = explode('|| ', $translatedText1);
+
+        $translatedText2 = GoogleTranslate::trans($keyText2, $languageCode, 'en');
+        $translatedString2 = explode('|| ', $translatedText2);
+        // dd($keyString1,$translatedString1);
+        // dd(array_combine($keyString1, $translatedString1));
         // dd($keyString,$translatedString);
-        $updatedArray = array_combine($keyString, $translatedString);
+        $updatedArray = array_merge(array_combine($keyString1, $translatedString1),array_combine($keyString2, $translatedString2));
 
         $phpArray = "<?php\n\nreturn " . var_export($updatedArray, true) . ";\n";
         file_put_contents(lang_path($data->lang . '/' . $data->file_name . '.php'), $phpArray);

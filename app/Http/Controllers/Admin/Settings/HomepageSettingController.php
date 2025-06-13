@@ -252,6 +252,8 @@ class HomepageSettingController extends Controller
             $aboutus->image2=null;
             $aboutus->save();
         }
+        $counter = HomepageCounter::first();
+        $aboutus = HomeAboutus::withoutGlobalScope('translate')->first();
         // dd($aboutus);
         return view('backend.blade.settings.others.index',compact('counter','aboutus'));
     }

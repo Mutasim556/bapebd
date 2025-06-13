@@ -1,6 +1,6 @@
 @extends('backend.shared.layouts.admin')
 @push('title')
-    {{ __('admin_local.Homepage Main Slider') }}
+    {{ __('admin_local.Contact Informations') }}
 @endpush
 @push('css')
     <link rel="stylesheet" href="{{ asset(env('ASSET_DIRECTORY').'/'.'admin/assets/css/custom.css') }}">
@@ -24,14 +24,14 @@
     </style>
 @endpush
 @section('content')
-    
+
     <div class="container-fluid">
         <div class="row">
             <!-- Column -->
             <div class="col-lg-10 mx-auto">
                 <div class="card">
                     <div class="card-header py-3" style="border-bottom: 2px dashed gray">
-                        <h3 class="card-title mb-0 text-center">{{ __('admin_local.Contact Informatins') }}</h3>
+                        <h3 class="card-title mb-0 text-center">{{ __('admin_local.Contact Informations') }}</h3>
                     </div>
 
                     <div class="card-body">
@@ -103,7 +103,7 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-6 py-2">
-                                    
+
                                 </div>
                                 <div class="col-md-2">
                                     <button type="submit" class="btn btn-primary">{{ __('admin_local.Update') }}</button>

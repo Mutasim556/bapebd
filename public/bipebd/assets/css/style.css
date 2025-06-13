@@ -13177,8 +13177,8 @@ span.select2-selection.select2-selection--single:focus {
 .map-sec .map iframe {
   height: 100%;
   width: 100%;
-  -webkit-filter: grayscale(100);
-          filter: grayscale(100);
+  /* -webkit-filter: grayscale(100);
+          filter: grayscale(100); */
 }
 
 @media (max-width: 767px) {
@@ -22181,6 +22181,7 @@ span.select2-selection.select2-selection--single:focus {
   transition: 0.4s;
   /* Medium Large devices */
   /* Large devices */
+  min-height: 450px !important;
 }
 
 .service-card.style3 .service-card-icon {
@@ -22249,6 +22250,7 @@ span.select2-selection.select2-selection--single:focus {
 
 @media (max-width: 1199px) {
   .service-card.style3 {
+    min-height: 400px !important;
     padding: 30px;
   }
   .service-card.style3 .box-title {

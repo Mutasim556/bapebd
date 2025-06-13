@@ -99,7 +99,7 @@
                             </li>
                             <li>
                                 <span class="meta-title">{{ __('admin_local.Last Update') }}: </span>
-                                <a href="course.html">{{ date('d-M-Y',strtotime($course->updated_at)) }}</a>
+                                <a href="#">{{ date('d-M-Y',strtotime($course->updated_at)) }}</a>
                             </li>
                             <li>
                                 <span class="meta-title">Review: </span>
@@ -299,10 +299,10 @@
                                                 <img src="@if($instructor->image) {{ asset($instructor->image) }} @else {{ asset('public/bipebd/assets/img/course/author.png') }} @endif" alt="Author Image">
                                             </div>
                                             <div class="media-body">
-                                                    <h3 class="author-name"><a class="text-inherit" href="team-details.html"></a>{{ $instructor->name }}</h3>
+                                                    <h3 class="author-name"><a class="text-inherit" href="#"></a>{{ $instructor->name }}</h3>
                                                     <p class="author-text">{{ $instructor_details->designation }} , {{ $instructor_details->department }}</p>
                                                     <div class="author-meta">
-                                                        <a href="course.html"><i class="fal fa-file-video"></i>{{ count($instructor_details->courses) }} {{ __("admin_local.Courses") }}</a>
+                                                        <a href="#"><i class="fal fa-file-video"></i>{{ count($instructor_details->courses) }} {{ __("admin_local.Courses") }}</a>
                                                         {{-- <span><i class="fal fa-users"></i>2500 Students</span> --}}
                                                     </div>
                                                     <div class="th-social">
@@ -322,10 +322,10 @@
                                             @php
                                                 $instructor_details = \App\Models\Admin\AdminProfileDetails::with('courses')->where('instructor_id',$inctructor->instructor->id)->first();
                                             @endphp
-                                                <h3 class="author-name"><a class="text-inherit" href="team-details.html"></a>{{ $inctructor->instructor->name }}</h3>
+                                                <h3 class="author-name"><a class="text-inherit" href="#"></a>{{ $inctructor->instructor->name }}</h3>
                                                 <p class="author-text">{{ $instructor_details->designation }} , {{ $instructor_details->department }}</p>
                                                 <div class="author-meta">
-                                                    <a href="course.html"><i class="fal fa-file-video"></i>{{ count($instructor_details->courses) }} {{ __("admin_local.Courses") }}</a>
+                                                    <a href="#"><i class="fal fa-file-video"></i>{{ count($instructor_details->courses) }} {{ __("admin_local.Courses") }}</a>
                                                     {{-- <span><i class="fal fa-users"></i>2500 Students</span> --}}
                                                 </div>
                                                 <div class="th-social">
@@ -440,7 +440,7 @@
                         <span class="h4 course-price">@if($course->course_discount>0) <strike>{{ $course->course_price }}</strike> {{ $course->course_discount_price }} {{ $course->course_price_currency }} @else {{ $course->course_price }} {{ $course->course_price_currency }} @endif<span class="tag">{{ $course->course_discount_type=='Flat'?__('admin_local.Flat'):'' }} {{$course->course_discount}} {{ $course->course_discount_type=='Flat'?$course->course_price_currency:'%' }} {{ __('admin_local.Discount') }}</span></span>
                         @if($flag!=1)
                         <a href="{{ route('frontend.course.addCart',$course->course_name_slug) }}" class="th-btn py-10">{{ __('admin_local.Add To Cart') }}</a>
-                        <a href="cart.html" class="th-btn style4 py-10">{{ __("admin_local.Buy Now") }}</a>
+                        <a href="{{ route('frontend.course.addCart',[$course->course_name_slug,'enroll']) }}" class="th-btn style4 py-10">{{ __("admin_local.Buy Now") }}</a>
                         @endif
                         <h3 class="widget_title">{{ __('admin_local.Course Information') }}</h3>
                         <div class="info-list">
@@ -546,7 +546,7 @@
 
                                             @endif
                                             <div class="course-author">
-                                                <a class="btn btn-primary mx-auto mt-0 p-1 px-5 py-5" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
+                                                <a href="{{ route('frontend.course.addCart',[$course->course_name_slug,'enroll']) }}" class="btn btn-primary mx-auto mt-0 p-1 px-5 py-5" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
                                             </div>
                                             <div class="course-author" style="border-top: 1px dashed grey">
 

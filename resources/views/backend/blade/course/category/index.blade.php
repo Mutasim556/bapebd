@@ -61,10 +61,10 @@
                     <form method="POSt" action="" id="add_category_form" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            
-                            
+
+
                             <div class="col-lg-6 mt-2">
-                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ({{ __('admin_local.Default') }}) 
+                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ({{ __('admin_local.Default') }})
                                         *</strong></label>
                                 <input type="text" class="form-control" name="category_name"
                                     id="category_name">
@@ -81,7 +81,7 @@
                             </div>
                             @foreach (getLangs() as $lang)
                             <div class="col-lg-6 mt-2">
-                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ( {{ $lang->name }} ) 
+                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ( {{ $lang->name }} )
                                     *</strong></label>
                                 <input type="text" class="form-control" name="category_name_{{ $lang->lang }}"
                                     id="category_name_{{ $lang->lang }}">
@@ -139,7 +139,7 @@
                         <input type="hidden" id="category_id" name="category_id" value="">
                         <div class="row">
                             <div class="col-lg-6 mt-2">
-                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ({{ __('admin_local.Default') }}) 
+                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ({{ __('admin_local.Default') }})
                                         *</strong></label>
                                 <input type="text" class="form-control" name="category_name"
                                     id="category_name">
@@ -156,7 +156,7 @@
                             </div>
                             @foreach (getLangs() as $lang)
                             <div class="col-lg-6 mt-2">
-                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ( {{ $lang->name }} ) 
+                                <label for="category_name"><strong>{{ __('admin_local.Category Name') }} ( {{ $lang->name }} )
                                     *</strong></label>
                                 <input type="text" class="form-control" name="category_name_{{ $lang->lang }}"
                                     id="category_name_{{ $lang->lang }}">
@@ -316,7 +316,7 @@
         var oTable = $("#basic-1").DataTable({
             "language": {
                 "decimal": "",
-                "emptyTable": "{{ __('admin_local.admin_local.No size available in table') }}",
+                "emptyTable": "{{ __('admin_local.No size available in table') }}",
                 "info": "Showing _START_ to _END_ of _TOTAL_ entries",
                 "infoEmpty": "Showing 0 to 0 of 0 entries",
                 "infoFiltered": "(filtered from _MAX_ total entries)",

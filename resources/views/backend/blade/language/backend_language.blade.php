@@ -209,10 +209,10 @@
                                             <thead>
                                                 <tr>
                                                     <th>{{ __('admin_local.String') }}</th>
-                                                    <th>{{ __('admin_local.Traslation') }}</th>
+                                                    <th>{{ __('admin_local.Translation') }}</th>
                                                     <th>{{ __('admin_local.Action') }}</th>
                                                 </tr>
-                                            </thead> 
+                                            </thead>
                                             <tbody>
                                                 @php
                                                     $translatedvalue = trans('admin_local', [], $language->lang);
@@ -226,7 +226,7 @@
                                                             @if (hasPermission(['backend-string-update']))
                                                             <button id="edit_button" data-key="{{ $key }}" data-value="{{ $value }}" data-lang_code="{{ $language->lang }}" data-filename="admin_local" class="btn btn-danger px-2 py-1" data-bs-toggle="modal" style="cursor: pointer;"
                                                             data-bs-target="#edit-string-modal">
-                                                                <i class="fa fa-pencil-square-o"></i> 
+                                                                <i class="fa fa-pencil-square-o"></i>
                                                             </button>
                                                             @else
                                                             <span class="badge badge-danger">{{ __('admin_local.No Permission') }}</span>

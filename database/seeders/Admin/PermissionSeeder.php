@@ -108,5 +108,11 @@ class PermissionSeeder extends Seeder
         // Permission::create(['guard_name'=>'admin','name'=>'comments-delete','group_name'=>'Homepage Comments']);
 
 
+        // Permission::create(['guard_name'=>'admin','name'=>'about-us-update','group_name'=>'Other Pages']);
+        // Permission::create(['guard_name'=>'admin','name'=>'contact-us-update','group_name'=>'Other Pages']);
+        // Permission::create(['guard_name'=>'admin','name'=>'user-message-index','group_name'=>'Other Pages']);
+        // Permission::create(['guard_name'=>'admin','name'=>'user-message-reply','group_name'=>'Other Pages']);
+        // Permission::create(['guard_name'=>'admin','name'=>'user-message-delete','group_name'=>'Other Pages']);
+
     }
 }

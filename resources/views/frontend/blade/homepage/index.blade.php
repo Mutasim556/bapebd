@@ -21,7 +21,7 @@
                                 <h1 class="hero-title text-white" data-ani="slideinleft" data-ani-delay="0.4s">{{ $slider->slider_title }}</span></h1>
                                 <p class="hero-text" data-ani="slideinleft" data-ani-delay="0.6s">{{ $slider->slider_short_description }}</p>
                                 <div class="btn-group" data-ani="slideinleft" data-ani-delay="0.8s">
-                                    <a href="contact.html" class="th-btn style3">{{ $slider->slider_button_text }}<i class="fas fa-arrow-right ms-2"></i></a>
+                                    <a href="{{ route('frontend.courses.getAllCourses',['view']) }}" class="th-btn style3">{{ $slider->slider_button_text }}<i class="fas fa-arrow-right ms-2"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -200,11 +200,11 @@ $categories = \App\Models\Admin\Course\CourseCategory::with('courses')->where([[
                                     @if (!empty($purchased_courses)&& in_array($course->id,$purchased_courses))
                                     <a href="{{ route('frontend.courses.single',$course->course_name_slug) }}" class="btn btn-success mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.View Course') }}</a>
                                     @else
-                                    <a class="btn btn-primary mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
+                                    <a href="{{ route('frontend.course.addCart',[$course->course_name_slug,'enroll']) }}" class="btn btn-primary mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
                                     <a href="{{ route('frontend.course.addCart',$course->course_name_slug) }}" class="btn btn-info mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Add Cart') }}</a>
                                     @endif
                                 @else
-                                <a class="btn btn-primary mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
+                                <a href="{{ route('frontend.course.addCart',[$course->course_name_slug,'enroll']) }}" class="btn btn-primary mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
                                 <a href="{{ route('frontend.course.addCart',$course->course_name_slug) }}" class="btn btn-info mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Add Cart') }}</a>
                                 @endif
 
@@ -223,14 +223,14 @@ $categories = \App\Models\Admin\Course\CourseCategory::with('courses')->where([[
                                 <div class="course-author">
                                     <div class="author-info">
                                         <img src="@if($inctructor->instructor->image) {{ $inctructor->instructor->image }} @else public/bipebd/assets/img/course/author.png @endif" alt="author">
-                                        <a href="course.html" class="author-name">{{ $inctructor->instructor->name }}</a>
+                                        <a href="#" class="author-name">{{ $inctructor->instructor->name }}</a>
                                     </div>
                                     <div class="offer-tag bg-danger text-white px-2" style="border-radius: 6px;font-size:11px;">{{ __('admin_local.Live') }}</div>
                                 </div>
                             @else
                             @php
                                 $inctructor = \App\Models\Admin\Course\CourseInstructor::with('instructor')->where([['course_id',$course->id]])->orderBy('id','DESC')->first();
-                                $videos = \App\Models\Admin\Course\CourseVideo::where([['video_status',1],['video_delete',0]])->get();
+                                $videos = \App\Models\Admin\Course\CourseVideo::where([['video_status',1],['video_delete',0],['course_id',$course->id]])->get();
                             @endphp
                                 <div class="course-meta">
                                     <span><i class="fal fa-file"></i>{{ __('admin_local.Videos') }} : {{ count($videos) }}</span>
@@ -240,7 +240,7 @@ $categories = \App\Models\Admin\Course\CourseCategory::with('courses')->where([[
                                 <div class="course-author">
                                     <div class="author-info">
                                         <img src="@if($inctructor->instructor->image) {{ $inctructor->instructor->image }} @else public/bipebd/assets/img/course/author.png @endif" alt="author">
-                                        <a href="course.html" class="author-name">{{ $inctructor->instructor->name }}</a>
+                                        <a href="#" class="author-name">{{ $inctructor->instructor->name }}</a>
                                     </div>
                                     <div class="offer-tag bg-success text-white px-2" style="border-radius: 6px;font-size:11px;">{{ __('admin_local.Pre-recorded') }}</div>
                                 </div>
@@ -318,7 +318,7 @@ About Area
                             </div>
                         </div>
                         <div class="team-content">
-                            <h3 class="team-title"><a href="team-details.html">{{ $instructor->name }}</a></h3>
+                            <h3 class="team-title"><a href="#">{{ $instructor->name }}</a></h3>
                             <span class="team-desig"><strong>{{ $instructor_prof?$instructor_prof->designation:'' }}</strong></span>
                             <span><strong>{{ $instructor_prof?$instructor_prof->department:'' }}</strong></span>
                         </div>
@@ -417,7 +417,7 @@ Contact Area
                             @endforeach
                         </ul>
                     </div>
-                    <a href="about.html" class="th-btn">{{ $aboutus&&$aboutus->button_text?$aboutus->button_text:'' }}<i class="far fa-arrow-right ms-2"></i></a>
+                    <a href="{{ url('about-us') }}" class="th-btn">{{ $aboutus&&$aboutus->button_text?$aboutus->button_text:'' }}<i class="far fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
@@ -456,7 +456,7 @@ Testimonial Area
                         @endphp
                         @for ($i=1;$i<=$rating;$i++)
                             <i class="fa-solid fa-star-sharp"></i>
-                            
+
                         @endfor
                         @for ($i=1;$i<=5-$rating;$i++)
                             <i class="fa-light fa-star"></i>
@@ -491,7 +491,7 @@ Testimonial Area
         </div>
     </div>
 </section>
-<div class="space-top py-0 py-5">
+{{-- <div class="space-top py-0 py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
@@ -548,5 +548,5 @@ Testimonial Area
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

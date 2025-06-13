@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\Localization\BackendLanguageController;
 use App\Http\Controllers\Admin\Localization\ChangeLanguageController;
 use App\Http\Controllers\Admin\Localization\LanguageController;
+use App\Http\Controllers\Admin\OtherPages\AboutUsController;
 use App\Http\Controllers\Admin\PurchaseHistory\PurchaseHistoryController;
 use App\Http\Controllers\Admin\Role\RoleAndPermissionController;
 use App\Http\Controllers\Admin\Settings\CommentsController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Admin\Settings\MaintenanceModeController;
 use App\Http\Controllers\Admin\User\InstructorController;
 use App\Http\Controllers\Admin\User\LogoController;
 use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\Frontend\OtherPageController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -119,7 +121,16 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
             });
         });
 
+        /** About Us Start */
+        Route::resource('about-us',AboutUsController::class);
+        /** About Us End */
+        Route::controller(OtherPageController::class)->group(function(){
+            Route::get('/get-user-messages','getUserMessages')->name('getUserMessages');
+            Route::get('/get-messages-data/{id}','getMessagesData')->name('getMessagesData');
+            Route::put('/save-reply-message/{id}','saveReplyMessage')->name('saveReplyMessage');
+            Route::delete('/delete-message/{id}','deleteMessage')->name('deleteMessage');
 
-    });
+        });
+});
     require __DIR__.'/bipebd/course.php';
 });

@@ -139,10 +139,10 @@
                 <a href="{{ url('/') }}"><img src="{{ $logo_top?asset($logo_top->logo_image):'' }}" alt="{{env('COMPANY_NAME ')}}"></a>
             </div>
             <div class="th-mobile-menu">
-                <form class="search-form mx-3">
-                    <input type="text" placeholder="Search For Course....">
+                {{-- <form class="search-form mx-3">
+                    <input type="text" placeholder="Search For ....">
                     <button type="submit"><i class="far fa-search"></i></button>
-                </form>
+                </form> --}}
                 @include('frontend.shared.nav.nav')
 
             </div>
@@ -152,7 +152,7 @@
                     <a class="th-btn style1 py-10 px-10" href="#"><i class="fa-solid fa-user"></i>  {{ Auth::user()->name }}</a><br><br>
                     <a class="th-btn style1 py-10 px-10 mt-3" href="{{ route('user.attemptLogout') }}"><i class="fa-solid fa-right-from-bracket"></i>  {{ __("admin_local.Sign Out") }}</a>
                     @else
-                    <a class="th-btn style1 py-10 px-10 mr-5" href="{{ route('user.login','login') }}"><i class="fa-solid fa-right-to-bracket"></i>  {{ __('admin_local.Login') }}</a> <a href="{{ route('user.login','register') }}" class="th-btn style3 py-10 px-10" href="contact.html"><i class="fa-regular fa-user-plus"></i> {{ __('admin_local.Register') }}</a>
+                    <a class="th-btn style1 py-10 px-10 mr-5" href="{{ route('user.login','login') }}"><i class="fa-solid fa-right-to-bracket"></i>  {{ __('admin_local.Login') }}</a> <a href="{{ route('user.login','register') }}" class="th-btn style3 py-10 px-10" href="{{ url('contact-us') }}"><i class="fa-regular fa-user-plus"></i> {{ __('admin_local.Register') }}</a>
                     @endif
 
                 </div>
@@ -172,6 +172,7 @@
                             <ul>
                                 @if($contact_info->phone)<li><i class="far fa-phone"></i><a href="tel:{{ $contact_info->phone }}">{{ $contact_info->phone }}</a></li>@endif
                                 @if($contact_info->phone)<li class="d-none d-xl-inline-block"><i class="far fa-envelope"></i><a href="mailto:{{ $contact_info->email }}">{{ $contact_info->email }}</a></li>@endif
+
                                 <li class="d-none d-lg-inline-block" style="text-align: right">
                                     @if (Auth::check())
                                     <a style="text-align: right" href="{{ route('user.login','login') }}"><i class="far fa-user"></i> {{ Auth::user()->name }}</a>
@@ -188,7 +189,7 @@
                             <ul>
                                 <li >
                                     <div class="header-social">
-                                        <span class="social-title">Follow Us:</span>
+                                        <span class="social-title">{{ __('admin_local.Follow Us') }}:</span>
                                         @if($contact_info->facebook)<a target="__blank" href="{{ $contact_info->facebook }}"><i class="fab fa-facebook-f"></i></a>@endif
                                         @if($contact_info->twitter)<a target="__blank" href="{{ $contact_info->twitter }}"><i class="fab fa-twitter"></i></a>@endif
                                         @if($contact_info->linkedin)<a target="__blank" href="{{ $contact_info->linkedin }}"><i class="fab fa-linkedin-in"></i></a>@endif
@@ -253,10 +254,10 @@
                                                     @endforeach
                                                 </ul>
                                             </nav>
-                                            <form class="search-form">
+                                            {{-- <form class="search-form">
                                                 <input type="text" placeholder="Search For Course....">
                                                 <button type="submit"><i class="far fa-search"></i></button>
-                                            </form>
+                                            </form> --}}
                                         </div>
                                         {{-- <a href="wishlist.html" class="icon-btn">
                                             <i class="far fa-heart"></i>
@@ -325,7 +326,7 @@ Hero Area
                         </div>
                         <div class="media-body">
                             <p class="footer-contact_text">{{ __('admin_local.Our office location') }}:</p>
-                            <a @if($contact_info->location) target="__blank" @endif href="{{ $contact_info->location??'#' }}" class="footer-contact_link" style="font-size: 14px;">{{ $contact_info->address }}</a>
+                            <a @if($contact_info->location) target="__blank" @endif href="{{ url('contact-us') }}" class="footer-contact_link" style="font-size: 14px;">{{ $contact_info->address }}</a>
                         </div>
                     </div>
                 </div>
@@ -375,15 +376,15 @@ Hero Area
                                 <div class="menu-all-pages-container">
                                     <ul class="menu">
                                         {{-- <li><a href="contact.html">{{ __('admin_local.Blogs') }}</a></li> --}}
-                                        <li><a href="contact.html">{{ __('admin_local.Instructors') }}</a></li>
-                                        <li><a href="contact.html">{{ __('admin_local.About Us') }}</a></li>
-                                        <li><a href="contact.html">{{ __('admin_local.Contact Us') }}</a></li>
-                                        <li><a href="contact.html">{{ __('admin_local.Privacy and Policy') }}</a></li>
+                                        <li><a href="{{ url('all-instructor') }}">{{ __('admin_local.Instructors') }}</a></li>
+                                        <li><a href="{{ url('about-us') }}">{{ __('admin_local.About Us') }}</a></li>
+                                        <li><a href="{{ url('contact-us') }}">{{ __('admin_local.Contact Us') }}</a></li>
+                                        {{-- <li><a href="contact.html">{{ __('admin_local.Privacy and Policy') }}</a></li> --}}
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-xxl-3 col-xl-3">
+                        {{-- <div class="col-md-6 col-xxl-3 col-xl-3">
                             <div class="widget newsletter-widget footer-widget">
                                 <h3 class="widget_title">{{ __('admin_local.Get in touch') }}!</h3>
                                 <p class="footer-text">{{ __('admin_local.Send us email to get touch in with us') }}</p>
@@ -393,7 +394,7 @@ Hero Area
                                     <button type="submit" class="th-btn style3">{{ __('admin_local.Send') }}<i class="far fa-arrow-right ms-1"></i></button>
                                 </form>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -401,12 +402,12 @@ Hero Area
                 <div class="copyright-wrap">
                     <div class="row justify-content-between align-items-center">
                         <div class="col-md-6">
-                            <p class="copyright-text">{{ __('admin_local.Copyright') }} © {{ date('Y') }} <a href="index.html">Bipebd</a> {{ __('admin_local.All Rights Reserved') }}</p>
+                            <p class="copyright-text">{{ __('admin_local.Copyright') }} © {{ date('Y') }} <a href="{{ url('/') }}">{{ config('info')['institute_name'] }}</a> {{ __('admin_local.All Rights Reserved') }}</p>
                         </div>
                         <div class="col-md-6 text-end d-none d-md-block">
                             <div class="footer-links">
                                 <ul>
-                                    <li><a href="about.html">Designed & Developed By Md. Mutasim Naib</a></li>
+                                    <li><a href="#">Designed & Developed By Md. Mutasim Naib</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -484,6 +485,7 @@ Hero Area
         toastr.success("{{ session()->get('success_payment') }}",{timeOut:5000,showMethod:'slideDown'});
     </script>
     @endif
+    @stack('toastr')
     <script>
         $('.goToLogin').click(function(){
             window.location.replace("{{ route('user.login','login') }}");

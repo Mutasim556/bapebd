@@ -37,10 +37,6 @@
 
                         if($cart->course->course_type=='Live'){
                             $course_batches =  \App\Models\Admin\Course\CourseBatch::where([['batch_status',1],['batch_delete',0],['course_id',$cart->course->id]])->whereDate('batch_start_date','>=',date('Y-m-d'))->get();
-                            if (count($course_batches)==0) {
-                                $deleteCart = DB::table('course_carts')->where('course_id',$cart->course->id)->delete();
-                                continue;
-                            }
                         }
                     @endphp
                     <tr class="cart_item">

@@ -1,7 +1,7 @@
 <ul>
     <li >
         <a href="{{ url('/') }}">{{ __('admin_local.Home') }}</a>
-        
+
     </li>
     <li class="menu-item-has-children">
         <a href="#">{{ __('admin_local.Courses') }}</a>
@@ -34,7 +34,7 @@
                             @else
                                 <li><a href="shop.html">{{ $course_sub_category->sub_category_name }}</a></li>
                             @endif
-                                
+
                             @endforeach
                         </ul>
                     </li>
@@ -42,30 +42,43 @@
                     <li><a href="{{ route('frontend.courses.getAllCourses',['category',$course_category->category_slug]) }}">{{ $course_category->category_name }}</a></li>
                 @endif
             @endforeach
-            
+
         </ul>
     </li>
     <li class="menu-item-has-children">
         <a href="#">{{ __('admin_local.About Us') }}</a>
         <ul class="sub-menu">
             {{-- <li><a href="team.html">{{ __('admin_local.Blogs') }}</a></li> --}}
-            <li><a href="team.html">{{ __('admin_local.Instructors') }}</a></li>
-            <li><a href="team.html">{{ __('admin_local.About BipeBD') }}</a></li>
+            <li><a href="{{ url('all-instructor') }}">{{ __('admin_local.Instructors') }}</a></li>
+            <li><a href="{{ url('about-us') }}">{{ __('admin_local.About BipeBD') }}</a></li>
         </ul>
     </li>
     <li>
-        <a href="contact.html">{{ __('admin_local.Contact Us') }}</a>
+        <a href="{{ url('contact-us') }}">{{ __('admin_local.Contact Us') }}</a>
     </li>
     <li @if (Auth::check()) class="menu-item-has-children"@endif id="mobile_li_hide">
         @if (Auth::check())
         <a href="#">{{ __('admin_local.My Profile') }}</a>
         <ul class="sub-menu">
-            <li><a href="team.html">{{ __('admin_local.View My Profile') }}</a></li>
+            <li><a href="{{ url('my-profile') }}">{{ __('admin_local.View My Profile') }}</a></li>
             <li><a href="{{ route('user.attemptLogout') }}">{{ __('admin_local.Logout') }}</a></li>
         </ul>
         @else
         <a href="{{ route('user.login','login') }}">{{ __('admin_local.Login') }}</a> / <a href="{{ route('user.login','register') }}">{{ __('admin_local.Register') }}</a>
         @endif
-        
+
+    </li>
+    <li class="menu-item-has-children">
+        <a href="#">{{ __('admin_local.Language') }}</a>
+        <ul class="sub-menu">
+            {{-- <li><a href="team.html">{{ __('admin_local.Blogs') }}</a></li> --}}
+            @php
+                $languages =  \App\Models\Admin\Language::where([['status', 1], ['delete', 0]])
+                    ->get();
+            @endphp
+            @foreach ($languages as $language)
+            <li><a href="{{ route('front.changeLanguage',$language->lang) }}">{{  $language->name, $language->lang }}</a></li>
+            @endforeach
+        </ul>
     </li>
 </ul>

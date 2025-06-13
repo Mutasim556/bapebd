@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2025 at 03:31 PM
+-- Generation Time: Jun 04, 2025 at 06:16 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.12
 
@@ -106,6 +106,60 @@ INSERT INTO `api_keys` (`id`, `api_key`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_name` varchar(255) DEFAULT NULL,
+  `student_department` varchar(255) DEFAULT NULL,
+  `student_image` varchar(255) DEFAULT NULL,
+  `student_rating` int(11) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `delete` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `student_name`, `student_department`, `student_image`, `student_rating`, `comment`, `status`, `delete`, `created_at`, `updated_at`) VALUES
+(1, 'Mutasim Naib', 'IT', 'bipebd/files/settings/homepage/comments/1748229248img1.jpg', 5, 'Quickly maximize visionary solutions after mission critical action item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.', 1, 0, '2025-05-26 03:14:09', '2025-05-26 04:44:35'),
+(2, 'Sumit', 'IT', 'bipebd/files/settings/homepage/comments/1748229478img1.jpg', 4, 'Quickly maximize visionary solutions after mission critical action item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.', 1, 0, '2025-05-26 03:17:58', '2025-05-26 04:45:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_infos`
+--
+
+CREATE TABLE `contact_infos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `phone` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `location` text DEFAULT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `youtube` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `linkedin` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `contact_infos`
+--
+
+INSERT INTO `contact_infos` (`id`, `phone`, `email`, `address`, `location`, `facebook`, `youtube`, `twitter`, `linkedin`, `created_at`, `updated_at`) VALUES
+(1, '+8801521413153', 'bipe.contact@gmail.com', 'Incepta Pharmaceuticals Ltd. 40 Shahid Tajuddin Ahmed Sarani, Tejgaon I/A, Dhaka-1208, Bangladesh', NULL, 'https://www.facebook.com/profile.php?id=61574154040549', 'https://www.youtube.com/@BIPE2025', 'fsdfsdf', 'https://www.linkedin.com/company/106412702', NULL, '2025-05-24 02:34:20');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `courses`
 --
 
@@ -149,7 +203,7 @@ CREATE TABLE `courses` (
 INSERT INTO `courses` (`id`, `category_id`, `sub_category_id`, `course_name`, `course_name_slug`, `course_name_metaphone`, `course_headline`, `course_details`, `no_of_videos`, `course_duration`, `course_duration_type`, `course_level`, `course_type`, `course_price`, `course_price_currency`, `course_discount`, `course_discount_type`, `course_discount_price`, `has_enroll_limit`, `enroll_limit`, `enrolled_count`, `course_images`, `course_cupon_status`, `course_multiple_cupon_status`, `course_status`, `course_delete`, `course_added_by`, `course_updated_by`, `created_at`, `updated_at`) VALUES
 (1, 2, 1, 'Web design and development', 'web-design-and-development', 'WBTSNNTTFLPMNT', 'TESH', '<p><span style=\"font-size:18px\"><strong>The Course Curriculam</strong></span></p>\r\n\r\n<p>Grursus mal suada faci lisis Lorem ipsum dolarorit more ametion consectetur elit. Vesti at bulum nec odio aea the dumm ipsumm ipsum that dolocons rsus mal suada and fadolorit to the consectetur elit. All the Lorem Ipsum generators on the Internet tend to repeat that predefined chunks as necessary, making this the first true dummy generator on the Internet.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n</ul>', 2, 160.00, 'Hour', 'Intermediate', 'Pre-recorded', 5000.00, 'BDT', 50, 'Flat', 4950.00, NULL, NULL, 0, 'public/admin/file/course/course-images/COURSE-1740898604765.jpg', 1, 1, 1, 0, 1, 1, '2025-01-22 10:59:33', '2025-03-02 06:56:47'),
 (3, 1, 1, 'CPA Marketing', 'cpa-marketing', 'KPMRKTNK', 'CPA Marketing', '<p><strong>The Course Curriculam</strong></p>\r\n\r\n<p>Grursus mal suada faci lisis Lorem ipsum dolarorit more ametion consectetur elit. Vesti at bulum nec odio aea the dumm ipsumm ipsum that dolocons rsus mal suada and fadolorit to the consectetur elit. All the Lorem Ipsum generators on the Internet tend to repeat that predefined chunks as necessary, making this the first true dummy generator on the Internet.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n	<li>\r\n	<p>How to use social media to reach local, national and international audiences</p>\r\n	</li>\r\n</ul>', 4, 160.00, 'Day', 'Beginner', 'Live', 5000.00, 'BDT', 50, 'Percent', 2500.00, NULL, NULL, 0, 'public/admin/file/course/course-images/COURSE-1737545245133.png', 0, 0, 1, 0, 1, 1, '2025-01-22 11:27:28', '2025-02-17 07:28:04'),
-(4, 2, 2, 'MERN Stack Development', 'mern-stack-development', 'MRNSTKTFLPMNT', 'Make Full Stack Web Applications Through', '<p>MERN Stack is a combination of four different technologies that is used to develop a website in an efficient manner. In this course, you can gain your expertise in three areas- Web Development, Web Design and App Development. Most of the companies nowadays are using the MERN Stack Programme for its easily customizable, cost-effective features. Enroll in this course to develop your skills in this field.</p>', 60, 160.00, 'Hour', 'Intermediate', 'Pre-recorded', 8000.00, 'BDT', 100, 'Flat', 7900.00, NULL, NULL, 1, 'public/admin/file/course/course-images/COURSE-1740287060041.png', 1, 1, 1, 0, 1, 1, '2025-02-23 05:04:21', '2025-05-12 08:47:54'),
+(4, 2, 2, 'MERN Stack Development', 'mern-stack-development', 'MRNSTKTFLPMNT', 'Make Full Stack Web Applications Through', '<p>MERN Stack is a combination of four different technologies that is used to develop a website in an efficient manner. In this course, you can gain your expertise in three areas- Web Development, Web Design and App Development. Most of the companies nowadays are using the MERN Stack Programme for its easily customizable, cost-effective features. Enroll in this course to develop your skills in this field.</p>', 60, 160.00, 'Hour', 'Intermediate', 'Pre-recorded', 8000.00, 'BDT', 100, 'Flat', 7900.00, NULL, NULL, 2, 'public/admin/file/course/course-images/COURSE-1740287060041.png', 1, 1, 1, 0, 1, 1, '2025-02-23 05:04:21', '2025-05-20 05:58:16'),
 (5, 3, 4, 'Professional Graphic Design', 'professional-graphic-design', 'PRFSNLKRFKTSN', 'Turn Your Passion into an Artistic Profession', '<p>Considering the growing demand for visual content, marketers are promoting their products through graphical ideas nowadays. The increasing need for graphic designers has unlocked many opportunities for the people who prefer working independently. A study shows, all the companies prioritize their visual acceptance, even a small company spends up to 500 dollars to create a perfect logo. If you are passionate about making designs, this updated Graphic Design course is for you.</p>', 50, 200.00, 'Hour', 'Advanced', 'Live', 10000.00, 'BDT', 10, 'Percent', 9000.00, NULL, NULL, NULL, 'public/admin/file/course/course-images/COURSE-1740287418135.jpg', 1, 0, 1, 0, 1, 1, '2025-02-23 05:10:19', '2025-02-23 05:10:19'),
 (6, 2, 3, 'App Development With Kotlin', 'app-development-with-kotlin', 'APTFLPMNTW0KTLN', 'Start Your Career As an Android Developer', '<p>How would you feel if you start using an app developed by yourself? It sounds more interesting in reality, where you combine the programming language and frameworks to have an excellent outcome. A study shows, the demand for app developers is having an upward trend, which might increase by 24% by 2026. New apps are replacing the old ones with improved features and qualities. If you want to develop such a unique app, this course is for you.</p>', 60, 3.00, 'Month', 'Advanced', 'Live', 15000.00, 'BDT', 200, 'Flat', 14800.00, NULL, NULL, NULL, 'public/admin/file/course/course-images/COURSE-1740287828166.png', 1, 1, 1, 0, 1, 1, '2025-02-23 05:17:10', '2025-02-23 05:17:10');
 
@@ -219,8 +273,8 @@ CREATE TABLE `course_batches` (
 --
 
 INSERT INTO `course_batches` (`id`, `course_id`, `batch_name`, `batch_code`, `batch_number`, `batch_instructor`, `batch_start_date`, `batch_end_date`, `batch_time`, `batch_day`, `enroll_limit`, `enrolled_count`, `live_in`, `link_or_address`, `batch_status`, `batch_delete`, `batch_added_by`, `batch_updated_by`, `created_at`, `updated_at`) VALUES
-(1, 3, 'BATCH-1', 'B#234', 1, '4', '2025-03-03', '2025-04-20', '17:26:00', 'Staturday,Sunday,Monday,Tuesday,Wednesday,Thursday', 25, 0, 'Zoom', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-22 11:27:28', '2025-02-17 07:07:04'),
-(2, 3, 'BATCH-2', 'B#2344', 2, '4', '2025-04-03', '2025-06-03', '18:04:00', 'Monday,Wednesday,Friday', 44, 0, 'Google Meet', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-28 10:15:18', '2025-02-17 07:07:45'),
+(1, 3, 'BATCH-1', 'B#234', 1, '4', '2025-06-20', '2025-08-28', '17:26:00', 'Staturday,Sunday,Monday,Tuesday,Wednesday,Thursday', 25, 0, 'Zoom', 'sadasdasdasd', 1, 0, 1, 1, '2025-06-14 11:27:28', '2025-02-17 07:07:04'),
+(2, 3, 'BATCH-2', 'B#2344', 2, '4', '2025-06-17', '2025-08-15', '18:04:00', 'Monday,Wednesday,Friday', 44, 0, 'Google Meet', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-28 10:15:18', '2025-02-17 07:07:45'),
 (3, 3, 'TESTB', 'B#2346', 3, '4', '2025-04-03', '2025-06-03', '16:17:00', NULL, 33, 0, 'Physical Class', 'sadasdasdasd', 0, 0, 1, 1, '2025-01-28 10:18:05', '2025-02-05 06:27:34'),
 (4, 3, 'TESTB', 'B#2347', 4, '4', '2025-04-20', '2025-06-03', '16:17:00', NULL, 33, 0, 'Physical Class', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-28 10:19:54', '2025-01-28 10:24:58'),
 (5, 3, 'TESTB', 'B#2349', 5, '4', '2025-04-20', '2025-06-03', '16:17:00', NULL, 33, 0, 'Physical Class', 'sadasdasdasd', 1, 0, 1, 1, '2025-01-28 10:21:13', '2025-01-28 10:24:59'),
@@ -427,6 +481,85 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `homepage_counters`
+--
+
+CREATE TABLE `homepage_counters` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `successfully_completed` int(11) NOT NULL,
+  `trainer` int(11) NOT NULL,
+  `certification` int(11) NOT NULL,
+  `student` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `homepage_counters`
+--
+
+INSERT INTO `homepage_counters` (`id`, `successfully_completed`, `trainer`, `certification`, `student`, `created_at`, `updated_at`) VALUES
+(1, 132, 12, 110, 200, '2025-05-24 02:26:17', '2025-05-24 02:27:04');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `homepage_silders`
+--
+
+CREATE TABLE `homepage_silders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `slider_title` text DEFAULT NULL,
+  `slider_short_description` text DEFAULT NULL,
+  `slider_link` text DEFAULT NULL,
+  `slider_button_text` text DEFAULT NULL,
+  `slider_image` text DEFAULT NULL,
+  `slider_image2` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `delete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0= Not Deleted & 1=Deleted',
+  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `updated_by` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `homepage_silders`
+--
+
+INSERT INTO `homepage_silders` (`id`, `slider_title`, `slider_short_description`, `slider_link`, `slider_button_text`, `slider_image`, `slider_image2`, `status`, `delete`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 'প্রযুক্তি গ্রহণ এবং ব্যবহার', 'দৃশ্যমান হালকা প্রযুক্তি জরিপের বাইরে', 'ffff', 'Learn More', 'bipebd/files/settings/homepage/slider/1747884069img1.png', 'bipebd/files/settings/homepage/slider/1747883347img2.png', 1, 0, 1, 1, '2025-05-22 03:09:07', '2025-05-26 09:17:05'),
+(2, 'প্রযুক্তি গ্রহণ এবং ব্যবহার', 'দৃশ্যমান হালকা প্রযুক্তি জরিপের বাইরে', 'TEL', 'Learn More', 'bipebd/files/settings/homepage/slider/1747884096img1.jpg', 'bipebd/files/settings/homepage/slider/1747884097img2.png', 1, 0, 1, 1, '2025-05-22 03:21:37', '2025-05-26 09:18:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `home_aboutuses`
+--
+
+CREATE TABLE `home_aboutuses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `headline` varchar(255) DEFAULT NULL,
+  `short_details` text DEFAULT NULL,
+  `points` text DEFAULT NULL,
+  `button_text` varchar(50) DEFAULT NULL,
+  `number_of_experience` varchar(40) DEFAULT NULL,
+  `image1` varchar(255) DEFAULT NULL,
+  `image2` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `home_aboutuses`
+--
+
+INSERT INTO `home_aboutuses` (`id`, `headline`, `short_details`, `points`, `button_text`, `number_of_experience`, `image1`, `image2`, `created_at`, `updated_at`) VALUES
+(1, 'Dive into our Online Courses and Ignite Your Learning!', 'Collaboratively simplify user friendly networks after principle centered coordinate effective methods of empowerment distributed niche markets pursue market positioning web-readiness after resource sucking applications.', '[\"asdasdsada\",\"dsfsfsdf\"]', 'About Us', '2.5', NULL, NULL, '2025-05-24 02:26:17', '2025-05-24 02:32:23');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `languages`
 --
 
@@ -450,6 +583,35 @@ INSERT INTO `languages` (`id`, `name`, `lang`, `slug`, `default`, `status`, `del
 (1, 'English', 'en', 'en', 1, 1, 0, '2025-01-22 07:01:16', '2025-01-22 07:02:03'),
 (2, 'Bangla', 'bn', 'bn', 0, 1, 0, '2025-01-22 07:01:24', '2025-01-22 07:02:03'),
 (3, 'Hindi', 'hi', 'hi', 0, 1, 0, '2025-01-22 07:01:37', '2025-01-22 07:01:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logos`
+--
+
+CREATE TABLE `logos` (
+  `logo_id` bigint(20) UNSIGNED NOT NULL,
+  `logo_position` varchar(255) NOT NULL,
+  `logo_for` varchar(255) NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `logo_type` varchar(255) NOT NULL,
+  `logo_image` varchar(255) NOT NULL,
+  `logo_image_dimention` varchar(255) DEFAULT NULL COMMENT 'Width x Height',
+  `logo_image_size` varchar(255) DEFAULT NULL COMMENT 'KB',
+  `logo_status` text NOT NULL DEFAULT 'Active',
+  `logo_delete` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `logos`
+--
+
+INSERT INTO `logos` (`logo_id`, `logo_position`, `logo_for`, `company_name`, `logo_type`, `logo_image`, `logo_image_dimention`, `logo_image_size`, `logo_status`, `logo_delete`, `created_at`, `updated_at`) VALUES
+(1, 'bipebd_top', 'bipebd', 'Bipebd', 'image', 'public/bipebd/files/web_images/bipebd/bipebd_top-1747881811.png', '182x44', '9333', 'Active', 0, '2025-05-22 02:43:31', '2025-05-22 02:43:31'),
+(2, 'bipebd_bottom', 'bipebd', 'Bipebd', 'image', 'public/bipebd/files/web_images/bipebd/bipebd_bottom-1747881835.png', '182x44', '9333', 'Active', 0, '2025-05-22 02:43:55', '2025-05-22 02:43:55');
 
 -- --------------------------------------------------------
 
@@ -515,7 +677,15 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (38, '2025_03_23_132448_create_puchase_courses_table', 16),
 (42, '2025_03_23_132448_create_purchase_courses_table', 17),
 (44, '2025_05_14_162340_add_phone_purchases_table', 18),
-(46, '2025_05_15_094441_add_delete_purchases_table', 19);
+(46, '2025_05_15_094441_add_delete_purchases_table', 19),
+(47, '2023_07_25_100314_create_logos_table', 20),
+(48, '2024_10_22_133337_create_homepage_silders_table', 21),
+(49, '2025_05_21_235632_add_slider_image2_homepage_sliders', 21),
+(50, '2025_05_22_104813_create_contact_infos_table', 22),
+(51, '2025_05_23_124226_create_homepage_counters_table', 23),
+(52, '2025_05_23_205619_create_home_aboutuses_table', 23),
+(53, '2025_05_24_230134_create_comments_table', 24),
+(54, '2025_05_25_110959_add_student_image_comments', 24);
 
 -- --------------------------------------------------------
 
@@ -668,7 +838,15 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `group_name`, `created_at
 (53, 'purchase-history-index', 'admin', 'Purchase History', '2025-05-12 09:06:25', '2025-05-12 09:06:25'),
 (54, 'purchase-history-create', 'admin', 'Purchase History', '2025-05-12 09:06:25', '2025-05-12 09:06:25'),
 (55, 'purchase-history-update', 'admin', 'Purchase History', '2025-05-12 09:06:25', '2025-05-12 09:06:25'),
-(56, 'purchase-history-delete', 'admin', 'Purchase History', '2025-05-12 09:06:25', '2025-05-12 09:06:25');
+(56, 'purchase-history-delete', 'admin', 'Purchase History', '2025-05-12 09:06:25', '2025-05-12 09:06:25'),
+(57, 'logo-index', 'admin', 'Logos', '2025-05-20 07:32:02', '2025-05-20 07:32:02'),
+(58, 'logo-create', 'admin', 'Logos', '2025-05-20 07:32:02', '2025-05-20 07:32:02'),
+(59, 'logo-update', 'admin', 'Logos', '2025-05-20 07:32:02', '2025-05-20 07:32:02'),
+(60, 'logo-delete', 'admin', 'Logos', '2025-05-20 07:32:02', '2025-05-20 07:32:02'),
+(61, 'homepage-slider-index', 'admin', 'Homepage Sliders', '2025-05-21 18:39:27', '2025-05-21 18:39:27'),
+(62, 'homepage-slider-create', 'admin', 'Homepage Sliders', '2025-05-21 18:39:27', '2025-05-21 18:39:27'),
+(63, 'homepage-slider-update', 'admin', 'Homepage Sliders', '2025-05-21 18:39:27', '2025-05-21 18:39:27'),
+(64, 'homepage-slider-delete', 'admin', 'Homepage Sliders', '2025-05-21 18:39:27', '2025-05-21 18:39:27');
 
 -- --------------------------------------------------------
 
@@ -716,7 +894,7 @@ CREATE TABLE `purchases` (
 --
 
 INSERT INTO `purchases` (`id`, `courses`, `total_amount`, `dicount_amount`, `subtotal`, `payment_method`, `payment_status`, `phone`, `transaction_id`, `payment_option`, `delete`, `created_at`, `updated_at`) VALUES
-(7, '\"4|\"', 7900.00, 0.00, 7900.00, 'manual_payment', 0, NULL, '12WER', 'Bkash', 0, '2025-05-12 08:47:54', '2025-05-19 04:55:46');
+(11, '\"3|\"', 0.00, 2500.00, 0.00, 'gift', 1, '01724698392', 'GIFT682c21abb1746', 'GIFT', 0, '2025-05-20 06:31:07', '2025-05-20 06:31:07');
 
 -- --------------------------------------------------------
 
@@ -741,7 +919,7 @@ CREATE TABLE `purchase_courses` (
 --
 
 INSERT INTO `purchase_courses` (`id`, `purchase_id`, `user_id`, `course_id`, `course_type`, `batch_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 7, 2, 4, 'Pre-recorded', NULL, 0, '2025-05-12 08:47:54', '2025-05-19 04:55:46');
+(5, 11, 1, 3, 'Live', 1, 1, '2025-05-20 06:31:07', '2025-05-20 06:31:07');
 
 -- --------------------------------------------------------
 
@@ -886,7 +1064,35 @@ INSERT INTO `translations` (`id`, `translationable_type`, `translationable_id`, 
 (71, 'App\\Models\\Admin\\Course\\Course', 6, 'bn', 'course_details', '<p>How would you feel if you start using an app developed by yourself? It sounds more interesting in reality, where you combine the programming language and frameworks to have an excellent outcome. A study shows, the demand for app developers is having an upward trend, which might increase by 24% by 2026. New apps are replacing the old ones with improved features and qualities. If you want to develop such a unique app, this course is for you.</p>', '2025-02-23 05:17:10', NULL),
 (72, 'App\\Models\\Admin\\Course\\Course', 6, 'hi', 'course_name', 'App Development With Kotlin', '2025-02-23 05:17:10', NULL),
 (73, 'App\\Models\\Admin\\Course\\Course', 6, 'hi', 'course_headline', 'Start Your Career As an Android Developer', '2025-02-23 05:17:10', NULL),
-(74, 'App\\Models\\Admin\\Course\\Course', 6, 'hi', 'course_details', '<p>How would you feel if you start using an app developed by yourself? It sounds more interesting in reality, where you combine the programming language and frameworks to have an excellent outcome. A study shows, the demand for app developers is having an upward trend, which might increase by 24% by 2026. New apps are replacing the old ones with improved features and qualities. If you want to develop such a unique app, this course is for you.</p>', '2025-02-23 05:17:10', NULL);
+(74, 'App\\Models\\Admin\\Course\\Course', 6, 'hi', 'course_details', '<p>How would you feel if you start using an app developed by yourself? It sounds more interesting in reality, where you combine the programming language and frameworks to have an excellent outcome. A study shows, the demand for app developers is having an upward trend, which might increase by 24% by 2026. New apps are replacing the old ones with improved features and qualities. If you want to develop such a unique app, this course is for you.</p>', '2025-02-23 05:17:10', NULL),
+(75, 'App\\Models\\Admin\\HomeAboutus', 1, 'en', 'headline', 'Dive into our Online Courses and Ignite Your Learning!', NULL, '2025-05-24 02:32:23'),
+(76, 'App\\Models\\Admin\\HomeAboutus', 1, 'en', 'short_details', 'Collaboratively simplify user friendly networks after principle centered coordinate effective methods of empowerment distributed niche markets pursue market positioning web-readiness after resource sucking applications.', NULL, '2025-05-24 02:32:23'),
+(77, 'App\\Models\\Admin\\HomeAboutus', 1, 'en', 'points', '[\"asdasdsada\",\"dsfsfsdf\"]', NULL, '2025-05-24 02:32:23'),
+(78, 'App\\Models\\Admin\\HomeAboutus', 1, 'en', 'button_text', 'About Us', NULL, '2025-05-24 02:32:23'),
+(79, 'App\\Models\\Admin\\Comment', 1, 'en', 'comment', 'Quickly maximize visionary solutions after mission critical action item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.', NULL, '2025-05-26 04:41:22'),
+(80, 'App\\Models\\Admin\\Comment', 1, 'bn', 'comment', 'মিশন সমালোচনামূলক অ্যাকশন আইটেম উত্পাদনশীলতা প্রিমিয়াম পোর্টালগুলি প্রভাবশালী -পরিষেবাগুলির জন্য সক্রিয়ভাবে সক্ষম কুলুঙ্গি বাজারগুলি বৃদ্ধির কৌশলগুলির মাধ্যমে সক্রিয়ভাবে আলোচনার পরে দূরদর্শী সমাধানগুলি দ্রুত সর্বাধিক করুন। বিশ্ববিদ্যালয় উচ্চতর শিক্ষা কমিশন কর্তৃক অনুমোদিত।', NULL, '2025-05-26 04:41:22'),
+(81, 'App\\Models\\Admin\\Comment', 1, 'hi', 'comment', 'मिशन क्रिटिकल एक्शन आइटम प्रोडक्टिविटी प्रीमियम पोर्टल्स के बाद जल्दी से दूरदर्शी समाधानों को अधिकतम करें, प्रभावशाली -सेवाओं के लिए निष्क्रिय रूप से विकास रणनीतियों के माध्यम से सक्षम आला बाजारों पर बातचीत करें। विश्वविद्यालय को उच्च शिक्षण आयोग द्वारा मान्यता प्राप्त है।', NULL, '2025-05-26 04:41:22'),
+(82, 'App\\Models\\Admin\\Comment', 2, 'en', 'comment', 'Quickly maximize visionary solutions after mission critical action item productivity premium portals for impactful -services inactively negotiate enabled niche markets via growth strategies. University is accredited by the Higher Learning Commission.', NULL, '2025-05-26 03:17:58'),
+(83, 'App\\Models\\Admin\\Comment', 2, 'bn', 'comment', 'মিশন সমালোচনামূলক অ্যাকশন আইটেম উত্পাদনশীলতা প্রিমিয়াম পোর্টালগুলি প্রভাবশালী -পরিষেবাগুলির জন্য সক্রিয়ভাবে সক্ষম কুলুঙ্গি বাজারগুলি বৃদ্ধির কৌশলগুলির মাধ্যমে সক্রিয়ভাবে আলোচনার পরে দূরদর্শী সমাধানগুলি দ্রুত সর্বাধিক করুন। বিশ্ববিদ্যালয় উচ্চতর শিক্ষা কমিশন কর্তৃক অনুমোদিত।', NULL, '2025-05-26 03:17:58'),
+(84, 'App\\Models\\Admin\\Comment', 2, 'hi', 'comment', 'मिशन क्रिटिकल एक्शन आइटम प्रोडक्टिविटी प्रीमियम पोर्टल्स के बाद जल्दी से दूरदर्शी समाधानों को अधिकतम करें, प्रभावशाली -सेवाओं के लिए निष्क्रिय रूप से विकास रणनीतियों के माध्यम से सक्षम आला बाजारों पर बातचीत करें। विश्वविद्यालय को उच्च शिक्षण आयोग द्वारा मान्यता प्राप्त है।', NULL, '2025-05-26 03:17:58'),
+(85, 'App\\Models\\Admin\\HomepageSilder', 1, 'en', 'slider_title', 'প্রযুক্তি গ্রহণ এবং ব্যবহার', NULL, '2025-05-26 09:17:31'),
+(86, 'App\\Models\\Admin\\HomepageSilder', 1, 'en', 'slider_short_description', 'দৃশ্যমান হালকা প্রযুক্তি জরিপের বাইরে', NULL, '2025-05-26 09:17:31'),
+(87, 'App\\Models\\Admin\\HomepageSilder', 1, 'bn', 'slider_title', 'প্রযুক্তি গ্রহণ এবং ব্যবহার', NULL, '2025-05-26 09:17:32'),
+(88, 'App\\Models\\Admin\\HomepageSilder', 1, 'bn', 'slider_short_description', 'দৃশ্যমান হালকা প্রযুক্তি জরিপের বাইরে', NULL, '2025-05-26 09:17:32'),
+(89, 'App\\Models\\Admin\\HomepageSilder', 1, 'hi', 'slider_title', 'প্রযুক্তি গ্রহণ এবং ব্যবহার', NULL, '2025-05-26 09:17:34'),
+(90, 'App\\Models\\Admin\\HomepageSilder', 1, 'hi', 'slider_short_description', 'দৃশ্যমান দৃশ্যমান প্রযুক্তি বাইরে বাইরে বাইরে', NULL, '2025-05-26 09:17:35'),
+(91, 'App\\Models\\Admin\\HomepageSilder', 2, 'en', 'slider_title', 'প্রযুক্তি গ্রহণ এবং ব্যবহার', NULL, '2025-05-26 09:18:57'),
+(92, 'App\\Models\\Admin\\HomepageSilder', 2, 'en', 'slider_short_description', 'দৃশ্যমান হালকা প্রযুক্তি জরিপের বাইরে', NULL, '2025-05-26 09:18:57'),
+(93, 'App\\Models\\Admin\\HomepageSilder', 2, 'bn', 'slider_title', 'প্রযুক্তি গ্রহণ এবং ব্যবহার', NULL, '2025-05-26 09:18:58'),
+(94, 'App\\Models\\Admin\\HomepageSilder', 2, 'bn', 'slider_short_description', 'দৃশ্যমান হালকা প্রযুক্তি জরিপের বাইরে', NULL, '2025-05-26 09:18:59'),
+(95, 'App\\Models\\Admin\\HomepageSilder', 2, 'hi', 'slider_title', 'প্রযুক্তি গ্রহণ এবং ব্যবহার', NULL, '2025-05-26 09:18:59'),
+(96, 'App\\Models\\Admin\\HomepageSilder', 2, 'hi', 'slider_short_description', 'দৃশ্যমান দৃশ্যমান প্রযুক্তি বাইরে বাইরে বাইরে', NULL, '2025-05-26 09:19:00'),
+(97, 'App\\Models\\Admin\\HomepageSilder', 1, 'en', 'slider_button_text', 'Learn More', NULL, '2025-05-26 09:17:31'),
+(98, 'App\\Models\\Admin\\HomepageSilder', 1, 'bn', 'slider_button_text', 'আরও শিখুন', NULL, '2025-05-26 09:17:33'),
+(99, 'App\\Models\\Admin\\HomepageSilder', 1, 'hi', 'slider_button_text', 'और अधिक जानें', NULL, '2025-05-26 09:17:35'),
+(100, 'App\\Models\\Admin\\HomepageSilder', 2, 'en', 'slider_button_text', 'Learn More', NULL, '2025-05-26 09:18:57'),
+(101, 'App\\Models\\Admin\\HomepageSilder', 2, 'bn', 'slider_button_text', 'আরও শিখুন', NULL, '2025-05-26 09:18:59'),
+(102, 'App\\Models\\Admin\\HomepageSilder', 2, 'hi', 'slider_button_text', 'और अधिक जानें', NULL, '2025-05-26 09:19:00');
 
 -- --------------------------------------------------------
 
@@ -942,6 +1148,18 @@ ALTER TABLE `admin_profile_details`
 -- Indexes for table `api_keys`
 --
 ALTER TABLE `api_keys`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contact_infos`
+--
+ALTER TABLE `contact_infos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1029,10 +1247,36 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `homepage_counters`
+--
+ALTER TABLE `homepage_counters`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `homepage_silders`
+--
+ALTER TABLE `homepage_silders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `homepage_silders_created_by_foreign` (`created_by`),
+  ADD KEY `homepage_silders_updated_by_foreign` (`updated_by`);
+
+--
+-- Indexes for table `home_aboutuses`
+--
+ALTER TABLE `home_aboutuses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `languages`
 --
 ALTER TABLE `languages`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logos`
+--
+ALTER TABLE `logos`
+  ADD PRIMARY KEY (`logo_id`);
 
 --
 -- Indexes for table `maintenances`
@@ -1155,6 +1399,18 @@ ALTER TABLE `api_keys`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `contact_infos`
+--
+ALTER TABLE `contact_infos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
@@ -1215,10 +1471,34 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `homepage_counters`
+--
+ALTER TABLE `homepage_counters`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `homepage_silders`
+--
+ALTER TABLE `homepage_silders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `home_aboutuses`
+--
+ALTER TABLE `home_aboutuses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `logos`
+--
+ALTER TABLE `logos`
+  MODIFY `logo_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `maintenances`
@@ -1230,7 +1510,7 @@ ALTER TABLE `maintenances`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -1242,7 +1522,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1254,13 +1534,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `purchase_courses`
 --
 ALTER TABLE `purchase_courses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1272,7 +1552,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1356,6 +1636,13 @@ ALTER TABLE `course_sub_categories`
 ALTER TABLE `course_videos`
   ADD CONSTRAINT `course_videos_admin_id_foreign` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`),
   ADD CONSTRAINT `course_videos_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `homepage_silders`
+--
+ALTER TABLE `homepage_silders`
+  ADD CONSTRAINT `homepage_silders_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `admins` (`id`),
+  ADD CONSTRAINT `homepage_silders_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `admins` (`id`);
 
 --
 -- Constraints for table `maintenances`

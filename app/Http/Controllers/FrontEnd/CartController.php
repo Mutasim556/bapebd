@@ -18,7 +18,11 @@ use Illuminate\Support\Facades\DB;
 class CartController extends Controller
 {
     public function addCart(string $slug){
+
         $course = Course::where([['course_name_slug',$slug]])->select('id')->first();
+        if(request()->type=='enroll'){
+            CourseCart::where('user_id',Auth::user()->id)->delete();
+        }
         // $cart = new CourseCart();
         // $cart->user_id = Auth::user()->id;
         // $cart->course_id = $course->id;
@@ -37,7 +41,11 @@ class CartController extends Controller
         if(request()->ajax()){
             return true;
         }else{
-            return back()->with('cart_add_success',__("admin_local.Successfully added to the cart"));
+            if(request()->type=='enroll'){
+                return to_route('frontend.course.viewCart');
+            }else{
+                return back()->with('cart_add_success',__("admin_local.Successfully added to the cart"));
+            }
         }
     }
 
@@ -68,6 +76,16 @@ class CartController extends Controller
     public function viewCart(){
         $carts = CourseCart::with('course')->where([['user_id',Auth::user()->id]])->orderBy('id','DESC')->get();
         // dd(count($carts));
+        foreach($carts as $kcart=>$cart){
+            if($cart->course->course_type=='Live'){
+                $course_batches =  \App\Models\Admin\Course\CourseBatch::where([['batch_status',1],['batch_delete',0],['course_id',$cart->course->id]])->whereDate('batch_start_date','>=',date('Y-m-d'))->get();
+                if (count($course_batches)==0) {
+                    $deleteCart = DB::table('course_carts')->where('course_id',$cart->course->id)->delete();
+                    continue;
+                }
+            }
+        }
+        $carts = CourseCart::with('course')->where([['user_id',Auth::user()->id]])->orderBy('id','DESC')->get();
         return view('frontend.blade.cart.index',compact('carts'));
     }
 

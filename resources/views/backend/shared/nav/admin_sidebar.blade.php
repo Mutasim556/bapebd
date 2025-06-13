@@ -132,6 +132,33 @@
             </ul>
         </li>
     @endif
+
+    @if (hasPermission(['about-us-update','user-message-index']))
+        <li class="sidebar-list">
+            <a class="sidebar-link sidebar-title" href="javascript:void(0)" aria-expanded="false">
+                <i data-feather="slack"></i>
+                <span class="lan-3">{{ __('admin_local.Other Pages') }}</span>
+            </a>
+            <ul class="sidebar-submenu">
+                @if (hasPermission(['about-us-update']))
+                    <li>
+                        <a href="{{ route('admin.about-us.index') }}" class="sidebar-link">
+                            <span> {{ __('admin_local.About Us') }} </span>
+                        </a>
+                    </li>
+                @endif
+                @if (hasPermission(['user-message-index']))
+                    <li>
+                        <a href="{{ route('admin.getUserMessages') }}" class="sidebar-link">
+                            <span> {{ __('admin_local.Messages') }} </span>
+                        </a>
+                    </li>
+                @endif
+
+            </ul>
+        </li>
+    @endif
+
     @if (hasPermission(['maintenance-mode-index','homepage-slider-index','logo-index','other-content-index','comments-index']))
         <li class="sidebar-list">
             <a class="sidebar-link sidebar-title" href="javascript:void(0)" aria-expanded="false">

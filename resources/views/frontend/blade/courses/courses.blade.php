@@ -55,7 +55,7 @@
                                     <div class="category-list_content">
                                         <h3 class="category-list_title"><a href="{{ route('frontend.courses.getAllCourses',['category',$acategory->category_slug]) }}">{{ $acategory->category_name }}</a></h3>
                                         <span class="category-list_text">{{ count($acategory->courses) }} {{ __('admin_local.Courses') }}</span>
-                                        <a href="course.html" class="icon-btn"><i class="fas fa-arrow-right"></i></a>
+                                        <a href="#" class="icon-btn"><i class="fas fa-arrow-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                                             @if (!empty($purchased_courses)&& in_array($course->id,$purchased_courses))
                                             <a href="{{ route('frontend.courses.single',$course->course_name_slug) }}" class="btn btn-success mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.View Course') }}</a>
                                             @else
-                                            <a class="btn btn-primary mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
+                                            <a href="{{ route('frontend.course.addCart',[$course->course_name_slug,'enroll']) }}" class="btn btn-primary mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Enroll Now') }}</a>
                                             <button data-course_slug="{{ $course->course_name_slug }}" id="add_cart" class="btn btn-info mx-auto mt-0 p-1 px-2" style="font-size: 15px;text-align: center">{{ __('admin_local.Add Cart') }}</button>
                                             @endif
 
@@ -138,7 +138,7 @@
                                             <div class="course-author">
                                                 <div class="author-info">
                                                     <img src="@if($inctructor->instructor->image) {{ asset($inctructor->instructor->image) }} @else {{ asset('public/bipebd/assets/img/course/author.png') }} @endif" alt="author">
-                                                    <a href="course.html" class="author-name" style="font-size:14px;">{{ $inctructor->instructor->name }}</a>
+                                                    <a href="#" class="author-name" style="font-size:14px;">{{ $inctructor->instructor->name }}</a>
                                                 </div>
                                                 <div class="offer-tag bg-danger text-white px-2" style="border-radius: 6px;font-size:10px;">{{ __('admin_local.Live') }}</div>
                                             </div>
@@ -155,7 +155,7 @@
                                             <div class="course-author px-0">
                                                 <div class="author-info">
                                                     <img src="@if($inctructor->instructor->image) {{ asset($inctructor->instructor->image) }} @else {{ asset('public/bipebd/assets/img/course/author.png') }} @endif" alt="author">
-                                                    <a href="course.html" class="author-name" style="font-size:14px;">{{ $inctructor->instructor->name }}</a>
+                                                    <a href="#" class="author-name" style="font-size:14px;">{{ $inctructor->instructor->name }}</a>
                                                 </div>
                                                 <div class="offer-tag bg-success text-white px-2" style="border-radius: 6px;font-size:10px;">{{ __('admin_local.Pre-recorded') }}</div>
                                             </div>

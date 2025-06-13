@@ -123,4 +123,9 @@ return [
         ],
     ],
 
+
+    'default_mail'=>[
+        'mail1'=>'bipebd@gmail.com',
+    ]
+
 ];

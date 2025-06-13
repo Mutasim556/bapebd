@@ -68,7 +68,7 @@
                     </div>
                     <h2 class="error-title"><span class="text-theme">OooPs!</span> Page Not Found</h2>
                     <p class="error-text">Oops! The page you are looking for does not exist. It might have been moved or deleted.</p>
-                    <a href="index.html" class="th-btn">Back To Home </a>
+                    <a href="{{ url('/') }}" class="th-btn">Back To Home </a>
                 </div>
             </div>
         </div>

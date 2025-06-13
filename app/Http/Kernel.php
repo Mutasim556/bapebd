@@ -7,6 +7,7 @@ use App\Http\Middleware\Admin\CheckLoggedAdminStatus;
 use App\Http\Middleware\Admin\CheckLoggedInMiddleware;
 use App\Http\Middleware\FrontEnd\LoginStatusCheckMid;
 use App\Http\Middleware\FrontEnd\UserStatusCheckMid;
+use App\Http\Middleware\FrontLangChange;
 use App\Http\Middleware\LanguageChangeMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -42,7 +43,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-           
+
         ],
 
         'api' => [
@@ -84,5 +85,6 @@ class Kernel extends HttpKernel
         'adminLocalization' => LanguageChangeMiddleware::class,
         'UserStatusCheckMid' => UserStatusCheckMid::class,
         'LoginStatusCheckMid' => LoginStatusCheckMid::class,
+        'frontLocalization' => FrontLangChange::class,
     ];
 }
