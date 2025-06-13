@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\User\InstructorController;
 use App\Http\Controllers\Admin\User\LogoController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Frontend\OtherPageController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 
@@ -130,6 +131,10 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
             Route::put('/save-reply-message/{id}','saveReplyMessage')->name('saveReplyMessage');
             Route::delete('/delete-message/{id}','deleteMessage')->name('deleteMessage');
 
+        });
+
+        Route::get('/run-composer-update',function(){
+            Artisan::call('composer:update');
         });
 });
     require __DIR__.'/bipebd/course.php';
