@@ -134,7 +134,12 @@ Route::prefix('admin')->middleware('adminLocalization')->name('admin.')->group(f
         });
 
         Route::get('/run-composer-update',function(){
-            Artisan::call('composer:update');
+           Artisan::call('composer:dump-autoload');
+           Artisan::call('config:clear');
+           Artisan::call('cache:clear');
+           Artisan::call('route:clear');
+           Artisan::call('view:clear');
+            // Artisan::call('composer:update');
         });
 });
     require __DIR__.'/bipebd/course.php';

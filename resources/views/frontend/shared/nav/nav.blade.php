@@ -11,7 +11,7 @@
             @endphp
             @foreach ($course_categories as $course_category)
                 @php
-                    $course_sub_categories = \App\Models\Admin\Course\CourseSubcategory::where([['sub_category_status',1],['sub_category_delete',0],['category_id',$course_category->id]])->get();
+                    $course_sub_categories = \App\Models\Admin\Course\CourseSubCategory::where([['sub_category_status',1],['sub_category_delete',0],['category_id',$course_category->id]])->get();
                 @endphp
 
                 @if ($course_sub_categories)
